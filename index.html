@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>페르소나5X 택틱</title>
+  <link rel="icon" type="image/x-icon" href="https://p5x.perfectworld.com/favicon.ico">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      background: url("https://p5x.perfectworld.com/images/inside2403/inside_bg.jpg") repeat center center;
+      background-size: cover;
+      color: #172B4D;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.5;
+    }
+
+    .container h1 {
+      color:#FFFFFF
+    }
+    
+    select, input[type="text"] {
+      border: 2px solid #DFE1E6;
+      border-radius: 3px;
+      padding: 8px;
+      font-size: 13px;
+      transition: border-color 0.2s ease;
+    }
+    
+    select:hover, input[type="text"]:hover {
+      border-color: #B3BAC5;
+    }
+    
+    select:focus, input[type="text"]:focus {
+      border-color: #4C9AFF;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 0px;
+    }
+    
+    #top-container {
+      display: grid;
+      grid-template-columns: 1fr 3fr; /* 두 칼럼으로 분할 */
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .card {
+      background: #FFFFFF;
+      border-radius: 2px;
+      box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
+      padding: 16px 24px 20px 24px; /* 상우하좌 */
+      height: fit-content; /* 내용물 높이에 맞춤 */
+    }
+    
+    .card h2 {
+      font-size : 15px;
+      margin-top: 0;
+      margin-bottom: 0; 
+    }
+    .card label {
+      margin-top : 0px;
+      padding : 0px;
+      font-size : 13px;
+    }
+
+        
+    #turns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      grid-auto-flow: row;
+    }
+
+    .turn-container {
+      background: #FFFFFF;
+      border-radius: 2px;
+      box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
+      padding: 12px 16px 0px 16px;
+      margin-bottom: 0px;
+      position: relative;
+      width: 560px;
+    }
+    
+    .turn-header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0px;
+    }
+    
+    .turn-header {
+      cursor: grab;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 0px;
+      color: #172B4D;
+    }
+    
+    .turn-header:active {
+      cursor: grabbing;
+    }
+    
+    .actions {
+      margin-top : 8px;
+      margin-left: 0; /* 좌측 margin 제거 */
+      padding-left: 0; /* 패딩도 제거 */
+      list-style-type: none; /* 기본 리스트 스타일 제거 */
+    }
+
+    .action-item {
+      cursor: grab;
+      padding: 2px;
+      border: 1px solid #DFE1E6;
+      border-radius: 3px;
+      margin-bottom: 4px;
+      display: grid;
+      grid-template-columns: 2fr 2fr 2fr 1fr;
+      gap: 16px;
+      align-items: center;
+      background: #FFFFFF;
+      margin-left: 0; /* 좌측 margin 제거 */
+      min-width: 0; 
+    }
+    
+    .action-item:hover {
+      background: #F4F5F7;
+    }
+    
+    .add-action {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #b42f1d;
+      color: #FFFFFF;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13.5px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .add-action:hover {
+      background: #0065FF;
+    }
+    
+    .skill-group {
+      padding: 8px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    
+    .skill-group label {
+      cursor: pointer;
+    }
+    
+    .skill-group input[type="radio"] {
+      cursor: pointer;
+    }
+    
+    /* 메모 입력 필드 스타일 */
+    .action-memo {
+      width: 160px;
+      padding: 8px 12px;
+      border: 1px solid #ffffff;
+      border-radius: 3px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      background-color: transparent;
+    }
+    
+    .action-memo:hover {
+      border-color: #ffffff;
+    }
+    
+    .action-memo:focus {
+      border-color: #4C9AFF;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
+    }
+    
+    .delete-action {
+      color: #979797;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 4px 8px;
+      margin-left: auto; /* 우측 정렬 */
+      transition: color 0.2s ease;
+    }
+    
+    .delete-action:hover {
+      color: #DE350B;
+    }
+    
+    .wonder-setting {
+      display: grid;
+      gap: 16px;
+    }
+    
+    .wonder-setting label {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    #party-selection {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      
+    }
+    
+    .party-member {
+      display: flex;
+      gap: 24px; /* 그룹 간의 간격 */
+      align-items: center;
+      padding: 0px 0px 16px;
+      border-bottom: 1px solid #DFE1E6;
+    }
+    
+    .party-member:last-child  {
+      border-bottom: none;
+    }
+    
+    /* 라벨과 입력칸을 감싸는 그룹 스타일 */
+    .input-group {
+      display: flex;
+      align-items: center;
+      gap: 8px; /* 라벨과 입력칸 사이의 간격 */
+    }
+
+    /* 각 요소의 너비 조정 */
+    .input-group label {
+      white-space: nowrap; /* 라벨 텍스트 줄바꿈 방지 */
+      color: #172B4D;
+      font-weight: 500;
+    }
+
+    .party-name-input {
+      width: 120px;
+      padding : 8px;
+      border: 2px solid #DFE1E6;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    .party-order, .party-ritual {
+      width: 45px;
+    }
+
+    .main-revelation, .sub-revelation {
+      width: 100px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .clone-action {
+      color: #0e1c38;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 4px 8px;
+      transition: color 0.2s ease;
+    }
+    
+    .clone-action:hover {
+      color: #0065FF;
+    }
+
+    .persona-container {
+      display: grid;
+      gap: 8px;
+    }
+
+    .persona-skill-input {
+      width : 168px;
+      margin-left: auto;
+      gap: 0px;
+    }
+
+    .weapon-container {
+      margin-bottom: 16px;
+    }
+
+    .wonder-weapon-input {
+      width: 168px;
+      padding: 8px;
+      border: 2px solid #DFE1E6;
+      border-radius: 3px;
+      font-size: 14px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0; /* 기존 마진 제거 */
+    }
+    .logo-container img {
+      width: 180px; 
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* input 컨테이너 스타일 */
+    .input-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* clear 버튼 스타일 */
+    .clear-input {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: none;
+      color: #6B778C;
+      cursor: pointer;
+      padding: 4px;
+      font-size: 14px;
+      display: none; /* 기본적으로는 숨김 */
+    }
+
+    .clear-input:hover {
+      color: #172B4D;
+    }
+
+    /* input에 값이 있을 때만 clear 버튼 표시 */
+    .input-container input:not([value=""]) ~ .clear-input {
+      display: block;
+    }
+
+    /* datalist가 있는 input의 경우 clear 버튼이 dropdown 화살표와 겹치지 않도록 */
+    input[list] {
+      padding-right: 30px;
+    }
+
+    .party-images {
+      display: flex;
+      gap: 10px;
+      margin-top: 0px;
+      position: relative;
+    }
+
+    .character-container {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .character-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #DFE1E6;
+      transition: all 0.2s ease;
+    }
+
+    .order-img {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 72px;
+      height: 24px;
+      z-index: 1;
+    }
+
+    .ritual-img {
+      position: absolute;
+      bottom: -5px;
+      left: -5px;
+      width: 40px;
+      height: 40px;
+      z-index: 1;
+    }
+
+    .character-container:hover .character-img {
+      border-color: #4C9AFF;
+      transform: scale(1.05);
+    }
+
+    .party-images-container {
+      margin: 16px 0px 16px 0px;
+      /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);*/
+    }
+
+    /* 비활성화된 드롭다운 스타일 */
+    select:disabled {
+      background-color: #E9ECEF;
+      cursor: not-allowed;
+    }
+
+    /* 액션 아이템 내의 드롭다운 스타일 */
+    .action-character, .action-skill, .wonder-persona-select, .action-memo{
+      background-color: transparent;
+      border: none !important; /* !important로 우선순위 높임 */
+      padding: 8px;
+      font-size: 13px;
+    }
+
+    /* 로고와 버튼을 포함하는 헤더 영역 */
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .top-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .export-import-btn {
+      padding: 8px 16px;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 13px;
+      background: url("https://p5x.perfectworld.com/images/main2403/news_tab.png") no-repeat center center;
+      background-size: cover;
+      width: 219px;  /* 이미지 크기에 맞게 조정 */
+      height: auto;
+      /*transition: background-image 0.1s ease;*/
+    }
+
+    .export-import-btn:hover {
+      background: url("https://p5x.perfectworld.com/images/main2403/news_tab_on.png") no-repeat center center;
+      background-size: cover;
+      width: 219px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-container">
+      <div class="logo-container">
+        <img src="https://p5x.perfectworld.com/images/cover231221/P5X_logo.png" alt="Persona5X Logo" />
+        <h1>페르소나5X 택틱 메이커</h1>
+      </div>
+      <div class="top-buttons">
+        <button class="export-import-btn" onclick="exportData()">내보내기</button>
+        <button class="export-import-btn" onclick="importData()">가져오기</button>
+      </div>
+    </div>
+    
+    <!-- 상단 컨테이너: (1) 원더 설정, (2) 파티 선택 -->
+    <div id="top-container">
+      <!-- 원더 설정 카드 -->
+      <div class="card wonder-setting" id="wonder-config">
+        <h2>원더 설정</h2>
+        <div class="weapon-container">
+          <label>무기:
+            <input type="text" class="wonder-weapon-input" list="weapon-list" placeholder="선택 또는 입력" />
+          </label>
+          <datalist id="weapon-list">
+            <!-- JavaScript에서 동적으로 채워짐 -->
+          </datalist>
+        </div>
+        <div class="persona-container">
+          <label>페르소나1:
+            <input type="text" class="wonder-persona-input" data-persona-index="0" />
+          </label>
+          <input type="text" class="persona-skill-input" data-persona-index="0" placeholder="스킬 세팅" />
+        </div>
+        <div class="persona-container">
+          <label>페르소나2:
+            <input type="text" class="wonder-persona-input" data-persona-index="1" />
+          </label>
+          <input type="text" class="persona-skill-input" data-persona-index="1" placeholder="스킬 세팅" />
+        </div>
+        <div class="persona-container">
+          <label>페르소나3:
+            <input type="text" class="wonder-persona-input" data-persona-index="2" />
+          </label>
+          <input type="text" class="persona-skill-input" data-persona-index="2" placeholder="스킬 세팅" />
+        </div>
+      </div>
+      
+      <!-- 파티 선택 카드 -->
+      <div class="card" id="party-selection">
+        <h2>괴도단</h2>
+        <div class="party-member" data-index="0">
+          <div class="input-group">
+            <label>괴도 1</label>
+            <select class="party-name">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>의식:</label>
+            <select class="party-ritual" style="width: 50px;">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>순서:</label>
+            <select class="party-order" style="width: 50px;">
+              <option value="1" selected>1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>주 계시:</label>
+            <select class="main-revelation">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>일월성진:</label>
+            <select class="sub-revelation" disabled>
+              <option value="">-</option>
+            </select>
+          </div>
+        </div>
+        <div class="party-member" data-index="1">
+          <div class="input-group">
+            <label>괴도 2</label>
+            <select class="party-name">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>의식:</label>
+            <select class="party-ritual" style="width: 50px;">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>순서:</label>
+            <select class="party-order" style="width: 50px;">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>주 계시:</label>
+            <select class="main-revelation">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>일월성진:</label>
+            <select class="sub-revelation" disabled>
+              <option value="">-</option>
+            </select>
+          </div>
+        </div>
+        <div class="party-member" data-index="2">
+          <div class="input-group">
+            <label>괴도 3</label>
+            <select class="party-name">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>의식:</label>
+            <select class="party-ritual" style="width: 50px;">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>순서:</label>
+            <select class="party-order" style="width: 50px;">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>주 계시:</label>
+            <select class="main-revelation">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>일월성진:</label>
+            <select class="sub-revelation" disabled>
+              <option value="">-</option>
+            </select>
+          </div>
+        </div>
+        <div class="party-member" data-index="3">
+          <div class="input-group">
+            <label>괴도 4</label>
+            <select class="party-name">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>의식:</label>
+            <select class="party-ritual" style="width: 50px;">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>순서:</label>
+            <select class="party-order" style="width: 50px;">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>주 계시:</label>
+            <select class="main-revelation">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>일월성진:</label>
+            <select class="sub-revelation" disabled>
+              <option value="">-</option>
+            </select>
+          </div>
+        </div>
+        <div class="party-member" data-index="4">
+          <div class="input-group">
+            <label>해명 -</label>
+            <select class="party-name">
+              <option value="">-</option>
+              <!-- supportParty 목록은 JavaScript에서 동적으로 채워짐 -->
+            </select>
+          </div>
+          <div class="input-group">
+            <label>의식:</label>
+            <select class="party-ritual" style="width: 50px;">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>순서:</label>
+            <select class="party-order" style="width: 50px;">
+              <option value="-" selected>-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>주 계시:</label>
+            <select class="main-revelation">
+              <option value="">-</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>일월성진:</label>
+            <select class="sub-revelation" disabled>
+              <option value="">-</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 파티 이미지를 위한 새로운 컨테이너 -->
+    <div class="party-images-container">
+      <div class="party-images"></div>
+    </div>
+
+    <!-- 턴 영역 (6턴) -->
+    <div id="turns"></div>
+    
+    <!-- SortableJS (드래그앤드롭 라이브러리) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script>
+      /* ========== 전역 데이터 ========== */
+      // 원더의 페르소나 3칸
+      let wonderPersonas = ["","",""];
+      
+      // 파티원 정보 (5명)
+      let partyMembers = [
+        { index: 0, name: "원더", order: "1", ritual: "" },
+        { index: 1, name: "", order: "2", ritual: "" },
+        { index: 2, name: "", order: "3", ritual: "" },
+        { index: 3, name: "", order: "4", ritual: "" },
+        { index: 4, name: "", order: "-", ritual: "" }
+      ];
+      
+      // 턴 데이터(6턴). 각 턴에는 actions 배열(자동+수동 구분)만 둔다.
+      let turns = [];
+      for (let i = 0; i < 6; i++) {
+        turns.push({
+          turn: i + 1,
+          actions: [
+            /* 예: { type: 'auto', character: '원더', action: '', wonderPersona: '' } */
+          ]
+        });
+      }
+      
+      // 캐릭터 목록 데이터
+      const characterList = {
+        mainParty: ["원더", "아야카", "리코·매화", "몽타뉴·백조", "야오링·사자무", 
+        "루우나", "카스미", "키라", "야오링", "하루나", "렌", "마사키", "미나미", "유이 YUI", "모르가나", 
+        "유스케", "토모코·여름", "모토하·여름", "마코토", "하루", "치즈코", "유키미", "레오", "류지",
+        "안", "슌", "모토하", "세이지", "토모코", "토시야", "키요시", "몽타뉴", "루페르"],
+        supportParty: ["후타바", "유우미", "리코", "미유", "카요"]
+      };
+
+      // 캐릭터 데이터에 이미지와 색상 정보 추가
+      const characterData = {
+        "원더": {
+          image: "https://i.namu.wiki/i/7uQWRTgxumTRSTi5iUs-GgBbMD1-puKmb30mdxmF92doCdxGY1j4WZdxMcLU0rMbFsEiYO55MRtc6GtZM0-0AYX6ZIB36OTTJgSxe0xfQyc47oXuPA8E038qiD8KV9WWFUsJX6s4FRqhfzqKFttEWQ.webp",
+          color: "#8B0000"
+        },
+        "몽타뉴·백조": {
+          image: "https://cdnimg-v2.gamekee.com/wiki2.0/images/w_2048/h_2048/50253/509266/2024/10/20/207600.PNG",
+          color: "#4169E1"
+        },
+        "야오링·사자무": {
+          image: "https://dcimg4.dcinside.co.kr/viewimage.php?id=3db8c235eadc39f37eb7d7bb02de2925&no=24b0d769e1d32ca73de887fa1bd62531bf8cbc57c7de00bb7c030056d8219bcb9b18ce28ae574dd3e85a0406dfb81621db1a5b0fad6783338328d70c8df10f8c5533f68cdb6d1eaf57edcac3",
+          color: "#c32233"
+        },
+        "루우나": {
+          image: "https://i.namu.wiki/i/gzhmRLw2fc7o9QhhP7Y0ZtSCB8SQJdilpXxqsRycGJgmvjD6R5hmj6e4nD9Hg0Z85mQ5tDt1TDSOkj7P4CpPecjHpPODxHiHVCrvNR6ZEP3PgT21mPh-VOuDV6n7EAqAgnb1uiJm_6LPpHCNbL18bQ.webp",
+          color: "#fc901a"
+        },
+        "후타바": {
+          image: "https://i.namu.wiki/i/NaAQM9lmY-rtXlMJ3AXMBad4-ZJiqvlDlswUX9VDZbQ1Yv-3NWgp6eJe8xzzGmDwi-ayuzK8unWQbtrbgzQYIv476TGZQOGgalS5aGbqQdd7xJOLmv03L1pvfj1wIq_ntjg2UuEYw5Z2vkj_mSl7Ug.webp",
+          color: "#00ff00"
+        },
+        "리코·매화": {
+          image: "https://i.namu.wiki/i/wZdukThq2y-ODXg8O1DslDRoR-82SihbA8OOJWKVPweMc1Be7JIY4O8r_8b7fwFwWB4XYRe43_rZAHdf7vXsF0MzUr7ZRG4U2fL-5OXCBeY6EU4jrvvFxvWQq4roivOD5R-i4yeDn7bRHttcfh3ELQ.webp",
+          color: "#46e2d7"
+        },
+        "아야카": {
+          image: "https://i.namu.wiki/i/fnre2XRCBE3fiSmgYR25up0uBnWPLfEANH52ic30l18ciM-rPw7lKWiGLr06ADOAZjFu3PfU6_O83njEKVNNkaMkmLZYyzzjfeeV1tBjL2qgJYd0MXrPYykm3rw4XhZUiHy3vzBh3IpPd9oukup4tw.webp",
+          color: "#f3e966"
+        },
+        "카스미": {
+          image: "https://i.namu.wiki/i/LrbaXjGYtheMBr5-yOjIgG1xDPnXcCQm6jw-JZD5LmlX55ptGBJL0XdrU2StSOn8_11F0Nmmj5kxS2KsRTNk6UxaqMNVUB9-FQaMrXagp4tTbXKEKBiIZXoTUS1cvo0nbZWCld5PzFPebTMardWGpA.webp",
+          color: "#dc143c"
+        },
+        "키라": {
+          image: "https://i.namu.wiki/i/nG9gU1TJcENngLvXvbhj6yYJ8yI2-rgYzpmQfCwhOl3Wek3IVgx5MO3qOkKlOk0kToc0-IkRCWCWJYRD5_XkxU9JcYSzc6qXQcugFwubJjkCB-tpRqExjKp90S6BIFZgX0ywyofwzTJoIDhhK6TbCA.webp",
+          color: "#bf774e"
+        },
+        "야오링": {
+          image: "https://i.namu.wiki/i/ZTQxYJlVpGxYzHtv9ioB9JVtJbQZ5UE7jwTSKlpp6bttDy3-7VzfKHgA4w4pexCQAcVcJv2wPrAoLQUk9qQBuwE49-smcoUVESAkQrfzFhbE49NkMUwVLQflvFr8wRO-Sb5l4yG0JFYETS63m-SAAg.webp",
+          color: "#c32233"
+        },
+        "하루나": {
+          image: "https://i.namu.wiki/i/j79rapzvmY7Jq-hgBBfflRDJS0d8hoIda5MhnlpXxao52IYJa2aX-ecBD9occnP7wX264k0UpXqksDl7tuCHZMmNL_M2xcl_5MZE_p0VL9Md0qL51obDlO2avpK8hN4sxjU14YHqb2QLZi0uoDTinw.webp",
+          color: "#ff1493"
+        },
+        "렌": {
+          image: "https://i.namu.wiki/i/4wBCIthV7cxUkUAHOIgEvl6nUTu6-Siy4aBlUPzS3tPtQqmE02nab7gpFJTcPIe-j14quxgkfWGOSzqTQc6Y25axgmhtPBJCR6qYyWxK4_x8H3twjxfI_X8TPuSpM3sI4NxMuNmeJAdGuztgqebyjw.webp",
+          color: "#212529"
+        },
+        "마사키": {
+          image: "https://i.namu.wiki/i/nh410N7TJChUHIS0P6He28Bl25tx26mrIXa62cTQGoHJ1wJhECBHAxD9h9rtUWjsa4YGWc9QPyOXzjRMS-3ZLgMQT6JnH-GUnP2trDCfHLfirJ7oC6cry4awgikqD9XPiPLqR5DbYT6MNrkgquRPDw.webp",
+          color: "#3cf2ff"
+        },
+        "미나미": {
+          image: "https://i.namu.wiki/i/7vw6dEqDt717IMh05a6wMLPGAApAHcZlQJ18jKMnf93xCErfewzuTo4DLcEk5PacBU1Onokzop0tXuRQBx1t9e55A4IZhLrEUo852F5BGdrBvIgw5pd6_GZpLgKrQHLxIP8b1Kl4Gll2WaUAs-Sj3A.webp",
+          color: "#f7cd80"
+        },
+        "유이 YUI": {
+          image: "https://i.namu.wiki/i/45tYP1Y5J3aoPLiDLo1Gmv1ue6RCMeAD7A0Q8UG_q1CXEmiUKKmGWWeJCzICvd92k36KlJ2ENO_xMlOldspCpt2mrRHmrnK9zQYUH-eSyyLh9CRSYVOU6qIA6DDpzxhnD53ny5A5w43h4GA27c2lHw.webp",
+          color: "#8cd1cb"
+        },
+        "모르가나": {
+          image: "https://i.namu.wiki/i/d4G1NPF1PpVAvcpZTq7rLfvQk10iV9KkfdpoD4UXQeimfO6qkG5ocIC1s2gmKaB76qoB2tTWqYii5-QGJihPiJ3cIbqrFOXG8ZE3N9-aUVLL90mCI9FP9sNwYBspq-V35_fyxrcU1TjE0hFC_SNqYg.webp",
+          color: "#111111"
+        },
+        "유스케": {
+          image: "https://i.namu.wiki/i/SWbTp7vx1bb7HcIW9ZhdnQ3UQRH0P-WCnlhirvn3laaizA3xgBt2z4yYTPj_dhCzibi5Lb3iQKDUJZXKX2qbl2qWUH4Ph9ImN8Smh9KYqHFgSjHQbpPHmwvkf5Auz5wurt6oSLWUX1AMNB25xHFdXw.webp",
+          color: "#00bfff"
+        },
+        "토모코·여름": {
+          image: "https://i.namu.wiki/i/YenT7d3uB0I8UnKLETs3ACNfp69oEulvWm-Eov5AZTf6CcZ9BrWZE6hXHNyK19FKM8HP_Z4NnTUN9BMu42OpIu32wppmbuE3VaUJKl9_yRdarYGRFJ0d-ozVJreFe_pHu8_xfR2_E3i109kXt2x1JA.webp",
+          color: "#cc5995"
+        },
+        "모토하·여름": {
+          image: "https://i.namu.wiki/i/9Y2jBzhzkEjn8ImJBdIRLdG-RapS5ShEcmEmMCvaxsSqV15USi-EHoaTgKiiNVBcvloQeb-neATwN15ZsG2d3b6h9ZL0_Pa7yr_7K-aGz_-ny9Q4iHh-yiKCFV8BmceK4eqaViCC5qnUEOv-ScMAqA.webp",
+          color: "#1498fd"
+        },
+        "마코토": {
+          image: "https://i.namu.wiki/i/1iG_2wPV7udrfwyXFGv83Upki1sq4iKlCcPUVbSJt7iMGuqRvkJpGhCIYenZ9WrcQb9JOkuSFFKXkIJFe_s07qFAxlRFDFasf4SPWm5gtUti_bLUgzpAOhQaRt1_CmD_pCDiUYcNQ5mAqC4EL_EZOw.webp",
+          color: "#000080"
+        },
+        "하루": {
+          image: "https://i.namu.wiki/i/MTZ2Kk8VDZbpzcfmFTomzUDBMGJOF7G6pEG9oNAg7tflLUYH_PIMysfzq74rJIgU9XgiOH0-10xbpIdeFVWhacSYvuhDfBXQ3Pt6fMy7Pxmxuid4IQHXFJDD4l8vxDsJIiVeD-gch5wLSOchxOLNeA.webp",
+          color: "#800080"
+        },
+        "치즈코": {
+          image: "https://i.namu.wiki/i/l4-kuUd58JOzDBWIjR903nwsAa37ovF73WUJiTTS0viR8WcI_goTgLTcrcoCcZ5OnN4YxZq4ZEuPZqNnXyptTQoPO527fefVAXkC5kuDuHEE4da3UlbeWe4IyDcHerYRh9bosXphqOOAtsfUbIbZug.webp",
+          color: "#2680a7"
+        },
+        "유키미": {
+          image: "https://i.namu.wiki/i/oCM0yE-o_8dEUjWnALdO5gHQCTet7G7Pf06_jmL1sq2FBK7O4mqOk_xfvlqOK-nqxbZ0e1f3i_cjzCDpXfGpECRXjhVvdaH_-ev6b5XzTPJYAT-__txpkEy9FzEA4b4hsolrk2c8Cdy8yNnHQM6IEg.webp",
+          color: "#642efe"
+        },
+        "레오": {
+          image: "https://i.namu.wiki/i/Vcm8BTgQxUXq8tw3U_GJtg7zDlfPvvp_67G_42I8qh-JXmAlYVOo4iLcWpQVF-4BGmgumlqqzKjo-h5wSAS5zxjGNwuUnpAQ3fivXXQnVsUZZKWlLCibjZrIBx_G-fZ4Wn-IutnIE4Emj15TeCRP_g.webp",
+          color: "#01dfd7"
+        },
+        "류지": {
+          image: "https://i.namu.wiki/i/b3e8W4N-0w7MQ4NXD4qGvCuomq6KTOmPpCFbk4SsDh30f8Q6Kqvbi5T02XDRHjacpllXrLq6es7Pz9wglaAGQEojNU_1anm0_svq-oEFP8AvSRzcQbCgqlSuxXQeTNQ_A2YgiALAt516CXICSbVzgQ.webp",
+          color: "#ffff00"
+        },
+        "안": {
+          image: "https://i.namu.wiki/i/SQXHwqkTXQC3wqX6A-CteynF7xkjT1u-NfQj9C-RuFmbu4XPmXADj670xstSBJcj3WkFeWNGOinR-E8UyP9Mh5Ci7oWEZU3us34omuYxEYhm2bpzRUyhCMSCA5srX9AsJpgNCaGtnW2K97G2AS6iZg.webp",
+          color: "#ff69b4"
+        },
+        "슌": {
+          image: "https://i.namu.wiki/i/iF2sH7zVrNeXEleL2UIfg5yDY4bgrLhtec0Y7Gna22GjqDIPqeJC_5QuY9yE8cFVU7iWzL92N7k4t1Yi4ZzksNynuMzcWi_-iF4LZW6FcV3zC39iE-2cQNe6UYAWQ8a1gBqRd1iH0v96GHuYO5Yvvg.webp",
+          color: "#349cde"
+        },
+        "모토하": {
+          image: "https://i.namu.wiki/i/Nl47IHLrqgUey22XOFL6JVnDhHkmWbb0DONZECtBiTJ5JSNHSXWJwcB9FKjaMKix3GAuHloTPGWeg0iu97bHZv3O4VCBtHvK-jXJlw_BRMpOjRpbujE3SurfHMVNvf3lwqLyKF1Dtje-CMc7w-_xbw.webp",
+          color: "#ffff00"
+        },
+        "세이지": {
+          image: "https://i.namu.wiki/i/51UP8QM6A_3pisZdArV8GCtS2lk9vf_IpYir1jHl3hUK3NxjupvRjXwen4Bdd6Rt5I3NOYkO5RUb0MsLwzFJnFUlPi2et5LaZW5hvUvcBV-4iTRpm7mK_dd5xzkMLsw2ktTxo332T7EguyHvoNM8IQ.webp",
+          color: "#01df01"
+        },
+        "토모코": {
+          image: "https://i.namu.wiki/i/ATfQhk7ElFB1pgr7M6mNf22nEOydyMeBoti0NuBaecatseIW0wjNYg059C-jLl7a_Fr0PZmTN7PGVRz8bJsiMBodzuPIbbDhVl4G6ga1lbb3YoCqxSHAq0Bt7oj4HwoynviOxaGfBFcyBgyuz2JZJg.webp",
+          color: "#cc5995"
+        },
+        "토시야": {
+          image: "https://i.namu.wiki/i/TpMFaIKG5ZfkAyNlwD0HQ-bPS4gvm0f3dX8w2d1k7ecNskNOxUpwv_LaATjx4PR5kfjUEooee_nlLs_RmnNR55f2cdh0w_f9SlzbbqjYz8PkfJgunhbR-QNXrU2jfzS9hOE04gFlV8kSLSJgR1P9sg.webp",
+          color: "#2a0a12"
+        },
+        "키요시": {
+          image: "https://i.namu.wiki/i/YEGwDWL3xWuTVM6a2FlaubaZ9CJh3ccsYcWdcQvY8xceQpZxJIqpm9cO4an7a-oBgqygDI5m8HhX9V-iPhm-MJRhAhVfF_nrm9FVefsstSz2rJaKOCeyzfIRv-vY_3KrCNE3R_kbVdzPbS-ESQ_HcA.webp",
+          color: "#ce6208"
+        },
+        "몽타뉴": {
+          image: "https://i.namu.wiki/i/lWA6kA2lrdFPWN1Uskbe4PQNBG9gyDthY2BcwuzMXnw3IWdKNCkL1ACuGEPOfZr0vQG_hyRxEvVJxheDEhiFQFJ6yV1RVk7I8gjOLz65E_1LHZdf8JHXCaWHP5wXMm39_30ZMpYyG-c9FDz5I-2y-A.webp",
+          color: "#2eccfa"
+        },
+        "루페르": {
+          image: "https://i.namu.wiki/i/SW9TWayIDpBahXE_OWby7ZAneGfLIk8S9VcCQUUT3PExEB5Yh7U-2iYY96cfKL1DMEcHgDqAyUffKbVxWxBR9itbdvfbQ8_Fvpfu7a0b72K1ueW1V_As2cVG5UN-LpxL1GVDJyDkHy3jqAZ32_ddVA.webp",
+          color: "#db181c"
+        },
+        "유우미": {
+          image: "https://i.namu.wiki/i/sqeReXUrWcet4_2uea5t7rzQ7Vp24j-UrngmaouGwWSZp5SNA9t_lAS0zI2Fd2P6PBWEcjZegxlCdhKssqLwnsm-2GSNUVaEZWzD8VuAO8H6ZmGHvX5mBbud0xQf6DF6fBMabFJbSZJFXWwWju3oHw.webp",
+          color: "#48d0a8"
+        },
+        "리코": {
+          image: "https://i.namu.wiki/i/faZCBdz3mhj-znyGlU5jCVm8sqmu002yE8NGWd5fqg1P03WtT6Oih9WQHiYZ6mWtQzc6D5nX3ftsRzQQ9f5QuwSRbH_JiTdKgR63Vi91a8DVSKCWbA32DS4qEWvgGhPNer7lIjoLs8khEZlFWf2tAA.webp",
+          color: "#46e2d7"
+        },
+        "미유": {
+          image: "https://i.namu.wiki/i/v5GlBmttOpNlKUA49qkBQBS_wD309CVvhSp52oQbd-CKM1PQS9IJ5aVwjNW64riMcaOfKZNuwF8oGdQUTZctFXG7zHtGu-IEFrm9uWFb70j5EuNO2n26n-48qERAkeeWaunG6yy_94LjsiX3UlHGFQ.webp",
+          color: "#2e64fe"
+        },
+        "카요": {
+          image: "https://i.namu.wiki/i/PABwt3PZkPmrkApy4QQpOsIOPKYG4M_ZL5HxOmM4nGxGxiTjW1B_He3n5iKVhcM9O5ZO9m30H2xpwlV3g1lHcVVYKJPMUbPtrT0VWMhr06XKEmanw9Xx49t_OEBM8q_ilH3hZGltKI4220h23XV6dQ.webp",
+          color: "#f9fa53"
+        }
+      };
+
+      // 스킬 목록"
+      const skillList = ["스킬1", "스킬2", "스킬3", "HIGHLIGHT", "총격", "근접", "방어", "아이템"];
+      
+      // 계시 데이터 정의
+      const revelationData = {
+        main: {
+          "창조": ["우려", "화해"],
+          "깨달음": ["진리", "주권", "방해"],
+          "여정": ["주권", "풍요", "방해"],
+          "성장": ["화려", "변환", "힘"],
+          "지혜": ["억압", "환희", "미덕"],
+          "전념": ["화려", "용맹", "사랑"],
+          "신념": ["평화", "사랑"],
+          "신뢰": ["변환", "힘", "풍요"],
+          "조화": ["승리", "힘", "진리"],
+          "결심": ["미덕", "직책"],
+          "수락": ["평화", "분쟁", "사랑"],
+          "자유": ["개선", "좌절"],
+          "진정성": ["환희", "직책"]
+        }
+      };
+
+      const wonderWeapons = [
+        "천상의 별",
+        "태고의 역장",
+        "메커니컬 심판자",
+        "작열의 연옥",
+        "야수의 이빨",
+        "크리스탈 트레저",
+        "망자의 눈",
+        "메아리의 절규",
+        "7일의 불꽃"
+      ];
+      
+      // 페르소나 목록 데이터 추가
+      const personaList = [
+        "야노식", "비슈누", "디오니소스", "도미니온", "수르트",
+        "광목천", "년수", "야메노우즈메", "서큐버스", "나르키소스",
+        "노른", "스라오샤", "체르노보그", "시바", "오우쿠시누시",
+        "앨리스", "비사문천", "유룽", "라미아", "바포멧",
+        "요시츠네", "지국천", "네코쇼군", "미트라스", "이시스",
+        "티타니아", "파르바티", "지크프리트", "킹프로스트", "릴리스",
+        "아누비스", "파즈스", "야마타노오로치", "벨페고르"
+      ];
+      
+
+      
+      // DOM이 로드되면 초기 설정
+      document.addEventListener("DOMContentLoaded", () => {
+        setupWonderConfig();
+        setupPartySelection();
+        updateAutoActions(); // 초기 자동 액션 반영
+        updatePartyImages(); // 초기 이미지 설정
+        renderTurns();       // 화면 렌더링
+      });
+      
+      /* ========== 원더 설정 ========== */
+      function setupWonderConfig() {
+        const wonderConfigDiv = document.getElementById("wonder-config");
+        
+        // 무기 입력 필드 수정
+        const weaponInput = wonderConfigDiv.querySelector(".wonder-weapon-input");
+        const weaponContainer = weaponInput.parentElement;
+        
+        // input을 컨테이너로 감싸기
+        const inputContainer = document.createElement("div");
+        inputContainer.className = "input-container";
+        
+        // 기존 input을 새 컨테이너로 이동
+        weaponInput.parentNode.insertBefore(inputContainer, weaponInput);
+        inputContainer.appendChild(weaponInput);
+        
+        // clear 버튼 추가
+        const clearBtn = document.createElement("button");
+        clearBtn.className = "clear-input";
+        clearBtn.textContent = "×";
+        clearBtn.addEventListener("click", () => {
+          weaponInput.value = "";
+          weaponInput.focus();
+        });
+        inputContainer.appendChild(clearBtn);
+
+        const inputs = wonderConfigDiv.querySelectorAll(".wonder-persona-input");
+        
+        const weaponList = document.getElementById("weapon-list");
+        wonderWeapons.forEach(weapon => {
+          const option = document.createElement("option");
+          option.value = weapon;
+          weaponList.appendChild(option);
+        });
+
+        // 디바운스 함수
+        const debounce = (func, wait) => {
+          let timeout;
+          return function executedFunction(...args) {
+            const later = () => {
+              clearTimeout(timeout);
+              func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+          };
+        };
+        
+        // 업데이트 함수를 디바운스 처리
+        const debouncedUpdate = debounce(() => {
+          updateAutoActions();
+          renderTurns();
+        }, 300);
+        
+        inputs.forEach((input, idx) => {
+          // input을 컨테이너로 감싸기
+          const inputContainer = document.createElement("div");
+          inputContainer.className = "input-container";
+          
+          // datalist 생성
+          const datalistId = `persona-list-${idx}`;
+          input.setAttribute("list", datalistId);
+          input.placeholder = "선택 또는 입력";
+          
+          const datalist = document.createElement("datalist");
+          datalist.id = datalistId;
+          
+          // 페르소나 옵션 추가
+          personaList.forEach(persona => {
+            const option = document.createElement("option");
+            option.value = persona;
+            datalist.appendChild(option);
+          });
+          
+          // clear 버튼 추가
+          const clearBtn = document.createElement("button");
+          clearBtn.className = "clear-input";
+          clearBtn.textContent = "×";
+          clearBtn.addEventListener("click", () => {
+            input.value = "";
+            wonderPersonas[idx] = "";
+            debouncedUpdate();
+            input.focus();
+          });
+          
+          // 요소들을 컨테이너에 추가
+          input.parentNode.insertBefore(inputContainer, input);
+          inputContainer.appendChild(input);
+          inputContainer.appendChild(clearBtn);
+          inputContainer.parentNode.appendChild(datalist);
+          
+          // input 이벤트 리스너 수정
+          input.addEventListener("change", (e) => {
+            wonderPersonas[idx] = e.target.value;
+            debouncedUpdate();
+          });
+
+          // input 직접 입력 이벤트도 추가
+          input.addEventListener("input", (e) => {
+            wonderPersonas[idx] = e.target.value;
+            debouncedUpdate();
+          });
+        });
+      }
+      
+      /* ========== 파티 선택 ========== */
+      function setupPartySelection() {
+        const partyDivs = document.querySelectorAll(".party-member");
+        
+        partyDivs.forEach(div => {
+          const index = parseInt(div.getAttribute("data-index"), 10);
+          const nameSelect = div.querySelector(".party-name");
+          const mainRevSelect = div.querySelector(".main-revelation");
+          const subRevSelect = div.querySelector(".sub-revelation");
+          const orderSelect = div.querySelector(".party-order");
+          const ritualSelect = div.querySelector(".party-ritual");
+          
+          // 초기 원더 설정에 대한 비활성화 처리
+          if (partyMembers[index].name === "원더") {
+            ritualSelect.disabled = true;
+            ritualSelect.value = "0";
+            mainRevSelect.disabled = true;
+            mainRevSelect.value = "";
+            subRevSelect.disabled = true;
+            subRevSelect.value = "";
+            
+            partyMembers[index].ritual = "0";
+          }
+          
+          // 주 계시 옵션 설정
+          if (mainRevSelect) {
+            // 기존 옵션 초기화
+            mainRevSelect.innerHTML = '<option value="">-</option>';
+            
+            // 주 계시 옵션 추가
+            Object.keys(revelationData.main).forEach(rev => {
+              const opt = document.createElement("option");
+              opt.value = rev;
+              opt.textContent = rev;
+              mainRevSelect.appendChild(opt);
+            });
+
+            // 주 계시 변경 이벤트
+            mainRevSelect.addEventListener("change", (e) => {
+              const selectedMain = e.target.value;
+              
+              // 일월성진 드롭다운 활성화/비활성화
+              if (selectedMain && revelationData.main[selectedMain]) {
+                subRevSelect.disabled = false;
+                
+                // 일월성진 옵션 설정
+                subRevSelect.innerHTML = '<option value="">-</option>';
+                revelationData.main[selectedMain].forEach(subRev => {
+                  const opt = document.createElement("option");
+                  opt.value = subRev;
+                  opt.textContent = subRev;
+                  subRevSelect.appendChild(opt);
+                });
+              } else {
+                subRevSelect.disabled = true;
+                subRevSelect.innerHTML = '<option value="">-</option>';
+              }
+            });
+          }
+
+          if (nameSelect) {
+            // input container 생성
+            const inputContainer = document.createElement("div");
+            inputContainer.className = "input-container";
+            
+            // input 요소 생성
+            const input = document.createElement("input");
+            input.setAttribute("list", `characters-${index}`);
+            input.className = "party-name-input";
+            input.value = partyMembers[index].name;
+            input.placeholder = "선택 또는 입력";
+            
+            // datalist 생성
+            const datalist = document.createElement("datalist");
+            datalist.id = `characters-${index}`;
+            
+            // 캐릭터 옵션 추가
+            const characterOptions = index === 4 ? characterList.supportParty : characterList.mainParty;
+            characterOptions.forEach(char => {
+              const option = document.createElement("option");
+              option.value = char;
+              datalist.appendChild(option);
+            });
+            
+            // clear 버튼 생성
+            const clearBtn = document.createElement("button");
+            clearBtn.className = "clear-input";
+            clearBtn.textContent = "×";
+            clearBtn.addEventListener("click", () => {
+              input.value = "";
+              partyMembers[index].name = "";
+              updateAutoActions();
+              updatePartyImages();
+              renderTurns();
+              input.focus();
+            });
+            
+            // 요소들을 컨테이너에 추가
+            inputContainer.appendChild(input);
+            inputContainer.appendChild(clearBtn);
+            
+            // select를 새로운 input container로 교체
+            nameSelect.parentNode.replaceChild(inputContainer, nameSelect);
+            div.appendChild(datalist);
+            
+            // input 이벤트 리스너 수정
+            input.addEventListener("change", (e) => {
+              const selectedName = e.target.value;
+              partyMembers[index].name = selectedName;
+              
+              // 원더일 경우 의식과 주 계시 비활성화
+              if (selectedName === "원더") {
+                ritualSelect.disabled = true;
+                ritualSelect.value = "0";
+                mainRevSelect.disabled = true;
+                mainRevSelect.value = "";
+                subRevSelect.disabled = true;
+                subRevSelect.value = "";
+                
+                partyMembers[index].ritual = "0";
+              } else {
+                ritualSelect.disabled = false;
+                mainRevSelect.disabled = false;
+              }
+              
+              updateAutoActions();
+              updatePartyImages();
+              renderTurns();
+            });
+
+            // input 직접 입력 이벤트도 추가
+            input.addEventListener("input", (e) => {
+              const selectedName = e.target.value;
+              partyMembers[index].name = selectedName;
+              
+              // 원더일 경우 의식과 주 계시 비활성화
+              if (selectedName === "원더") {
+                ritualSelect.disabled = true;
+                ritualSelect.value = "0";
+                mainRevSelect.disabled = true;
+                mainRevSelect.value = "";
+                subRevSelect.disabled = true;
+                subRevSelect.value = "";
+                
+                partyMembers[index].ritual = "0";
+              } else {
+                ritualSelect.disabled = false;
+                mainRevSelect.disabled = false;
+              }
+              
+              updateAutoActions();
+              updatePartyImages();
+              renderTurns();
+            });
+          }
+
+          // 순서 변경 시 이벤트
+          orderSelect.addEventListener("change", (e) => {
+            const newOrder = e.target.value;
+            const oldOrder = partyMembers[index].order;
+            
+            // 다른 멤버의 순서 조정
+            if (newOrder !== "-") {
+              partyMembers.forEach(pm => {
+                if (pm.index !== index && pm.order === newOrder) {
+                  pm.order = oldOrder;
+                  const otherSelect = document.querySelector(
+                    `.party-member[data-index="${pm.index}"] .party-order`
+                  );
+                  if (otherSelect) otherSelect.value = oldOrder;
+                }
+              });
+            }
+            
+            partyMembers[index].order = newOrder;
+            updateAutoActions();
+            updatePartyImages();
+            renderTurns();
+          });
+
+          // 의식 변경 시 이벤트
+          ritualSelect.addEventListener("change", (e) => {
+            const newRitual = e.target.value;
+            partyMembers[index].ritual = newRitual;
+            
+            // 의식 변경 시에도 파티 이미지 업데이트
+            updatePartyImages();
+            updateAutoActions();
+            renderTurns();
+          });
+        });
+
+      }
+      
+      /* ========== 자동 액션 업데이트 ========== */
+      function updateAutoActions() {
+        // partyMembers 중 index < 4인 파티원 중 name이 있는 멤버만, order 순서대로 정렬
+        const autoParty = partyMembers
+          .filter(pm => pm.index < 4 && pm.name !== "")
+          .sort((a, b) => parseInt(a.order, 10) - parseInt(b.order, 10));
+        
+        // 각 턴에서 기존 자동 액션(type: 'auto')을 제거하고 재생성
+        turns.forEach(turn => {
+          // (1) 기존의 'auto' 액션만 제거
+          turn.actions = turn.actions.filter(a => a.type !== 'auto');
+          
+          // (2) 새로 auto 액션 추가: 파티원 순서대로
+          autoParty.forEach(pm => {
+            turn.actions.push({
+              type: 'auto',
+              character: pm.name,
+              wonderPersona: "",  // 원더 전용
+              action: "",        // 텍스트 입력값은 빈칸
+              memo: ""          // 메모 필드 추가
+            });
+          });
+        });
+        
+        renderTurns();
+      }
+      
+      /* ========== 전체 렌더링 ========== */
+      function renderTurns() {
+        const turnsContainer = document.getElementById("turns");
+        turnsContainer.innerHTML = "";
+        
+        // 턴 순서 재배열 (1-2, 3-4, 5-6 순서로)
+        const turnPairs = [
+          [turns[0], turns[3]], // 1-2턴
+          [turns[1], turns[4]], // 3-4턴
+          [turns[2], turns[5]]  // 5-6턴
+        ];
+        
+        turnPairs.forEach(pair => {
+          pair.forEach(turn => {
+            const turnDiv = document.createElement("div");
+            turnDiv.className = "turn-container";
+            turnDiv.setAttribute("data-turn-index", turns.indexOf(turn));
+            
+            // 턴 헤더 컨테이너
+            const headerContainer = document.createElement("div");
+            headerContainer.className = "turn-header-container";
+            
+            // 턴 헤더
+            const header = document.createElement("div");
+            header.className = "turn-header";
+            header.textContent = `${turn.turn}턴`;
+            headerContainer.appendChild(header);
+            
+            // + 버튼
+            const addBtn = document.createElement("button");
+            addBtn.className = "add-action";
+            addBtn.textContent = "+";
+            addBtn.addEventListener("click", () => {
+              turn.actions.push({
+                type: 'manual',
+                character: "",
+                wonderPersona: "",
+                action: ""
+              });
+              renderTurns();
+            });
+            headerContainer.appendChild(addBtn);
+            
+            turnDiv.appendChild(headerContainer);
+            
+            // 액션 리스트
+            const actionsList = document.createElement("ul");
+            actionsList.className = "actions";
+            
+            turn.actions.forEach((action, aIndex) => {
+              const li = createActionRow(turns.indexOf(turn), aIndex);
+              actionsList.appendChild(li);
+            });
+            
+            turnDiv.appendChild(actionsList);
+            
+            turnsContainer.appendChild(turnDiv);
+          });
+        });
+        
+        // (A) 턴 자체의 드래그앤드롭 (턴 순서 변경)
+        Sortable.create(turnsContainer, {
+          animation: 150,
+          handle: ".turn-header",
+          onEnd: function() {
+            // 현재 화면 순서에 맞춰 turns 배열 재정렬
+            const newTurnArr = [];
+            const turnDivs = turnsContainer.querySelectorAll(".turn-container");
+            turnDivs.forEach(div => {
+              const idx = parseInt(div.getAttribute("data-turn-index"), 10);
+              newTurnArr.push(turns[idx]);
+            });
+            // 새 순서에 맞춰 턴 번호 재할당
+            newTurnArr.forEach((turn, i) => {
+              turn.turn = i + 1;
+            });
+            turns = newTurnArr;
+            renderTurns();
+          }
+        });
+        
+        // (B) 각 턴 내부 액션 리스트의 드래그앤드롭
+        const actionLists = document.querySelectorAll(".actions");
+        actionLists.forEach(list => {
+          Sortable.create(list, {
+            animation: 150,
+            group: 'actions',
+            onEnd: function(evt) {
+              const fromTurnIndex = parseInt(evt.from.closest('.turn-container').dataset.turnIndex);
+              const toTurnIndex = parseInt(evt.to.closest('.turn-container').dataset.turnIndex);
+              
+              // 드래그된 액션의 원본 데이터 저장
+              const movedAction = {...turns[fromTurnIndex].actions[parseInt(evt.item.dataset.actionIndex)]};
+              
+              // 새로운 순서로 액션 배열 재구성
+              const fromActions = Array.from(evt.from.children).map(item => {
+                const index = parseInt(item.dataset.actionIndex);
+                return index === parseInt(evt.item.dataset.actionIndex) ? movedAction : turns[fromTurnIndex].actions[index];
+              });
+              
+              const toActions = fromTurnIndex === toTurnIndex ? fromActions : 
+                Array.from(evt.to.children).map(item => {
+                  const index = parseInt(item.dataset.actionIndex);
+                  return item === evt.item ? movedAction : turns[toTurnIndex].actions[index];
+                });
+              
+              turns[fromTurnIndex].actions = fromActions;
+              if(fromTurnIndex !== toTurnIndex) {
+                turns[toTurnIndex].actions = toActions;
+              }
+              
+              renderTurns();
+            }
+          });
+        });
+      }
+      
+      /* ========== 액션 행 생성 ========== */
+      function createActionRow(turnIndex, actionIndex) {
+        const action = turns[turnIndex].actions[actionIndex];
+        const li = document.createElement("li");
+        li.className = "action-item";
+        li.setAttribute("data-action-index", actionIndex);
+        
+        // 캐릭터에 해당하는 배경색 적용
+        if (action.character && characterData[action.character]) {
+          li.style.backgroundColor = characterData[action.character].color + "30"; // 20은 투명도
+        }
+        
+        // (1) 캐릭터 드롭다운
+        const charSelect = document.createElement("select");
+        charSelect.className = "action-character";
+        
+        // 드롭다운 옵션 채우기 - 현재 선택된 파티원들만 표시
+        charSelect.innerHTML = '<option value="">선택</option>';
+        const activePartyMembers = partyMembers
+          .filter(member => member.name !== "") // 선택된 멤버만 필터링
+          .map(member => member.name); // 이름만 추출
+        
+        activePartyMembers.forEach(char => {
+          const opt = document.createElement("option");
+          opt.value = char;
+          opt.textContent = char;
+          if (action.character === char) opt.selected = true;
+          charSelect.appendChild(opt);
+        });
+        
+        charSelect.addEventListener("change", e => {
+          action.character = e.target.value;
+          action.wonderPersona = ""; // 캐릭터 변경시 페르소나 초기화
+          action.action = ""; // 액션 초기화
+          renderTurns();
+        });
+        li.appendChild(charSelect);
+        
+        // (2) 원더일 경우 페르소나 선택, 아닐 경우 스킬 드롭다운으로 변경
+        if (action.character === "원더") {
+          const personaSelect = document.createElement("select");
+          personaSelect.className = "wonder-persona-select";
+          
+          wonderPersonas.forEach((p, idx) => {
+            const opt = document.createElement("option");
+            opt.value = p;
+            opt.textContent = p || `페르소나${idx + 1}`;
+            if (action.wonderPersona === p) opt.selected = true;
+            personaSelect.appendChild(opt);
+          });
+          
+          personaSelect.addEventListener("change", e => {
+            action.wonderPersona = e.target.value;
+          });
+          li.appendChild(personaSelect);
+        } else if (action.character) {
+          // 스킬 드롭다운으로 변경
+          const skillSelect = document.createElement("select");
+          skillSelect.className = "action-skill";
+          
+          // 기본 옵션 추가
+          skillSelect.innerHTML = '<option value="">선택</option>';
+          
+          // 스킬 옵션 추가
+          skillList.forEach(skill => {
+            const option = document.createElement("option");
+            option.value = skill;
+            option.textContent = skill;
+            if (action.action === skill) option.selected = true;
+            skillSelect.appendChild(option);
+          });
+          
+          skillSelect.addEventListener("change", e => {
+            action.action = e.target.value;
+          });
+          
+          li.appendChild(skillSelect);
+        }
+        
+        // (3) 메모 입력 필드 추가
+        const memoInput = document.createElement("input");
+        memoInput.type = "text";
+        memoInput.className = "action-memo";
+        memoInput.placeholder = "세부사항";
+        memoInput.value = action.memo || "";
+        memoInput.addEventListener("input", e => {
+          action.memo = e.target.value;
+        });
+        li.appendChild(memoInput);
+        
+        // 복제 버튼 추가
+        const cloneBtn = document.createElement("button");
+        cloneBtn.className = "clone-action";
+        cloneBtn.innerHTML = "⎘"; // 또는 "복제" 텍스트 사용
+        cloneBtn.addEventListener("click", () => {
+          const clonedAction = JSON.parse(JSON.stringify(action)); // 깊은 복사
+          turns[turnIndex].actions.splice(actionIndex + 1, 0, clonedAction);
+          renderTurns();
+        });
+        
+        // 삭제 버튼
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-action";
+        deleteBtn.textContent = "×";
+        deleteBtn.addEventListener("click", () => {
+          turns[turnIndex].actions.splice(actionIndex, 1);
+          renderTurns();
+        });
+        
+        // 버튼 컨테이너 (복제 + 삭제)
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "action-buttons";
+        btnContainer.appendChild(cloneBtn);
+        btnContainer.appendChild(deleteBtn);
+        li.appendChild(btnContainer);
+        
+        return li;
+      }
+
+      // 파티 이미지 업데이트 함수
+      function updatePartyImages() {
+        const partyImagesDiv = document.querySelector(".party-images");
+        partyImagesDiv.innerHTML = "";
+        
+        // 순서대로 정렬된 파티원 목록 생성
+        const orderedParty = partyMembers
+          .filter(pm => pm.name !== "")
+          .sort((a, b) => {
+            // "-" 순서는 맨 뒤로
+            if (a.order === "-") return 1;
+            if (b.order === "-") return -1;
+            return parseInt(a.order, 10) - parseInt(b.order, 10);
+          });
+        
+        // 정렬된 순서대로 이미지 추가
+        orderedParty.forEach((member) => {
+          if (characterData[member.name]) {
+            const container = document.createElement("div");
+            container.className = "character-container";
+
+            // 캐릭터 이미지
+            const charImg = document.createElement("img");
+            charImg.className = "character-img";
+            charImg.src = characterData[member.name].image;
+            charImg.alt = member.name;
+            charImg.title = member.name;
+            container.appendChild(charImg);
+            
+            // 순서 이미지 (1-4인 경우에만)
+            if (["1", "2", "3", "4"].includes(member.order)) {
+              const orderImg = document.createElement("img");
+              orderImg.className = "order-img";
+              orderImg.src = `https://p5x.perfectworld.com/images/main2403/num0${member.order}.png`;
+              orderImg.alt = `순서 ${member.order}`;
+              container.appendChild(orderImg);
+            }
+            
+            // 의식 이미지 (1-6 사이일 때만)
+            const ritualLevel = parseInt(member.ritual);
+            if (ritualLevel >= 1 && ritualLevel <= 6) {
+              const ritualImg = document.createElement("img");
+              ritualImg.className = "ritual-img";
+              ritualImg.src = getRitualImageUrl(ritualLevel);
+              ritualImg.alt = `의식 ${ritualLevel}`;
+              container.appendChild(ritualImg);
+            }
+            
+            partyImagesDiv.appendChild(container);
+          }
+        });
+      }
+
+      // 의식 레벨에 따른 이미지 URL 반환 함수
+      function getRitualImageUrl(level) {
+        const ritualImages = {
+          1: "https://upload3.inven.co.kr/upload/2025/02/06/bbs/i1514240623.png?MW=800",
+          2: "https://upload3.inven.co.kr/upload/2025/02/06/bbs/i1114519943.png?MW=800",
+          3: "https://upload3.inven.co.kr/upload/2025/02/06/bbs/i1246010091.png?MW=800",
+          4: "https://upload3.inven.co.kr/upload/2025/02/06/bbs/i1932075269.png?MW=800",
+          5: "https://upload3.inven.co.kr/upload/2025/02/06/bbs/i1450198188.png?MW=800",
+          6: "https://upload3.inven.co.kr/upload/2025/02/06/bbs/i1895026343.png?MW=800"
+        };
+        return ritualImages[level];
+      }
+
+      // 데이터 내보내기/가져오기 함수
+      function exportData() {
+        const data = {
+          wonderPersonas,
+          partyMembers,
+          turns
+        };
+        
+        const dataStr = JSON.stringify(data);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = 'p5x-tactics-data.json';
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+      }
+
+      function importData() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        
+        input.onchange = e => {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          
+          reader.onload = event => {
+            try {
+              const data = JSON.parse(event.target.result);
+              
+              // 데이터 적용
+              wonderPersonas = data.wonderPersonas;
+              partyMembers = data.partyMembers;
+              turns = data.turns;
+              
+              // UI 업데이트
+              setupWonderConfig();
+              setupPartySelection();
+              updateAutoActions();
+              updatePartyImages();
+              renderTurns();
+              
+            } catch (error) {
+              alert('파일 형식이 올바르지 않습니다.');
+            }
+          };
+          
+          reader.readAsText(file);
+        };
+        
+        input.click();
+      }
+    </script>
+  </div>
+</body>
+</html>
