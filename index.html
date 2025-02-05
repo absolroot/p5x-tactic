@@ -38,9 +38,11 @@
     }
     
     .container {
-      max-width: 1200px;
+      width: 1200px;
       margin: 0 auto;
-      padding: 0 0px;
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
     }
     
     #top-container {
@@ -436,18 +438,18 @@
       border-radius: 3px;
       cursor: pointer;
       font-size: 13px;
-      background: url("https://p5x.perfectworld.com/images/main2403/news_tab.png") no-repeat center center;
+      background: url("./img/ui/newstab.png") no-repeat center center;
       background-size: cover;
-      width: 219px;  /* 이미지 크기에 맞게 조정 */
+      width: 219px;
       height: auto;
-      /*transition: background-image 0.1s ease;*/
     }
 
     .export-import-btn:hover {
-      background: url("https://p5x.perfectworld.com/images/main2403/news_tab_on.png") no-repeat center center;
+      background: url("./img/ui/newstabon.png") no-repeat center center;
       background-size: cover;
       width: 219px;
     }
+
 
   </style>
 </head>
@@ -455,8 +457,10 @@
   <div class="container">
     <div class="header-container">
       <div class="logo-container">
-        <img src="https://p5x.perfectworld.com/images/cover231221/P5X_logo.png" alt="Persona5X Logo" />
-        <h1>페르소나5X 택틱 메이커</h1>
+        <img src="./img/logo/P5Xlogo.png" alt="Persona5X Logo" />
+        <div style="display: flex; align-items: center;">
+          <h1>페르소나5X 택틱</h1>
+        </div>
       </div>
       <div class="top-buttons">
         <button class="export-import-btn" onclick="exportData()">내보내기</button>
@@ -743,11 +747,18 @@
       
       // 캐릭터 목록 데이터
       const characterList = {
-        mainParty: ["원더", "아야카", "리코·매화", "몽타뉴·백조", "야오링·사자무", 
-        "루우나", "카스미", "키라", "야오링", "하루나", "렌", "마사키", "미나미", "유이 YUI", "모르가나", 
-        "유스케", "토모코·여름", "모토하·여름", "마코토", "하루", "치즈코", "유키미", "레오", "류지",
-        "안", "슌", "모토하", "세이지", "토모코", "토시야", "키요시", "몽타뉴", "루페르"],
-        supportParty: ["후타바", "유우미", "리코", "미유", "카요"]
+        mainParty: [
+          "렌", "루우나", "루페르", "레오", "류지",
+          "리코·매화", "마사키", "마코토", "미나미", "모르가나",
+          "모토하", "모토하·여름", "몽타뉴", "몽타뉴·백조", "슌",
+          "세이지", "안", "아야카", "야오링", "야오링·사자무",
+          "원더", "유스케", "유이 YUI", "유키미", "카스미",
+          "키라", "키요시", "토모코", "토모코·여름", "토시야",
+          "하루", "하루나", "치즈코"
+        ],
+        supportParty: [
+          "리코", "미유", "유우미", "카요", "후타바"
+        ]
       };
 
       // 캐릭터 데이터에 이미지와 색상 정보 추가
@@ -942,13 +953,13 @@
       
       // 페르소나 목록 데이터 추가
       const personaList = [
-        "야노식", "비슈누", "디오니소스", "도미니온", "수르트",
-        "광목천", "년수", "야메노우즈메", "서큐버스", "나르키소스",
-        "노른", "스라오샤", "체르노보그", "시바", "오우쿠시누시",
-        "앨리스", "비사문천", "유룽", "라미아", "바포멧",
-        "요시츠네", "지국천", "네코쇼군", "미트라스", "이시스",
-        "티타니아", "파르바티", "지크프리트", "킹프로스트", "릴리스",
-        "아누비스", "파즈스", "야마타노오로치", "벨페고르"
+        "광목천", "네코쇼군", "노른", "년수", "도미니온", "디오니소스",
+        "라미아", "릴리스", "미트라스", "바포멧", "벨페고르",
+        "비사문천", "비슈누", "서큐버스", "수르트", "스라오샤",
+        "시바", "아누비스", "앨리스", "야노식", "야마타노오로치",
+        "야메노우즈메", "요시츠네", "오우쿠시누시", "유룽", "이시스",
+        "지국천", "지크프리트", "체르노보그", "킹프로스트", "티타니아",
+        "파르바티", "파즈스"
       ];
       
 
