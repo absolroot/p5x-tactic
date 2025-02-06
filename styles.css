@@ -46,7 +46,7 @@ body {
   }
   
   .card {
-    background: #FFFFFF;
+    background: linear-gradient(to bottom, #a30e1d 40px, #f5f5f5 24px);
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
     padding: 16px 24px 20px 24px; /* 상우하좌 */
@@ -55,8 +55,10 @@ body {
   
   .card h2 {
     font-size : 15px;
-    margin-top: 0;
-    margin-bottom: 0; 
+    margin-top: -7px;
+    margin-bottom: 8px;
+    color: #FFFFFF;
+    font-weight: 500;
   }
   .card label {
     margin-top : 0px;
@@ -73,7 +75,7 @@ body {
   }
 
   .turn-container {
-    background: #FFFFFF;
+    background: linear-gradient(to top, #a30e1d 2px, #f5f5f5 2px);
     border-radius: 2px;
     box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
     padding: 12px 16px 0px 16px;
@@ -118,7 +120,7 @@ body {
     grid-template-columns: 2fr 2fr 2fr 1fr;
     gap: 16px;
     align-items: center;
-    background: #FFFFFF;
+    background: #F5F5F5;
     margin-left: 0; /* 좌측 margin 제거 */
     min-width: 0; 
   }
@@ -289,7 +291,7 @@ body {
   }
 
   .weapon-container {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
 
   .wonder-weapon-input {
@@ -368,6 +370,7 @@ body {
     object-fit: cover;
     border: 2px solid #DFE1E6;
     transition: all 0.2s ease;
+    box-shadow: 4px 4px 0px rgba(255, 0, 0, 0.7);
   }
 
   .character-text-circle {
@@ -384,6 +387,7 @@ body {
     word-break: keep-all;
     padding: 8px;
     box-sizing: border-box;
+    box-shadow: 4px 4px 0px rgba(255, 0, 0, 0.7);
   }
 
 
@@ -400,13 +404,15 @@ body {
     position: absolute;
     bottom: -5px;
     left: -5px;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     z-index: 1;
+    filter: drop-shadow(0 0 1px rgb(0, 0, 0))
+            drop-shadow(0 0 1px rgb(0, 0, 0));
   }
 
   .character-container:hover .character-img {
-    border-color: #4C9AFF;
+    border-color: #bd1f1f;
     transform: scale(1.05);
   }
 
@@ -434,11 +440,13 @@ body {
   }
 
   .persona-img {
-    width: 80px;
+    width: 75px;
     height: 90px;
     transform: rotate(10deg);
     object-fit: contain;
     transition: all 0.2s ease;
+    filter: drop-shadow(0 0 1px rgb(255, 0, 0))
+            drop-shadow(0 0 2px rgb(255, 0, 0)); 
   }
 
   .persona-container:hover .persona-img {
@@ -503,6 +511,8 @@ body {
     rotate : 0deg;
     object-fit: contain;
     z-index: 1;
+    filter: drop-shadow(0 0 1px white)
+            drop-shadow(0 0 1px white)
   }
 
   .middle-contianer {
@@ -528,6 +538,7 @@ body {
     display: flex;
     gap: 0;
     z-index: 1;
+    filter: drop-shadow(0 0 2px rgb(0, 0, 0))
   }
 
   /* 계시 이미지 스타일 */
