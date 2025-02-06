@@ -4,454 +4,15 @@
   <meta charset="UTF-8">
   <title>페르소나5X 택틱</title>
   <link rel="icon" type="image/x-icon" href="./img/ui/favicon.ico">
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-      background: url("./img/ui/insidebg.jpg") repeat center center;
-      background-size: cover;
-      color: #172B4D;
-      margin: 0;
-      padding: 20px;
-      line-height: 1.5;
-    }
-
-    .container h1 {
-      color:#FFFFFF
-    }
-    
-    select, input[type="text"] {
-      border: 2px solid #DFE1E6;
-      border-radius: 3px;
-      padding: 8px;
-      font-size: 13px;
-      transition: border-color 0.2s ease;
-    }
-    
-    select:hover, input[type="text"]:hover {
-      border-color: #B3BAC5;
-    }
-    
-    select:focus, input[type="text"]:focus {
-      border-color: #4C9AFF;
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
-    }
-    
-    .container {
-      width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      box-sizing: border-box;
-      position: relative;
-    }
-    
-    #top-container {
-      display: grid;
-      grid-template-columns: 1fr 3fr; /* 두 칼럼으로 분할 */
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-    
-    .card {
-      background: #FFFFFF;
-      border-radius: 2px;
-      box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
-      padding: 16px 24px 20px 24px; /* 상우하좌 */
-      height: fit-content; /* 내용물 높이에 맞춤 */
-    }
-    
-    .card h2 {
-      font-size : 15px;
-      margin-top: 0;
-      margin-bottom: 0; 
-    }
-    .card label {
-      margin-top : 0px;
-      padding : 0px;
-      font-size : 13px;
-    }
-
-        
-    #turns {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      grid-auto-flow: row;
-    }
-
-    .turn-container {
-      background: #FFFFFF;
-      border-radius: 2px;
-      box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
-      padding: 12px 16px 0px 16px;
-      margin-bottom: 0px;
-      position: relative;
-      width: 560px;
-    }
-    
-    .turn-header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0px;
-    }
-    
-    .turn-header {
-      cursor: grab;
-      font-size: 16px;
-      font-weight: 500;
-      margin-bottom: 0px;
-      color: #172B4D;
-    }
-    
-    .turn-header:active {
-      cursor: grabbing;
-    }
-    
-    .actions {
-      margin-top : 8px;
-      margin-left: 0; /* 좌측 margin 제거 */
-      padding-left: 0; /* 패딩도 제거 */
-      list-style-type: none; /* 기본 리스트 스타일 제거 */
-    }
-
-    .action-item {
-      cursor: grab;
-      padding: 2px;
-      border: 1px solid #DFE1E6;
-      border-radius: 3px;
-      margin-bottom: 4px;
-      display: grid;
-      grid-template-columns: 2fr 2fr 2fr 1fr;
-      gap: 16px;
-      align-items: center;
-      background: #FFFFFF;
-      margin-left: 0; /* 좌측 margin 제거 */
-      min-width: 0; 
-    }
-    
-    .action-item:hover {
-      background: #F4F5F7;
-    }
-    
-    .add-action {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #b42f1d;
-      color: #FFFFFF;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13.5px;
-      transition: background-color 0.2s ease;
-    }
-    
-    .add-action:hover {
-      background: #0065FF;
-    }
-    
-    .skill-group {
-      padding: 8px;
-      border-radius: 3px;
-      font-size: 12px;
-    }
-    
-    .skill-group label {
-      cursor: pointer;
-    }
-    
-    .skill-group input[type="radio"] {
-      cursor: pointer;
-    }
-    
-    /* 메모 입력 필드 스타일 */
-    .action-memo {
-      width: 160px;
-      padding: 8px 12px;
-      border: 1px solid #ffffff;
-      border-radius: 3px;
-      font-size: 14px;
-      transition: all 0.2s ease;
-      background-color: transparent;
-    }
-    
-    .action-memo:hover {
-      border-color: #ffffff;
-    }
-    
-    .action-memo:focus {
-      border-color: #4C9AFF;
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
-    }
-    
-    .delete-action {
-      color: #979797;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      padding: 4px 8px;
-      margin-left: auto; /* 우측 정렬 */
-      transition: color 0.2s ease;
-    }
-    
-    .delete-action:hover {
-      color: #DE350B;
-    }
-    
-    .wonder-setting {
-      display: grid;
-      gap: 16px;
-    }
-    
-    .wonder-setting label {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    #party-selection {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      
-    }
-    
-    .party-member {
-      display: flex;
-      gap: 24px; /* 그룹 간의 간격 */
-      align-items: center;
-      padding: 0px 0px 16px;
-      border-bottom: 1px solid #DFE1E6;
-    }
-    
-    .party-member:last-child  {
-      border-bottom: none;
-    }
-    
-    /* 라벨과 입력칸을 감싸는 그룹 스타일 */
-    .input-group {
-      display: flex;
-      align-items: center;
-      gap: 8px; /* 라벨과 입력칸 사이의 간격 */
-    }
-
-    /* 각 요소의 너비 조정 */
-    .input-group label {
-      white-space: nowrap; /* 라벨 텍스트 줄바꿈 방지 */
-      color: #172B4D;
-      font-weight: 500;
-    }
-
-    .party-name-input {
-      width: 120px;
-      padding : 8px;
-      border: 2px solid #DFE1E6;
-      border-radius: 3px;
-      font-size: 14px;
-    }
-
-    .party-order, .party-ritual {
-      width: 45px;
-    }
-
-    .main-revelation, .sub-revelation {
-      width: 100px;
-    }
-
-    .action-buttons {
-      display: flex;
-      gap: 8px;
-      margin-left: auto;
-    }
-
-    .clone-action {
-      color: #0e1c38;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      padding: 4px 8px;
-      transition: color 0.2s ease;
-    }
-    
-    .clone-action:hover {
-      color: #0065FF;
-    }
-
-    .persona-container {
-      display: grid;
-      gap: 8px;
-    }
-
-    .persona-skill-input {
-      width : 168px;
-      margin-left: auto;
-      gap: 0px;
-    }
-
-    .weapon-container {
-      margin-bottom: 16px;
-    }
-
-    .wonder-weapon-input {
-      width: 168px;
-      padding: 8px;
-      border: 2px solid #DFE1E6;
-      border-radius: 3px;
-      font-size: 14px;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 0; /* 기존 마진 제거 */
-    }
-    .logo-container img {
-      width: 180px; 
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* input 컨테이너 스타일 */
-    .input-container {
-      position: relative;
-      display: inline-block;
-    }
-
-    /* clear 버튼 스타일 */
-    .clear-input {
-      position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: none;
-      color: #6B778C;
-      cursor: pointer;
-      padding: 4px;
-      font-size: 14px;
-      display: none; /* 기본적으로는 숨김 */
-    }
-
-    .clear-input:hover {
-      color: #172B4D;
-    }
-
-    /* input에 값이 있을 때만 clear 버튼 표시 */
-    .input-container input:not([value=""]) ~ .clear-input {
-      display: block;
-    }
-
-    /* datalist가 있는 input의 경우 clear 버튼이 dropdown 화살표와 겹치지 않도록 */
-    input[list] {
-      padding-right: 30px;
-    }
-
-    .party-images {
-      display: flex;
-      gap: 10px;
-      margin-top: 0px;
-      position: relative;
-    }
-
-    .character-container {
-      position: relative;
-      width: 80px;
-      height: 80px;
-    }
-
-    .character-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #DFE1E6;
-      transition: all 0.2s ease;
-    }
-
-    .order-img {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      width: 72px;
-      height: 24px;
-      z-index: 1;
-    }
-
-    .ritual-img {
-      position: absolute;
-      bottom: -5px;
-      left: -5px;
-      width: 40px;
-      height: 40px;
-      z-index: 1;
-    }
-
-    .character-container:hover .character-img {
-      border-color: #4C9AFF;
-      transform: scale(1.05);
-    }
-
-    .party-images-container {
-      margin: 16px 0px 16px 0px;
-      /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);*/
-    }
-
-    /* 비활성화된 드롭다운 스타일 */
-    select:disabled {
-      background-color: #E9ECEF;
-      cursor: not-allowed;
-    }
-
-    /* 액션 아이템 내의 드롭다운 스타일 */
-    .action-character, .action-skill, .wonder-persona-select, .action-memo{
-      background-color: transparent;
-      border: none !important; /* !important로 우선순위 높임 */
-      padding: 8px;
-      font-size: 13px;
-    }
-
-    /* 로고와 버튼을 포함하는 헤더 영역 */
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .top-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .export-import-btn {
-      padding: 8px 16px;
-      color: white;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 13px;
-      background: url("./img/ui/newstab.png") no-repeat center center;
-      background-size: cover;
-      width: 219px;
-      height: auto;
-    }
-
-    .export-import-btn:hover {
-      background: url("./img/ui/newstabon.png") no-repeat center center;
-      background-size: cover;
-      width: 219px;
-    }
-
-
-  </style>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+    <!-- 데이터 파일들 -->
+    <script src="./data/characters.js"></script>
+    <script src="./data/revelations.js"></script>
+    <script src="./data/rituals.js"></script>
+    <script src="./data/weapons.js"></script>
+    <script src="./data/persona.js"></script>
+    <script src="./data/skills.js"></script>
 </head>
 <body>
   <div class="container">
@@ -459,12 +20,13 @@
       <div class="logo-container">
         <img src="./img/logo/P5Xlogo.png" alt="Persona5X Logo" />
         <div style="display: flex; align-items: center;">
-          <h1>페르소나5X 택틱</h1>
+          <h1>페르소나5X 택틱 메이커</h1>
         </div>
       </div>
       <div class="top-buttons">
         <button class="export-import-btn" onclick="exportData()">내보내기</button>
         <button class="export-import-btn" onclick="importData()">가져오기</button>
+        <button class="export-import-btn" onclick="shareURL()">공유하기</button>
       </div>
     </div>
     
@@ -711,8 +273,11 @@
     </div>
     
     <!-- 파티 이미지를 위한 새로운 컨테이너 -->
-    <div class="party-images-container">
-      <div class="party-images"></div>
+    <div class = "middle-contianer">
+      <div class="party-images-container">
+        <div class="party-images"></div>
+      </div>
+      <div class="madeby">by 루트</div>
     </div>
 
     <!-- 턴 영역 (6턴) -->
@@ -744,233 +309,204 @@
           ]
         });
       }
-      
-      // 캐릭터 목록 데이터
-      const characterList = {
-        mainParty: [
-          "렌", "루우나", "루페르", "레오", "류지",
-          "리코·매화", "마사키", "마코토", "미나미", "모르가나",
-          "모토하", "모토하·여름", "몽타뉴", "몽타뉴·백조", "슌",
-          "세이지", "안", "아야카", "야오링", "야오링·사자무",
-          "원더", "유스케", "유이 YUI", "유키미", "카스미",
-          "키라", "키요시", "토모코", "토모코·여름", "토시야",
-          "하루", "하루나", "치즈코"
-        ],
-        supportParty: [
-          "리코", "미유", "유우미", "카요", "후타바"
-        ]
-      };
 
-      // 캐릭터 데이터에 이미지와 색상 정보 추가
-      const characterData = {
-        "원더": {
-          image: "./img/characters/원더.webp",
-          color: "#8B0000"
-        },
-        "아야카": {
-          image: "./img/characters/아야카.webp",
-          color: "#f3e966"
-        },
-        "리코·매화": {
-          image: "./img/characters/리코매화.webp",
-          color: "#c32233"
-        },
-        "하루나": {
-          image: "./img/characters/하루나.webp",
-          color: "#ff1493"
-        },
-        "렌": {
-          image: "./img/characters/렌.webp",
-          color: "#212529"
-        },
-        "마사키": {
-          image: "./img/characters/마사키.webp",
-          color: "#3cf2ff"
-        },
-        "미나미": {
-          image: "./img/characters/미나미.webp",
-          color: "#f7cd80"
-        },
-        "유이 YUI": {
-          image: "./img/characters/유이YUI.webp",
-          color: "#8cd1cb"
-        },
-        "모르가나": {
-          image: "./img/characters/모르가나.webp",
-          color: "#111111"
-        },
-        "유스케": {
-          image: "./img/characters/유스케.webp",
-          color: "#00bfff"
-        },
-        "토모코·여름": {
-          image: "./img/characters/토모코여름.webp",
-          color: "#cc5995"
-        },
-        "모토하·여름": {
-          image: "./img/characters/모토하여름.webp",
-          color: "#1498fd"
-        },
-        "마코토": {
-          image: "./img/characters/마코토.webp",
-          color: "#000080"
-        },
-        "하루": {
-          image: "./img/characters/하루.webp",
-          color: "#800080"
-        },
-        "치즈코": {
-          image: "./img/characters/치즈코.webp",
-          color: "#2680a7"
-        },
-        "유키미": {
-          image: "./img/characters/유키미.webp",
-          color: "#642efe"
-        },
-        "레오": {
-          image: "./img/characters/레오.webp",
-          color: "#01dfd7"
-        },
-        "류지": {
-          image: "./img/characters/류지.webp",
-          color: "#ffff00"
-        },
-        "루우나": {
-          image: "./img/characters/루우나.webp",
-          color: "#ff69b4"
-        },
-        "루페르": {
-          image: "./img/characters/루페르.webp",
-          color: "#4b0082"
-        },
-        "리코": {
-          image: "./img/characters/리코.webp",
-          color: "#dc143c"
-        },
-        "모토하": {
-          image: "./img/characters/모토하.webp",
-          color: "#1e90ff"
-        },
-        "몽타뉴": {
-          image: "./img/characters/몽타뉴.webp",
-          color: "#483d8b"
-        },
-        "몽타뉴·백조": {
-          image: "./img/characters/몽타뉴백조.webp",
-          color: "#483d8b"
-        },
-        "미유": {
-          image: "./img/characters/미유.webp",
-          color: "#ff1493"
-        },
-        "세이지": {
-          image: "./img/characters/세이지.webp",
-          color: "#008080"
-        },
-        "슌": {
-          image: "./img/characters/슌.webp",
-          color: "#4169e1"
-        },
-        "안": {
-          image: "./img/characters/안.webp",
-          color: "#ff0000"
-        },
-        "야오링": {
-          image: "./img/characters/야오링.webp",
-          color: "#ff4500"
-        },
-        "야오링·사자무": {
-          image: "./img/characters/야오링사자무.png",
-          color: "#ff4500"
-        },
-        "유우미": {
-          image: "./img/characters/유우미.webp",
-          color: "#9370db"
-        },
-        "카스미": {
-          image: "./img/characters/카스미.webp",
-          color: "#9932cc"
-        },
-        "카요": {
-          image: "./img/characters/카요.webp",
-          color: "#8b008b"
-        },
-        "키라": {
-          image: "./img/characters/키라.webp",
-          color: "#ff69b4"
-        },
-        "키요시": {
-          image: "./img/characters/키요시.webp",
-          color: "#2e8b57"
-        },
-        "토모코": {
-          image: "./img/characters/토모코.webp",
-          color: "#cc5995"
-        },
-        "토시야": {
-          image: "./img/characters/토시야.webp",
-          color: "#4682b4"
-        },
-        "후타바": {
-          image: "./img/characters/후타바.webp",
-          color: "#32cd32"
-        }
-      };
 
-      // 스킬 목록"
-      const skillList = ["스킬1", "스킬2", "스킬3", "HIGHLIGHT", "총격", "근접", "방어", "아이템"];
-      
-      // 계시 데이터 정의
-      const revelationData = {
-        main: {
-          "창조": ["우려", "화해"],
-          "깨달음": ["진리", "주권", "방해"],
-          "여정": ["주권", "풍요", "방해"],
-          "성장": ["화려", "변환", "힘"],
-          "지혜": ["억압", "환희", "미덕"],
-          "전념": ["화려", "용맹", "사랑"],
-          "신념": ["평화", "사랑"],
-          "신뢰": ["변환", "힘", "풍요"],
-          "조화": ["승리", "힘", "진리"],
-          "결심": ["미덕", "직책"],
-          "수락": ["평화", "분쟁", "사랑"],
-          "자유": ["개선", "좌절"],
-          "진정성": ["환희", "직책"]
-        }
-      };
+      // 의식 레벨에 맞는 패턴을 찾는 함수 수정
+      function findPatternForLevel(characterName, ritualLevel) {
+        const characterPatterns = ritualPatterns[characterName];
+        if (!characterPatterns) return null;
 
-      const wonderWeapons = [
-        "천상의 별",
-        "태고의 역장",
-        "메커니컬 심판자",
-        "작열의 연옥",
-        "야수의 이빨",
-        "크리스탈 트레저",
-        "망자의 눈",
-        "메아리의 절규",
-        "7일의 불꽃"
-      ];
-      
-      // 페르소나 목록 데이터 추가
-      const personaList = [
-        "광목천", "네코쇼군", "노른", "년수", "도미니온", "디오니소스",
-        "라미아", "릴리스", "미트라스", "바포멧", "벨페고르",
-        "비사문천", "비슈누", "서큐버스", "수르트", "스라오샤",
-        "시바", "아누비스", "앨리스", "야노식", "야마타노오로치",
-        "야메노우즈메", "요시츠네", "오우쿠시누시", "유룽", "이시스",
-        "지국천", "지크프리트", "체르노보그", "킹프로스트", "티타니아",
-        "파르바티", "파즈스"
-      ];
-      
+        const matchingPattern = characterPatterns.find(patternData => {
+          if (patternData.level.includes('-')) {
+            const [min, max] = patternData.level.split('-').map(Number);
+            const level = Number(ritualLevel);
+            return level >= min && level <= max;
+          } else {
+            return patternData.level === ritualLevel;
+          }
+        });
 
+        return matchingPattern ? matchingPattern.pattern : null;
+      }
       
       // DOM이 로드되면 초기 설정
       document.addEventListener("DOMContentLoaded", () => {
-        setupWonderConfig();
-        setupPartySelection();
-        updateAutoActions(); // 초기 자동 액션 반영
-        updatePartyImages(); // 초기 이미지 설정
-        renderTurns();       // 화면 렌더링
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedData = urlParams.get('data');
+        
+        if (sharedData) {
+          try {
+            // LZ-string으로 압축된 데이터 해제
+            const decompressedData = LZString.decompressFromEncodedURIComponent(sharedData);
+            const decodedData = JSON.parse(decompressedData);
+            
+            // 데이터 적용
+            wonderPersonas = decodedData.w;
+            
+            // 원더 설정 UI 업데이트
+            const wonderInputs = document.querySelectorAll(".wonder-persona-input");
+            wonderInputs.forEach((input, idx) => {
+              input.value = wonderPersonas[idx] || "";
+            });
+
+            // 원더 무기 설정
+            const weaponInput = document.querySelector(".wonder-weapon-input");
+            if (decodedData.weapon) {
+              weaponInput.value = decodedData.weapon;
+            }
+
+            // 페르소나 스킬 설정
+            const skillInputs = document.querySelectorAll(".persona-skill-input");
+            if (decodedData.personaSkills) {
+              skillInputs.forEach((input, idx) => {
+                input.value = decodedData.personaSkills[idx] || "";
+              });
+            }
+            
+            // partyMembers 데이터 복원 및 UI 업데이트
+            decodedData.p.forEach((p, idx) => {
+              partyMembers[idx].name = p.n;
+              partyMembers[idx].order = p.o;
+              partyMembers[idx].ritual = p.r;
+              
+              // 파티원 이름 입력 필드 업데이트
+              const partyDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
+              if (partyDiv) {
+                const nameInput = partyDiv.querySelector(".party-name-input");
+                const orderSelect = partyDiv.querySelector(".party-order");
+                const ritualSelect = partyDiv.querySelector(".party-ritual");
+                const mainRevSelect = partyDiv.querySelector(".main-revelation");
+                const subRevSelect = partyDiv.querySelector(".sub-revelation");
+                
+                if (nameInput) nameInput.value = p.n || "";
+                if (orderSelect) orderSelect.value = p.o || "";
+                if (ritualSelect) ritualSelect.value = p.r || "0";
+                
+                // 계시 설정
+                if (mainRevSelect && p.mainRev) {
+                  mainRevSelect.value = p.mainRev;
+                  // 주 계시가 선택되었을 때 일월성진 활성화
+                  if (p.mainRev && revelationData.main[p.mainRev]) {
+                    subRevSelect.disabled = false;
+                    // 일월성진 옵션 설정
+                    subRevSelect.innerHTML = '<option value="">-</option>';
+                    revelationData.main[p.mainRev].forEach(subRev => {
+                      const opt = document.createElement("option");
+                      opt.value = subRev;
+                      opt.textContent = subRev;
+                      subRevSelect.appendChild(opt);
+                    });
+                    // 일월성진 값 설정
+                    if (p.subRev) {
+                      subRevSelect.value = p.subRev;
+                    }
+                  }
+                }
+                
+                // 원더일 경우 의식과 계시 비활성화
+                if (p.n === "원더") {
+                  if (ritualSelect) {
+                    ritualSelect.disabled = true;
+                    ritualSelect.value = "0";
+                  }
+                  if (mainRevSelect) mainRevSelect.disabled = true;
+                  if (subRevSelect) subRevSelect.disabled = true;
+                }
+              }
+            });
+            
+            // 턴 데이터 복원
+            turns = decodedData.t;
+            
+            // UI 기본 설정
+            setupWonderConfig();
+            setupPartySelection();
+
+            // 계시값 재설정
+            decodedData.p.forEach((p, idx) => {
+              const partyDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
+              if (partyDiv && p.mainRev) {
+                const mainRevSelect = partyDiv.querySelector(".main-revelation");
+                const subRevSelect = partyDiv.querySelector(".sub-revelation");
+                
+                if (mainRevSelect) {
+                  mainRevSelect.value = p.mainRev;
+                  
+                  if (revelationData.main[p.mainRev]) {
+                    subRevSelect.disabled = false;
+                    subRevSelect.innerHTML = '<option value="">-</option>';
+                    revelationData.main[p.mainRev].forEach(subRev => {
+                      const opt = document.createElement("option");
+                      opt.value = subRev;
+                      opt.textContent = subRev;
+                      subRevSelect.appendChild(opt);
+                    });
+                    
+                    if (p.subRev) {
+                      subRevSelect.value = p.subRev;
+                    }
+                  }
+                }
+              }
+            });
+
+            updatePartyImages();
+            
+            // 턴 렌더링 (자동 액션 업데이트 전)
+            renderTurns();
+            
+            // 각 턴의 액션 데이터 복원
+            turns.forEach((turn, turnIndex) => {
+              const turnContainer = document.querySelector(`.turn-container[data-turn-index="${turnIndex}"]`);
+              if (!turnContainer) return;
+
+              const actionsList = turnContainer.querySelector('.actions');
+              if (!actionsList) return;
+
+              turn.actions.forEach((action, actionIndex) => {
+                const actionItem = actionsList.children[actionIndex];
+                if (!actionItem) return;
+
+                // 캐릭터 선택
+                const charSelect = actionItem.querySelector('.action-character');
+                if (charSelect) {
+                  charSelect.value = action.character;
+                }
+
+                // 원더 페르소나 또는 스킬 선택
+                if (action.character === "원더") {
+                  const personaSelect = actionItem.querySelector('.wonder-persona-select');
+                  if (personaSelect) {
+                    personaSelect.value = action.wonderPersona;
+                  }
+                } else {
+                  const skillSelect = actionItem.querySelector('.action-skill');
+                  if (skillSelect) {
+                    skillSelect.value = action.action;
+                  }
+                }
+
+                // 메모 입력
+                const memoInput = actionItem.querySelector('.action-memo');
+                if (memoInput) {
+                  memoInput.value = action.memo || "";
+                }
+              });
+            });
+            
+            // 마지막으로 자동 액션 업데이트
+            updateAutoActions();
+            
+          } catch (error) {
+            console.error('Invalid shared data:', error);
+          }
+        } else {
+          setupWonderConfig();
+          setupPartySelection();
+          updateAutoActions();
+          updatePartyImages();
+          renderTurns();
+        }
       });
       
       /* ========== 원더 설정 ========== */
@@ -1024,6 +560,7 @@
         // 업데이트 함수를 디바운스 처리
         const debouncedUpdate = debounce(() => {
           updateAutoActions();
+          updatePartyImages();
           renderTurns();
         }, 300);
         
@@ -1066,15 +603,48 @@
           
           // input 이벤트 리스너 수정
           input.addEventListener("change", (e) => {
-            wonderPersonas[idx] = e.target.value;
+            const oldPersona = wonderPersonas[idx];
+            const newPersona = e.target.value;
+            wonderPersonas[idx] = newPersona;
+            
+            // 턴 데이터에서 해당 페르소나 업데이트
+            turns.forEach(turn => {
+              turn.actions.forEach(action => {
+                if (action.character === "원더" && action.wonderPersona === oldPersona) {
+                  action.wonderPersona = newPersona || `페르소나${idx + 1}`;
+                }
+              });
+            });
+            
             debouncedUpdate();
           });
 
           // input 직접 입력 이벤트도 추가
           input.addEventListener("input", (e) => {
-            wonderPersonas[idx] = e.target.value;
+            const oldPersona = wonderPersonas[idx];
+            const newPersona = e.target.value;
+            wonderPersonas[idx] = newPersona;
+            
+            // 턴 데이터에서 해당 페르소나 업데이트
+            turns.forEach(turn => {
+              turn.actions.forEach(action => {
+                if (action.character === "원더" && action.wonderPersona === oldPersona) {
+                  action.wonderPersona = newPersona || `페르소나${idx + 1}`;
+                }
+              });
+            });
+            
             debouncedUpdate();
           });
+        });
+
+        // 무기 입력 필드 이벤트 리스너 수정
+        weaponInput.addEventListener("change", (e) => {
+          updatePartyImages();
+        });
+
+        weaponInput.addEventListener("input", (e) => {
+          updatePartyImages();
         });
       }
       
@@ -1135,6 +705,14 @@
                 subRevSelect.disabled = true;
                 subRevSelect.innerHTML = '<option value="">-</option>';
               }
+              
+              // 파티 이미지 업데이트 추가
+              updatePartyImages();
+            });
+            //일월성진 변경 시 
+            subRevSelect.addEventListener("change", (e) => {
+              // 파티 이미지 업데이트 추가
+              updatePartyImages();
             });
           }
 
@@ -1168,7 +746,16 @@
             clearBtn.textContent = "×";
             clearBtn.addEventListener("click", () => {
               input.value = "";
+              const oldName = partyMembers[index].name;
               partyMembers[index].name = "";
+              
+              // 해당 캐릭터의 자동 액션 삭제
+              turns.forEach(turn => {
+                turn.actions = turn.actions.filter(action => 
+                  action.type === 'manual' || action.character !== oldName
+                );
+              });
+              
               updateAutoActions();
               updatePartyImages();
               renderTurns();
@@ -1185,8 +772,19 @@
             
             // input 이벤트 리스너 수정
             input.addEventListener("change", (e) => {
+              const oldName = partyMembers[index].name;
               const selectedName = e.target.value;
+              const currentRitual = ritualSelect.value;
               partyMembers[index].name = selectedName;
+              
+              // 턴 데이터에서 해당 캐릭터 업데이트
+              turns.forEach(turn => {
+                turn.actions.forEach(action => {
+                  if (action.character === oldName) {
+                    action.character = selectedName || "";
+                  }
+                });
+              });
               
               // 원더일 경우 의식과 주 계시 비활성화
               if (selectedName === "원더") {
@@ -1201,9 +799,74 @@
               } else {
                 ritualSelect.disabled = false;
                 mainRevSelect.disabled = false;
+                
+                // 캐릭터의 기본 계시 값 설정
+                if (characterData[selectedName]) {
+                  const charData = characterData[selectedName];
+                  
+                  // 주 계시 설정
+                  if (charData.main_revelation) {
+                    mainRevSelect.value = charData.main_revelation;
+                    
+                    // 일월성진 옵션 설정
+                    if (revelationData.main[charData.main_revelation]) {
+                      subRevSelect.disabled = false;
+                      subRevSelect.innerHTML = '<option value="">-</option>';
+                      revelationData.main[charData.main_revelation].forEach(subRev => {
+                        const opt = document.createElement("option");
+                        opt.value = subRev;
+                        opt.textContent = subRev;
+                        subRevSelect.appendChild(opt);
+                      });
+                      
+                      // 일월성진 값 설정
+                      if (charData.sub_revelation) {
+                        subRevSelect.value = charData.sub_revelation;
+                      }
+                    }
+                  }
+                }
+                
+                // 새로 선택된 캐릭터의 의식 패턴이 있는지 확인
+                if (ritualPatterns[selectedName]) {
+                  const pattern = findPatternForLevel(selectedName, currentRitual);
+                  if (pattern) {
+                    turns.forEach((turn, turnIndex) => {
+                        // 해당 캐릭터의 기존 자동 액션 제거
+                        turn.actions = turn.actions.filter(action => 
+                          !(action.type === 'auto' && action.character === selectedName)
+                        );
+                        
+                        // 해당 턴의 패턴이 있고 빈 배열이 아닌 경우에만 액션 추가
+                        if (pattern[turnIndex] && pattern[turnIndex].length > 0) {
+                          pattern[turnIndex].forEach(actionData => {
+                            if (actionData.order === 0) {
+                              turn.actions.unshift({
+                                type: 'auto',
+                                character: selectedName,
+                                action: actionData.type,
+                                wonderPersona: "",
+                                memo: ""
+                              });
+                            } else {
+                              turn.actions.push({
+                                type: 'auto',
+                                character: selectedName,
+                                action: actionData.type,
+                                wonderPersona: "",
+                                memo: ""
+                              });
+                            }
+                        });
+                      }
+                    });
+                  }
+                }
+                else{
+                  updateAutoActions();
+                }
               }
-              
-              updateAutoActions();
+              //updateAutoActions();
               updatePartyImages();
               renderTurns();
             });
@@ -1211,9 +874,10 @@
             // input 직접 입력 이벤트도 추가
             input.addEventListener("input", (e) => {
               const selectedName = e.target.value;
+              const currentRitual = ritualSelect.value;
               partyMembers[index].name = selectedName;
               
-              // 원더일 경우 의식과 주 계시 비활성화
+              // 원더일 경우 의식과 계시 비활성화
               if (selectedName === "원더") {
                 ritualSelect.disabled = true;
                 ritualSelect.value = "0";
@@ -1226,6 +890,42 @@
               } else {
                 ritualSelect.disabled = false;
                 mainRevSelect.disabled = false;
+                
+                // 새로 선택된 캐릭터의 의식 패턴이 있는지 확인
+                if (ritualPatterns[selectedName]) {
+                  const pattern = findPatternForLevel(selectedName, currentRitual);
+                  if (pattern) {
+                    turns.forEach((turn, turnIndex) => {
+                        // 해당 캐릭터의 기존 자동 액션 제거
+                        turn.actions = turn.actions.filter(action => 
+                          !(action.type === 'auto' && action.character === selectedName)
+                        );
+                        
+                        // 해당 턴의 패턴이 있고 빈 배열이 아닌 경우에만 액션 추가
+                        if (pattern[turnIndex] && pattern[turnIndex].length > 0) {
+                          pattern[turnIndex].forEach(actionData => {
+                            if (actionData.order === 0) {
+                              turn.actions.unshift({
+                                type: 'auto',
+                                character: selectedName,
+                                action: actionData.type,
+                                wonderPersona: "",
+                                memo: ""
+                              });
+                            } else {
+                              turn.actions.push({
+                                type: 'auto',
+                                character: selectedName,
+                                action: actionData.type,
+                                wonderPersona: "",
+                                memo: ""
+                              });
+                            }
+                        });
+                      }
+                    });
+                  }
+                }
               }
               
               updateAutoActions();
@@ -1241,32 +941,110 @@
             
             // 다른 멤버의 순서 조정
             if (newOrder !== "-") {
-              partyMembers.forEach(pm => {
-                if (pm.index !== index && pm.order === newOrder) {
-                  pm.order = oldOrder;
-                  const otherSelect = document.querySelector(
-                    `.party-member[data-index="${pm.index}"] .party-order`
-                  );
-                  if (otherSelect) otherSelect.value = oldOrder;
-                }
-              });
+              const swappedMember = partyMembers.find(pm => pm.index !== index && pm.order === newOrder);
+              if (swappedMember) {
+                swappedMember.order = oldOrder;
+                const otherSelect = document.querySelector(
+                  `.party-member[data-index="${swappedMember.index}"] .party-order`
+                );
+                if (otherSelect) otherSelect.value = oldOrder;
+              }
             }
             
             partyMembers[index].order = newOrder;
-            updateAutoActions();
+            
+            // 턴 데이터의 순서 업데이트
+            turns.forEach(turn => {
+              // 1. 순서 변경이 불가한 액션들 분리
+              const fixedActions = turn.actions.filter(action => 
+                action.action === 'HIGHLIGHT' || 
+                action.action === 'ONE MORE' ||
+                partyMembers.find(pm => pm.name === action.character)?.index === 4
+              );
+              
+              // 2. 순서 변경이 가능한 액션들 분리
+              const sortableActions = turn.actions.filter(action => 
+                !fixedActions.includes(action)
+              );
+              
+              // 3. 파티 순서대로 정렬
+              const sortedParty = partyMembers
+                .filter(pm => pm.name !== "" && pm.index !== 4)  // 해명 괴도 제외
+                .sort((a, b) => {
+                  if (a.order === "-") return 1;
+                  if (b.order === "-") return -1;
+                  return parseInt(a.order, 10) - parseInt(b.order, 10);
+                });
+              
+              // 4. 순서 변경이 가능한 액션들을 파티 순서대로 재정렬
+              const sortedActions = [];
+              sortedParty.forEach(member => {
+                // 해당 캐릭터의 모든 액션을 순서대로 가져옴
+                const characterActions = sortableActions.filter(a => a.character === member.name);
+                sortedActions.push(...characterActions);  // 연속된 행동 순서 유지
+              });
+              
+              // 5. 최종 액션 배열 구성
+              // 고정 액션들은 원래 위치 유지, 정렬된 액션들 추가
+              const finalActions = [];
+              turn.actions.forEach(action => {
+                if (fixedActions.includes(action)) {
+                  finalActions.push(action);
+                }
+              });
+              finalActions.push(...sortedActions);
+              
+              turn.actions = finalActions;
+            });
+            
             updatePartyImages();
             renderTurns();
           });
 
-          // 의식 변경 시 이벤트
+          // 의식 변경 이벤트 리스너 수정
           ritualSelect.addEventListener("change", (e) => {
             const newRitual = e.target.value;
+            const characterName = partyMembers[index].name;
             partyMembers[index].ritual = newRitual;
             
-            // 의식 변경 시에도 파티 이미지 업데이트
+            if (ritualPatterns[characterName]) {
+              const pattern = findPatternForLevel(characterName, newRitual);
+              if (pattern) {
+                turns.forEach((turn, turnIndex) => {
+                  // 해당 캐릭터의 기존 자동 액션 제거
+                  turn.actions = turn.actions.filter(action => 
+                    !(action.type === 'auto' && action.character === characterName)
+                  );
+                  
+                  // 해당 턴의 패턴이 있고 빈 배열이 아닌 경우에만 액션 추가
+                  if (pattern[turnIndex] && pattern[turnIndex].length > 0) {
+                    pattern[turnIndex].forEach(actionData => {
+                      if (actionData.order === 0) {
+                        turn.actions.unshift({
+                          type: 'auto',
+                          character: characterName,
+                          action: actionData.type,
+                          wonderPersona: "",
+                          memo: ""
+                        });
+                      } else {
+                        turn.actions.push({
+                          type: 'auto',
+                          character: characterName,
+                          action: actionData.type,
+                          wonderPersona: "",
+                          memo: ""
+                        });
+                      }
+                    });
+                  }
+                });
+                
+                renderTurns();
+              }
+            }
+            
             updatePartyImages();
-            updateAutoActions();
-            renderTurns();
           });
         });
 
@@ -1274,26 +1052,95 @@
       
       /* ========== 자동 액션 업데이트 ========== */
       function updateAutoActions() {
-        // partyMembers 중 index < 4인 파티원 중 name이 있는 멤버만, order 순서대로 정렬
-        const autoParty = partyMembers
-          .filter(pm => pm.index < 4 && pm.name !== "")
-          .sort((a, b) => parseInt(a.order, 10) - parseInt(b.order, 10));
-        
-        // 각 턴에서 기존 자동 액션(type: 'auto')을 제거하고 재생성
+        // URL 파라미터에 data가 있는 경우에만 자동 업데이트를 건너뜀
+     //   if (new URLSearchParams(window.location.search).has('data')) {
+     //     return;
+     //   }
+
         turns.forEach(turn => {
-          // (1) 기존의 'auto' 액션만 제거
-          turn.actions = turn.actions.filter(a => a.type !== 'auto');
+          // 기존 액션들을 유지
+          const existingActions = [...turn.actions];
           
-          // (2) 새로 auto 액션 추가: 파티원 순서대로
-          autoParty.forEach(pm => {
-            turn.actions.push({
-              type: 'auto',
-              character: pm.name,
-              wonderPersona: "",  // 원더 전용
-              action: "",        // 텍스트 입력값은 빈칸
-              memo: ""          // 메모 필드 추가
-            });
+          // 현재 파티 멤버들의 순서대로 정렬된 배열 
+          const sortedParty = partyMembers
+            .filter(pm => pm.name !== "") 
+            .sort((a, b) => parseInt(a.order, 10) - parseInt(b.order, 10));
+
+          // 자동 액션 업데이트
+          let updatedActions = existingActions.map(action => {  // const를 let으로 변경
+            if (action.type === 'manual') {
+              return action;
+            }
+            
+            // 자동 액션의 경우, 해당 캐릭터가 현재 파티에 없으면 제거
+            if (!sortedParty.some(pm => pm.name === action.character)) {
+              return null;
+            }
+            
+            return action;
+          }).filter(action => action !== null);
+
+          // 새로운 파티원에 대한 자동 액션 추가
+          sortedParty.forEach(member => {
+            if (!updatedActions.some(action => action.character === member.name)) {
+              updatedActions.push({
+                type: 'auto',
+                character: member.name,
+                wonderPersona: "",
+                action: "",
+                memo: ""
+              });
+            }
           });
+
+          // 해명괴도의 빈칸 action 삭제
+          updatedActions = updatedActions.filter(action => {
+            const member = partyMembers.find(pm => pm.name === action.character);
+            if (member?.index === 4 && !action.action) {
+              return false;
+            }
+            return true;
+          });
+
+          // 자동 액션 순서 재정렬
+          const finalActions = [];
+          const processedActions = new Set(); // 처리된 액션 처리
+          
+          // order 0인 자동 액션 먼저 추가
+          sortedParty.forEach(member => {
+            const pattern = findPatternForLevel(member.name, member.ritual);
+            const turnIndex = turns.indexOf(turn);
+            if (pattern && pattern[turnIndex]) {
+              const hasOrder0 = pattern[turnIndex].some(action => action.order === 0);
+              if (hasOrder0) {
+                const autoAction = updatedActions.find(
+                  action => action.type === 'auto' && action.character === member.name
+                );
+                if (autoAction && !processedActions.has(autoAction)) {
+                  finalActions.unshift(autoAction);
+                  processedActions.add(autoAction); // 처리된 액션 기록
+                }
+              }
+            }
+          });
+          
+          // 나머지 자동 액션 추가
+          sortedParty.forEach(member => {
+            const autoAction = updatedActions.find(
+              action => action.type === 'auto' && action.character === member.name
+            );
+            if (autoAction && !processedActions.has(autoAction)) {
+              finalActions.push(autoAction);
+              processedActions.add(autoAction); // 처리된 액션 기록
+            }
+          });
+          
+          // 수동 액션 추가
+          updatedActions
+            .filter(action => action.type === 'manual')
+            .forEach(action => finalActions.push(action));
+
+          turn.actions = finalActions;
         });
         
         renderTurns();
@@ -1332,11 +1179,15 @@
             addBtn.className = "add-action";
             addBtn.textContent = "+";
             addBtn.addEventListener("click", () => {
+              // 해명 괴도가 설정되어 있는지 확인
+              const supportMember = partyMembers.find(pm => pm.index === 4 && pm.name !== "");
+              
               turn.actions.push({
                 type: 'manual',
-                character: "",
+                character: supportMember ? supportMember.name : "",  // 해명 괴도가 있으면 자동으로 설정
                 wonderPersona: "",
-                action: ""
+                action: "",
+                memo: ""
               });
               renderTurns();
             });
@@ -1433,7 +1284,7 @@
         charSelect.className = "action-character";
         
         // 드롭다운 옵션 채우기 - 현재 선택된 파티원들만 표시
-        charSelect.innerHTML = '<option value="">선택</option>';
+        charSelect.innerHTML = '<option value="">참고사항</option>'; // 참고사항으로 변경
         const activePartyMembers = partyMembers
           .filter(member => member.name !== "") // 선택된 멤버만 필터링
           .map(member => member.name); // 이름만 추출
@@ -1537,102 +1388,364 @@
 
       // 파티 이미지 업데이트 함수
       function updatePartyImages() {
-        const partyImagesDiv = document.querySelector(".party-images");
-        partyImagesDiv.innerHTML = "";
-        
-        // 순서대로 정렬된 파티원 목록 생성
+        const partyImagesContainer = document.querySelector(".party-images-container");
+        partyImagesContainer.innerHTML = "";
+
+        // 파티 이미지 컨테이너
+        const partyImagesDiv = document.createElement("div");
+        partyImagesDiv.className = "party-images";
+
+        // 기존 파티 이미지 로직
         const orderedParty = partyMembers
           .filter(pm => pm.name !== "")
           .sort((a, b) => {
-            // "-" 순서는 맨 뒤로
             if (a.order === "-") return 1;
             if (b.order === "-") return -1;
             return parseInt(a.order, 10) - parseInt(b.order, 10);
           });
         
-        // 정렬된 순서대로 이미지 추가
         orderedParty.forEach((member) => {
-          if (characterData[member.name]) {
-            const container = document.createElement("div");
-            container.className = "character-container";
+          const container = document.createElement("div");
+          container.className = "character-container";
 
-            // 캐릭터 이미지
+          if (characterData[member.name]) {
             const charImg = document.createElement("img");
             charImg.className = "character-img";
             charImg.src = characterData[member.name].image;
             charImg.alt = member.name;
             charImg.title = member.name;
             container.appendChild(charImg);
-            
-            // 순서 이미지 (1-4인 경우에만)
-            if (["1", "2", "3", "4"].includes(member.order)) {
-              const orderImg = document.createElement("img");
-              orderImg.className = "order-img";
-              orderImg.src = `./img/ui/num0${member.order}.png`;
-              orderImg.alt = `순서 ${member.order}`;
-              container.appendChild(orderImg);
+
+            // 원더일 경우 무기 이미지 추가
+            if (member.name === "원더") {
+              const weaponInput = document.querySelector(".wonder-weapon-input");
+              const selectedWeapon = weaponInput.value;
+              
+              if (selectedWeapon && wonderWeapons.includes(selectedWeapon)) {
+                const weaponImg = document.createElement("img");
+                weaponImg.className = "weapon-img";
+                weaponImg.src = `./img/weapon/${selectedWeapon}.webp`;
+                weaponImg.alt = selectedWeapon;
+                weaponImg.title = selectedWeapon;
+                container.appendChild(weaponImg);
+              }
             }
-            
-            // 의식 이미지 (1-6 사이일 때만)
-            const ritualLevel = parseInt(member.ritual);
-            if (ritualLevel >= 1 && ritualLevel <= 6) {
-              const ritualImg = document.createElement("img");
-              ritualImg.className = "ritual-img";
-              ritualImg.src = `./img/ritual/num${ritualLevel}.png`;
-              ritualImg.alt = `의식 ${ritualLevel}`;
-              container.appendChild(ritualImg);
-            }
-            
-            partyImagesDiv.appendChild(container);
+          } else {
+            // 이미지가 없는 경우 텍스트 원형으로 대체
+            const textCircle = document.createElement("div");
+            textCircle.className = "character-text-circle";
+            textCircle.textContent = member.name;
+            textCircle.title = member.name;
+            container.appendChild(textCircle);
           }
+          
+          // 순서 이미지
+          if (["1", "2", "3", "4"].includes(member.order)) {
+            const orderImg = document.createElement("img");
+            orderImg.className = "order-img";
+            orderImg.src = `./img/ui/num0${member.order}.png`;
+            orderImg.alt = `순서 ${member.order}`;
+            container.appendChild(orderImg);
+          }
+          
+          // 의식 이미지
+          const ritualLevel = parseInt(member.ritual);
+          if (ritualLevel >= 1 && ritualLevel <= 6) {
+            const ritualImg = document.createElement("img");
+            ritualImg.className = "ritual-img";
+            ritualImg.src = `./img/ritual/num${ritualLevel}.png`;
+            ritualImg.alt = `의식 ${ritualLevel}`;
+            container.appendChild(ritualImg);
+          }
+          
+          // 계시 이미지 추가
+          const partyDiv = document.querySelector(`.party-member[data-index="${member.index}"]`);
+          if (partyDiv) {
+            const mainRev = partyDiv.querySelector(".main-revelation").value;
+            const subRev = partyDiv.querySelector(".sub-revelation").value;
+            
+            if (mainRev && subRev) {
+              const revelationsContainer = document.createElement("div");
+              revelationsContainer.className = "revelations-container";
+
+              const mainRevImg = document.createElement("img");
+              mainRevImg.className = "revelation-img main-rev";
+              mainRevImg.src = `./img/revelation/${mainRev}.webp`;
+              mainRevImg.alt = mainRev;
+              revelationsContainer.appendChild(mainRevImg);
+
+              const subRevImg = document.createElement("img");
+              subRevImg.className = "revelation-img sub-rev";
+              subRevImg.src = `./img/revelation/${subRev}.webp`;
+              subRevImg.alt = subRev;
+              revelationsContainer.appendChild(subRevImg);
+
+              container.appendChild(revelationsContainer);
+            }
+          }
+
+
+          partyImagesDiv.appendChild(container);
         });
+
+        partyImagesContainer.appendChild(partyImagesDiv);
+
+        // 원더의 페르소나 이미지 추가
+        if (wonderPersonas.some(persona => persona !== "")) {
+          const personaImagesDiv = document.createElement("div");
+          personaImagesDiv.className = "persona-images";
+
+          wonderPersonas.forEach((persona, index) => {
+            if (persona) {
+              const container = document.createElement("div");
+              container.className = "persona-container";
+
+              const personaImg = document.createElement("img");
+              personaImg.className = "persona-img";
+              personaImg.src = `./img/persona/${persona}.webp`;
+              personaImg.alt = persona;
+              personaImg.title = `페르소나${index + 1}: ${persona}`;
+
+              container.appendChild(personaImg);
+              personaImagesDiv.appendChild(container);
+            }
+          });
+
+          if (personaImagesDiv.children.length > 0) {
+            partyImagesContainer.appendChild(personaImagesDiv);
+          }
+        }
       }
 
-      // 데이터 내보내기/가져오기 함수
+      // 데이터 내보내기 함수 수정
       function exportData() {
+        const turnContainers = document.querySelectorAll('.turn-container');
+        const currentTurns = new Array(6).fill(null);
+        
+        turnContainers.forEach(container => {
+          const turnIndex = parseInt(container.getAttribute('data-turn-index'), 10);
+          const turn = turns[turnIndex];
+          const actionsList = container.querySelector('.actions');
+          const actions = [];
+          
+          actionsList.querySelectorAll('li').forEach(actionItem => {
+            const charSelect = actionItem.querySelector('.action-character');
+            const personaSelect = actionItem.querySelector('.wonder-persona-select');
+            const skillSelect = actionItem.querySelector('.action-skill');
+            const memoInput = actionItem.querySelector('.action-memo');
+            
+            actions.push({
+              type: actionItem.classList.contains('auto-action') ? 'auto' : 'manual',
+              character: charSelect ? charSelect.value : '',
+              wonderPersona: personaSelect ? personaSelect.value : '',
+              action: skillSelect ? skillSelect.value : '',
+              memo: memoInput ? memoInput.value : ''
+            });
+          });
+          
+          currentTurns[turn.turn - 1] = {
+            turn: turn.turn,
+            actions: actions
+          };
+        });
+
         const data = {
-          wonderPersonas,
-          partyMembers,
-          turns
+          w: wonderPersonas,
+          weapon: document.querySelector(".wonder-weapon-input").value,
+          personaSkills: Array.from(document.querySelectorAll(".persona-skill-input")).map(input => input.value),
+          p: partyMembers.map((pm, idx) => {
+            const memberDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
+            return {
+              n: pm.name,
+              o: pm.order,
+              r: pm.ritual,
+              mainRev: memberDiv?.querySelector(".main-revelation")?.value || "",
+              subRev: memberDiv?.querySelector(".sub-revelation")?.value || ""
+            };
+          }),
+          t: currentTurns.filter(turn => turn !== null)
         };
-        
-        const dataStr = JSON.stringify(data);
-        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-        
-        const exportFileDefaultName = 'p5x-tactics-data.json';
-        
-        const linkElement = document.createElement('a');
-        linkElement.setAttribute('href', dataUri);
-        linkElement.setAttribute('download', exportFileDefaultName);
-        linkElement.click();
+
+        // 데이터를 JSON 문자열로 변환하고 다운로드
+        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'p5x_tactic.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       }
 
+      // 데이터 가져오기 함수 수정
       function importData() {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = '.json';
         
-        input.onchange = e => {
+        input.onchange = function(e) {
           const file = e.target.files[0];
           const reader = new FileReader();
           
-          reader.onload = event => {
+          reader.onload = function(e) {
             try {
-              const data = JSON.parse(event.target.result);
+              const decodedData = JSON.parse(e.target.result);
               
-              // 데이터 적용
-              wonderPersonas = data.wonderPersonas;
-              partyMembers = data.partyMembers;
-              turns = data.turns;
+              // 원더 페르소나 데이터 설정
+              wonderPersonas = decodedData.w;
               
-              // UI 업데이트
+              // 원더 설정 UI 업데이트
+              const wonderInputs = document.querySelectorAll(".wonder-persona-input");
+              wonderInputs.forEach((input, idx) => {
+                input.value = wonderPersonas[idx] || "";
+              });
+
+              // 원더 무기 설정
+              const weaponInput = document.querySelector(".wonder-weapon-input");
+              if (decodedData.weapon) {
+                weaponInput.value = decodedData.weapon;
+              }
+
+              // 페르소나 스킬 설정
+              const skillInputs = document.querySelectorAll(".persona-skill-input");
+              if (decodedData.personaSkills) {
+                skillInputs.forEach((input, idx) => {
+                  input.value = decodedData.personaSkills[idx] || "";
+                });
+              }
+              
+              // 턴 데이터 설정
+              turns = decodedData.t;
+              
+              // partyMembers 데이터 복원
+              decodedData.p.forEach((p, idx) => {
+                partyMembers[idx] = {
+                  index: idx,
+                  name: p.n,
+                  order: p.o,
+                  ritual: p.r
+                };
+                
+                // 파티원 UI 업데이트
+                const partyDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
+                if (partyDiv) {
+                  // 이름 입력 필드 업데이트
+                  const nameInput = partyDiv.querySelector(".party-name-input");
+                  if (nameInput) {
+                    nameInput.value = p.n || "";
+                  }
+                  
+                  // 순서 선택 업데이트
+                  const orderSelect = partyDiv.querySelector(".party-order");
+                  if (orderSelect) {
+                    orderSelect.value = p.o || "";
+                  }
+                  
+                  // 의식 선택 업데이트
+                  const ritualSelect = partyDiv.querySelector(".party-ritual");
+                  if (ritualSelect) {
+                    ritualSelect.value = p.r || "0";
+                    
+                    // 원더일 경우 의식 비활성화
+                    if (p.n === "원더") {
+                      ritualSelect.disabled = true;
+                    } else {
+                      ritualSelect.disabled = false;
+                    }
+                  }
+                  
+                  // 계시 설정 수정
+                  const mainRevSelect = partyDiv.querySelector(".main-revelation");
+                  const subRevSelect = partyDiv.querySelector(".sub-revelation");
+                  
+                  if (mainRevSelect) {
+                    // 주 계시 옵션 초기화 및 설정
+                    mainRevSelect.innerHTML = '<option value="">-</option>';
+                    Object.keys(revelationData.main).forEach(rev => {
+                      const opt = document.createElement("option");
+                      opt.value = rev;
+                      opt.textContent = rev;
+                      mainRevSelect.appendChild(opt);
+                    });
+                    
+                    // 주 계시 값 설정
+                    mainRevSelect.value = p.mainRev || "";
+                    
+                    // 원더일 경우 계시 비활성화
+                    if (p.n === "원더") {
+                      mainRevSelect.disabled = true;
+                      subRevSelect.disabled = true;
+                      subRevSelect.value = "";
+                    } else {
+                      mainRevSelect.disabled = false;
+                      
+                      // 주 계시가 있는 경우 일월성진 옵션 설정
+                      if (p.mainRev && revelationData.main[p.mainRev]) {
+                        subRevSelect.disabled = false;
+                        
+                        // 일월성진 옵션 초기화 및 재설정
+                        subRevSelect.innerHTML = '<option value="">-</option>';
+                        revelationData.main[p.mainRev].forEach(subRev => {
+                          const opt = document.createElement("option");
+                          opt.value = subRev;
+                          opt.textContent = subRev;
+                          subRevSelect.appendChild(opt);
+                        });
+                        
+                        // 저장된 일월성진 값 설정
+                        if (p.subRev) {
+                          subRevSelect.value = p.subRev;
+                        }
+                      } else {
+                        subRevSelect.disabled = true;
+                        subRevSelect.innerHTML = '<option value="">-</option>';
+                      }
+                    }
+                  }
+                }
+              });
+              
+              // UI 기본 설정
               setupWonderConfig();
               setupPartySelection();
-              updateAutoActions();
+              
+              // 계시 값 재설정 (setupPartySelection 이후에 실행)
+              decodedData.p.forEach((p, idx) => {
+                const partyDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
+                if (partyDiv && p.mainRev) {
+                  const mainRevSelect = partyDiv.querySelector(".main-revelation");
+                  const subRevSelect = partyDiv.querySelector(".sub-revelation");
+                  
+                  if (mainRevSelect) {
+                    mainRevSelect.value = p.mainRev;
+                    
+                    if (revelationData.main[p.mainRev]) {
+                      subRevSelect.disabled = false;
+                      subRevSelect.innerHTML = '<option value="">-</option>';
+                      revelationData.main[p.mainRev].forEach(subRev => {
+                        const opt = document.createElement("option");
+                        opt.value = subRev;
+                        opt.textContent = subRev;
+                        subRevSelect.appendChild(opt);
+                      });
+                      
+                      if (p.subRev) {
+                        subRevSelect.value = p.subRev;
+                      }
+                    }
+                  }
+                }
+              });
+              
               updatePartyImages();
               renderTurns();
               
+              // URL 파라미터 제거하여 이후 자동 업데이트 활성화
+              window.history.replaceState({}, document.title, getBaseUrl());
+              
             } catch (error) {
+              console.error('Invalid file data:', error);
               alert('파일 형식이 올바르지 않습니다.');
             }
           };
@@ -1642,6 +1755,51 @@
         
         input.click();
       }
+
+      // 기본 URL을 가져오는 함수
+      function getBaseUrl() {
+        // 현재 페이지의 기본 URL을 반환 (쿼리 파라미터 제외)
+        return window.location.href.split('?')[0];
+      }
+
+      // shareURL 함수 수정
+      function shareURL() {
+        // exportData와 동일한 데이터 구조 사용
+        const data = {
+          w: wonderPersonas,
+          weapon: document.querySelector(".wonder-weapon-input").value,
+          personaSkills: Array.from(document.querySelectorAll(".persona-skill-input")).map(input => input.value),
+          p: partyMembers.map((pm, idx) => {
+            const memberDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
+            return {
+              n: pm.name,
+              o: pm.order,
+              r: pm.ritual,
+              mainRev: memberDiv?.querySelector(".main-revelation")?.value || "",
+              subRev: memberDiv?.querySelector(".sub-revelation")?.value || ""
+            };
+          }),
+          t: turns
+        };
+        
+        // LZ-string을 사용하여 데이터 압축
+        const compressedData = LZString.compressToEncodedURIComponent(JSON.stringify(data));
+        const shareURL = new URL(getBaseUrl());  // window.location.href 대신 getBaseUrl() 사용
+        shareURL.searchParams.set('data', compressedData);
+        
+        navigator.clipboard.writeText(shareURL.toString())
+          .then(() => {
+            alert('공유 URL이 클립보드에 복사되었습니다.');
+          })
+          .catch(err => {
+            alert('URL 복사에 실패했습니다. 수동으로 복사해주세요.');
+            console.error('Failed to copy: ', err);
+          });
+
+        // URL 파라미터 제거 시에도 동일하게 적용
+        window.history.replaceState({}, document.title, getBaseUrl());
+      }
+
     </script>
   </div>
 </body>

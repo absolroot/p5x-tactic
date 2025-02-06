@@ -1,0 +1,647 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background: url("./img/ui/bodybg.jpg") repeat center center;
+    background-size: cover;
+    color: #172B4D;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.5;
+  }
+
+  .container h1 {
+    color:#FFFFFF
+  }
+  
+  select, input[type="text"] {
+    border: 2px solid #DFE1E6;
+    border-radius: 3px;
+    padding: 8px;
+    font-size: 13px;
+    transition: border-color 0.2s ease;
+  }
+  
+  select:hover, input[type="text"]:hover {
+    border-color: #B3BAC5;
+  }
+  
+  select:focus, input[type="text"]:focus {
+    border-color: #4C9AFF;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
+  }
+  
+  .container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+  }
+  
+  #top-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* 두 칼럼으로 분할 */
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .card {
+    background: #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
+    padding: 16px 24px 20px 24px; /* 상우하좌 */
+    height: fit-content; /* 내용물 높이에 맞춤 */
+  }
+  
+  .card h2 {
+    font-size : 15px;
+    margin-top: 0;
+    margin-bottom: 0; 
+  }
+  .card label {
+    margin-top : 0px;
+    padding : 0px;
+    font-size : 13px;
+  }
+
+      
+  #turns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    grid-auto-flow: row;
+  }
+
+  .turn-container {
+    background: #FFFFFF;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25);
+    padding: 12px 16px 0px 16px;
+    margin-bottom: 0px;
+    position: relative;
+    width: 560px;
+  }
+  
+  .turn-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0px;
+  }
+  
+  .turn-header {
+    cursor: grab;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    color: #172B4D;
+  }
+  
+  .turn-header:active {
+    cursor: grabbing;
+  }
+  
+  .actions {
+    margin-top : 8px;
+    margin-left: 0; /* 좌측 margin 제거 */
+    padding-left: 0; /* 패딩도 제거 */
+    list-style-type: none; /* 기본 리스트 스타일 제거 */
+  }
+
+  .action-item {
+    cursor: grab;
+    padding: 2px;
+    border: 1px solid #DFE1E6;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    gap: 16px;
+    align-items: center;
+    background: #FFFFFF;
+    margin-left: 0; /* 좌측 margin 제거 */
+    min-width: 0; 
+  }
+  
+  .action-item:hover {
+    background: #F4F5F7;
+  }
+  
+  .add-action {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #b42f1d;
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13.5px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .add-action:hover {
+    background: #0065FF;
+  }
+  
+  .skill-group {
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  
+  .skill-group label {
+    cursor: pointer;
+  }
+  
+  .skill-group input[type="radio"] {
+    cursor: pointer;
+  }
+  
+  /* 메모 입력 필드 스타일 */
+  .action-memo {
+    width: 160px;
+    padding: 8px 12px;
+    border: 1px solid #ffffff;
+    border-radius: 3px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background-color: transparent;
+  }
+  
+  .action-memo:hover {
+    border-color: #ffffff;
+  }
+  
+  .action-memo:focus {
+    border-color: #4C9AFF;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 154, 255, 0.2);
+  }
+  
+  .delete-action {
+    color: #979797;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 4px 8px;
+    margin-left: auto; /* 우측 정렬 */
+    transition: color 0.2s ease;
+  }
+  
+  .delete-action:hover {
+    color: #DE350B;
+  }
+  
+  .wonder-setting {
+    display: grid;
+    gap: 16px;
+  }
+  
+  .wonder-setting label {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  #party-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+  }
+  
+  .party-member {
+    display: flex;
+    gap: 24px; /* 그룹 간의 간격 */
+    align-items: center;
+    padding: 0px 0px 16px;
+    border-bottom: 1px solid #DFE1E6;
+  }
+  
+  .party-member:last-child  {
+    border-bottom: none;
+  }
+  
+  /* 라벨과 입력칸을 감싸는 그룹 스타일 */
+  .input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 라벨과 입력칸 사이의 간격 */
+  }
+
+  /* 각 요소의 너비 조정 */
+  .input-group label {
+    white-space: nowrap; /* 라벨 텍스트 줄바꿈 방지 */
+    color: #172B4D;
+    font-weight: 500;
+  }
+
+  .party-name-input {
+    width: 120px;
+    padding : 8px;
+    border: 2px solid #DFE1E6;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+
+  .party-order, .party-ritual {
+    width: 45px;
+  }
+
+  .main-revelation, .sub-revelation {
+    width: 100px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .clone-action {
+    color: #0e1c38;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 8px;
+    transition: color 0.2s ease;
+  }
+  
+  .clone-action:hover {
+    color: #0065FF;
+  }
+
+  .persona-container {
+    display: grid;
+    gap: 8px;
+  }
+
+  .persona-skill-input {
+    width : 168px;
+    margin-left: auto;
+    gap: 0px;
+  }
+
+  .weapon-container {
+    margin-bottom: 16px;
+  }
+
+  .wonder-weapon-input {
+    width: 168px;
+    padding: 8px;
+    border: 2px solid #DFE1E6;
+    border-radius: 3px;
+    font-size: 14px;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0; /* 기존 마진 제거 */
+  }
+  .logo-container img {
+    width: 180px; 
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* input 컨테이너 스타일 */
+  .input-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* clear 버튼 스타일 */
+  .clear-input {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #6B778C;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 14px;
+    display: none; /* 기본적으로는 숨김 */
+  }
+
+  .clear-input:hover {
+    color: #172B4D;
+  }
+
+  /* input에 값이 있을 때만 clear 버튼 표시 */
+  .input-container input:not([value=""]) ~ .clear-input {
+    display: block;
+  }
+
+  /* datalist가 있는 input의 경우 clear 버튼이 dropdown 화살표와 겹치지 않도록 */
+  input[list] {
+    padding-right: 30px;
+  }
+
+  .party-images {
+    display: flex;
+    gap: 32px;
+    margin-top: 0px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .character-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+
+  .character-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #DFE1E6;
+    transition: all 0.2s ease;
+  }
+
+  .character-text-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #DFE1E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #172B4D;
+    text-align: center;
+    word-break: keep-all;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+
+  .order-img {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 54px;
+    height: 18px;
+    z-index: 1;
+  }
+
+  .ritual-img {
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+  }
+
+  .character-container:hover .character-img {
+    border-color: #4C9AFF;
+    transform: scale(1.05);
+  }
+
+
+  /* 파티 이미지와 페르소나 이미지를 포함하는 컨테이너 스타일 */
+  .party-images-container {
+    margin: 16px 0px 16px 0px;
+    display: flex;
+    gap: 48px;
+    align-items: center;
+  }
+
+  /* 페르소나 이미지 컨테이너 스타일 */
+  .persona-images {
+    display: flex;
+    gap: 8px;
+    position: relative;
+    padding-bottom: 16px;
+  }
+
+  .persona-container {
+    position: relative;
+    width: 60px;
+    height: 80px;
+  }
+
+  .persona-img {
+    width: 80px;
+    height: 90px;
+    transform: rotate(10deg);
+    object-fit: contain;
+    transition: all 0.2s ease;
+  }
+
+  .persona-container:hover .persona-img {
+    transform: scale(1.05);
+  }
+
+  /* 비활성화된 드롭다운 스타일 */
+  select:disabled {
+    background-color: #E9ECEF;
+    cursor: not-allowed;
+  }
+
+  /* 액션 아이템 내의 드롭다운 스타일 */
+  .action-character, .action-skill, .wonder-persona-select, .action-memo{
+    background-color: transparent;
+    border: none !important; /* !important로 우선순위 높임 */
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  /* 로고와 버튼을 포함하는 헤더 영역 */
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .top-buttons {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    margin-right: -40px;
+  }
+
+  .export-import-btn {
+    padding: 8px 16px;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    background: url("./img/ui/newstab.png") no-repeat center center;
+    background-size: cover;
+    width: 135px;
+    height: auto;
+  }
+
+  .export-import-btn:hover {
+    background: url("./img/ui/newstabon.png") no-repeat center center;
+    background-size: cover;
+    width: 135px;
+  }
+
+
+  /* 새로운 무기 이미지 스타일 추가 */
+  .weapon-img {
+    position: absolute;
+    bottom: -10px;
+    left: 0px;
+    height: 100px;
+    rotate : 0deg;
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  .middle-contianer {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-right:0;
+  }
+
+  .madeby {
+    margin-right: 4px;
+    font-size: 16px;
+    color: #ffffff;
+    opacity: 0.3;
+    margin-bottom : 16px;
+  }
+
+  .revelations-container {
+    position: absolute;
+    bottom: -10px;
+    right: -24px;
+    display: flex;
+    gap: 0;
+    z-index: 1;
+  }
+
+  /* 계시 이미지 스타일 */
+  .revelation-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  /* 두 번째 이미지(일월성진)에 대한 스타일 */
+  .revelation-img.sub-rev {
+    margin-left: -15px; /* 이미지 너비의 절반만큼 왼쪽으로 이동 */
+  }
+
+  /* 모바일 반응형 스타일 */
+  @media screen and (max-width: 1200px) {
+    .container {
+      width: 100%;
+      padding: 16px;
+    }
+
+    /* 헤더 레이아웃 수정 */
+    .header-container {
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .top-buttons {
+      margin-right: 0;
+    }
+
+    /* top-container 레이아웃 수정 */
+    #top-container {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .wonder-setting {
+        display: grid;
+        gap: 16px;
+    }
+
+    .party-member {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* 파티 이미지 컨테이너 수정 */
+    .party-images-container {
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .party-images {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .persona-images {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* madeby 위치 조정 */
+    .middle-contianer {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .madeby {
+      margin-right: 0;
+      margin-bottom: 24px;
+    }
+
+    /* 턴 레이아웃 수정 */
+    #turns {
+      grid-template-columns: 1fr;
+    }
+
+    .turn-container {
+      width: 100%;
+    }
+
+    /* 액션 아이템 레이아웃 수정 */
+    .action-item {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 8px;
+      padding: 8px;
+    }
+
+    .action-buttons {
+      justify-content: flex-end;
+    }
+
+    /* 파티 멤버 레이아웃 수정 */
+    .party-member {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px 0;
+    }
+
+    .input-group {
+      width: 100%;
+    }
+
+    /* 셀렉트 박스 너비 조정 */
+    .party-name, .main-revelation, .sub-revelation {
+      width: 100%;
+    }
+  }
