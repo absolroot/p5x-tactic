@@ -42,6 +42,7 @@
         <button class="export-import-btn" onclick="exportData()">내보내기</button>
         <button class="export-import-btn" onclick="importData()">가져오기</button>
         <button class="export-import-btn" onclick="shareURL()">공유하기</button>
+        <button class="export-import-btn toggle-ui-btn" onclick="toggleUI()"></button>
       </div>
     </div>
     
@@ -1375,7 +1376,7 @@
         // 복제 버튼 추가
         const cloneBtn = document.createElement("button");
         cloneBtn.className = "clone-action";
-        cloneBtn.innerHTML = "⎘"; // 또는 "복제" 텍스트 사용
+        cloneBtn.innerHTML = ""; // 또는 "복제" 텍스트 사용
         cloneBtn.addEventListener("click", () => {
           const clonedAction = JSON.parse(JSON.stringify(action)); // 깊은 복사
           turns[turnIndex].actions.splice(actionIndex + 1, 0, clonedAction);
@@ -1814,6 +1815,29 @@
         // URL 파라미터 제거 시에도 동일하게 적용
         window.history.replaceState({}, document.title, getBaseUrl());
       }
+
+      // UI 토글 함수 수정
+      function toggleUI() {
+        const container = document.querySelector('.container');
+        const toggleBtn = document.querySelector('.toggle-ui-btn');
+        
+        container.classList.toggle('hide-ui');
+        toggleBtn.classList.toggle('active');
+        
+        // 토글 상태 저장
+        localStorage.setItem('uiHidden', container.classList.contains('hide-ui'));
+      }
+
+      // 페이지 로드 시 이전 상태 복원
+      document.addEventListener('DOMContentLoaded', () => {
+        const uiHidden = localStorage.getItem('uiHidden') === 'true';
+        const toggleBtn = document.querySelector('.toggle-ui-btn');
+        
+        if (uiHidden) {
+          document.querySelector('.container').classList.add('hide-ui');
+          toggleBtn.classList.add('active');
+        }
+      });
 
     </script>
   </div>

@@ -1,6 +1,6 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    background: url("./img/ui/bodybg.jpg") no-repeat center center;
+    background: url("./img/ui/insidebg.jpg") no-repeat center center;
     background-size: cover;
     color: #172B4D;
     margin: 0;
@@ -121,7 +121,7 @@ body {
     gap: 16px;
     align-items: center;
     background: #F5F5F5;
-    margin-left: 0; /* 좌측 margin 제거 */
+    margin-left: 0;
     min-width: 0; 
   }
   
@@ -184,7 +184,8 @@ body {
   }
   
   .delete-action {
-    color: #979797;
+    color: rgba(0, 0, 0, 0.5);
+    opacity: 0.6;
     background: none;
     border: none;
     cursor: pointer;
@@ -261,22 +262,33 @@ body {
 
   .action-buttons {
     display: flex;
-    gap: 8px;
+    gap: 4px;
     margin-left: auto;
+    align-items: center;
+    height: 100%;
   }
 
   .clone-action {
-    color: #0e1c38;
-    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
     border: none;
+    background-color: transparent;
     cursor: pointer;
-    font-size: 18px;
-    padding: 4px 8px;
-    transition: color 0.2s ease;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    /* SVG 아이콘 수정 */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='800' height='800' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M14 16.75H6C5.27065 16.75 4.57118 16.4603 4.05546 15.9445C3.53973 15.4288 3.25 14.7293 3.25 14V6C3.25 5.27065 3.53973 4.57118 4.05546 4.05546C4.57118 3.53973 5.27065 3.25 6 3.25H14C14.7293 3.25 15.4288 3.53973 15.9445 4.05546C16.4603 4.57118 16.75 5.27065 16.75 6V14C16.75 14.7293 16.4603 15.4288 15.9445 15.9445C15.4288 16.4603 14.7293 16.75 14 16.75ZM6 4.75C5.66848 4.75 5.35054 4.8817 5.11612 5.11612C4.8817 5.35054 4.75 5.66848 4.75 6V14C4.75 14.3315 4.8817 14.6495 5.11612 14.8839C5.35054 15.1183 5.66848 15.25 6 15.25H14C14.3315 15.25 14.6495 15.1183 14.8839 14.8839C15.1183 14.6495 15.25 14.3315 15.25 14V6C15.25 5.66848 15.1183 5.35054 14.8839 5.11612C14.6495 4.8817 14.3315 4.75 14 4.75H6Z' fill='rgba(0,0,0,0.5)'/%3e%3cpath d='M18 20.75H10C9.27065 20.75 8.57118 20.4603 8.05546 19.9445C7.53973 19.4288 7.25 18.7293 7.25 18V16H8.75V18C8.75 18.3315 8.8817 18.6495 9.11612 18.8839C9.35054 19.1183 9.66848 19.25 10 19.25H18C18.3315 19.25 18.6495 19.1183 18.8839 18.8839C19.1183 18.6495 19.25 18.3315 19.25 18V10C19.25 9.66848 19.1183 9.35054 18.8839 9.11612C18.6495 8.8817 18.3315 8.75 18 8.75H16V7.25H18C18.7293 7.25 19.4288 7.53973 19.9445 8.05546C20.4603 8.57118 20.75 9.27065 20.75 10V18C20.75 18.7293 20.4603 19.4288 19.9445 19.9445C19.4288 20.4603 18.7293 20.75 18 20.75Z' fill='rgba(0,0,0,0.5)'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 16px;
   }
   
   .clone-action:hover {
-    color: #0065FF;
+    opacity: 1;
   }
 
   .persona-container {
@@ -474,11 +486,11 @@ body {
     border: none !important;
     padding: 8px;
     font-size: 13px;
-    color: #121212;
+    color: inherit;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.15)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.2)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 8px center;
     background-size: 16px;
@@ -519,6 +531,66 @@ body {
     width: 135px;
   }
 
+  /* 토글 버튼 스타일 수정 */
+  .toggle-ui-btn {
+    position: relative;
+    width: 48px;  /* 60px에서 48px로 축소 */
+    height: 24px;  /* 30px에서 24px로 축소 */
+    border-radius: 12px;  /* height의 절반으로 조정 */
+    background: #a30e1d;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin-left: 16px;
+    margin-top: 6px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* 기존 export-import-btn의 hover 효과 덮어쓰기 */
+  .export-import-btn.toggle-ui-btn:hover {
+    width: 48px !important;  /* 너비 고정 */
+    background: #a30e1d;  /* 비활성화 상태에서는 기본 색상 유지 */
+  }
+
+  .export-import-btn.toggle-ui-btn.active:hover {
+    width: 48px !important;  /* 너비 고정 */
+    background: #ffffff;  /* 활성화 상태에서는 흰색 유지 */
+  }
+
+  /* 토글 스위치 */
+  .toggle-ui-btn::before {
+    content: "";
+    position: absolute;
+    left: 3px;  /* 4px에서 3px로 조정 */
+    width: 18px;  /* 22px에서 18px로 축소 */
+    height: 18px;  /* 22px에서 18px로 축소 */
+    border-radius: 50%;
+    background: #ffffff;
+    transition: all 0.3s ease;
+  }
+
+  /* 활성화 상태 */
+  .toggle-ui-btn.active {
+    background: #ffffff;
+  }
+
+  /* 활성화 상태일 때 스위치 위치 */
+  .toggle-ui-btn.active::before {
+    left: calc(100% - 21px);  /* 26px에서 21px로 조정 */
+    background: #a30e1d;
+  }
+
+  /* 기존 hover 효과 제거 */
+  .toggle-ui-btn:hover {
+    background: #a30e1d;  /* 비활성화 상태에서는 기본 색상 유지 */
+  }
+
+  .toggle-ui-btn.active:hover {
+    background: #ffffff;  /* 활성화 상태에서는 흰색 유지 */
+  }
 
   /* 새로운 무기 이미지 스타일 추가 */
   .weapon-img {
@@ -673,4 +745,62 @@ body {
     .party-name, .main-revelation, .sub-revelation {
       width: 100%;
     }
+  }
+
+  /* UI 숨김 모드 관련 스타일 */
+  .hide-ui .action-character,
+  .hide-ui .action-skill,
+  .hide-ui .wonder-persona-select {
+    background-image: none;
+  }
+
+  .hide-ui .action-memo::placeholder {
+    color: transparent;
+  }
+
+  .hide-ui .clone-action,
+  .hide-ui .delete-action,
+  .hide-ui .clear-input {
+    opacity: 0;
+  }
+
+  .hide-ui .add-action {
+    opacity: 0;
+  }
+
+  /* 호버 시 요소 표시 */
+  .hide-ui .clone-action:hover,
+  .hide-ui .delete-action:hover,
+  .hide-ui .clear-input:hover,
+  .hide-ui .add-action:hover {
+    opacity: 1;
+  }
+
+  /* 공통 셀렉트 박스 스타일 */
+  .party-ritual, .party-order, .main-revelation, .sub-revelation {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.2)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 24px;
+  }
+
+  /* 기존 너비 유지 */
+  .party-order, .party-ritual {
+    width: 45px;
+  }
+
+  .main-revelation, .sub-revelation {
+    width: 100px;
+  }
+
+  /* UI 숨김 모드에서 드롭다운 화살표 숨기기 */
+  .hide-ui .party-ritual,
+  .hide-ui .party-order,
+  .hide-ui .main-revelation,
+  .hide-ui .sub-revelation {
+    background-image: none;
   }
