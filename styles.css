@@ -1,6 +1,6 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, Pretendard, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    background: url("./img/ui/bodybg.jpg") repeat center center;
+    background: url("./img/ui/bodybg.jpg") no-repeat center center;
     background-size: cover;
     color: #172B4D;
     margin: 0;
@@ -459,12 +459,30 @@ body {
     cursor: not-allowed;
   }
 
-  /* 액션 아이템 내의 드롭다운 스타일 */
-  .action-character, .action-skill, .wonder-persona-select, .action-memo{
+  .action-memo {
     background-color: transparent;
-    border: none !important; /* !important로 우선순위 높임 */
+    border: none !important;
     padding: 8px;
     font-size: 13px;
+    color: inherit;
+    padding-right: 24px;
+  }
+
+  /* 액션 아이템 내의 드롭다운 스타일 */
+  .action-character, .action-skill, .wonder-persona-select {
+    background-color: transparent;
+    border: none !important;
+    padding: 8px;
+    font-size: 13px;
+    color: #121212;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.15)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+    padding-right: 24px;
   }
 
   /* 로고와 버튼을 포함하는 헤더 영역 */
