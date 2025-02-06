@@ -153,8 +153,7 @@ const TEXT_TO_CODE = {
   "방어": "df",
   "응집": "cn",
   "레볼루션": "rv",
-  
-  // 축약어
+  "타케미나이엘": "te",
   "1스": "s1",
   "2스": "s2",
   "3스": "s3",
@@ -283,4 +282,21 @@ function shareURL() {
   shareURL.searchParams.set('data', compressedData);
   
   return shareURL.toString();
+}
+
+// shareURL 함수 수정
+function handleShare() {
+    // exportData와 동일한 데이터 구조 사용
+    const url = shareURL();
+    navigator.clipboard.writeText(url)
+        .then(() => {
+        alert('공유 URL이 클립보드에 복사되었습니다.');
+        })
+        .catch(err => {
+        alert('URL 복사에 실패했습니다. 수동으로 복사해주세요.');
+        console.error('Failed to copy: ', err);
+        });
+
+    // URL 파라미터 제거 시에도 동일하게 적용
+    window.history.replaceState({}, document.title, getBaseUrl());
 }
