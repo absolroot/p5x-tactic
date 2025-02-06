@@ -24,6 +24,8 @@
     <script src="./data/weapons.js"></script>
     <script src="./data/persona.js"></script>
     <script src="./data/skills.js"></script>
+    <!-- 공유 데이터 처리 함수 -->
+    <script src="./js/share.js"></script>
 </head>
 <body>
   <div class="container">
@@ -41,7 +43,7 @@
       <div class="top-buttons">
         <button class="export-import-btn" onclick="exportData()">내보내기</button>
         <button class="export-import-btn" onclick="importData()">가져오기</button>
-        <button class="export-import-btn" onclick="shareURL()">공유하기</button>
+        <button class="export-import-btn" onclick="handleShare()">공유하기</button>
         <button class="export-import-btn toggle-ui-btn" onclick="toggleUI()"></button>
       </div>
     </div>
@@ -351,12 +353,9 @@
         const sharedData = urlParams.get('data');
         
         if (sharedData) {
-          try {
-            // LZ-string으로 압축된 데이터 해제
-            const decompressedData = LZString.decompressFromEncodedURIComponent(sharedData);
-            const decodedData = JSON.parse(decompressedData);
-            
-            // 데이터 적용
+          const decodedData = processSharedData(sharedData);
+          if (decodedData) {
+            // 원더 페르소나 데이터 설정
             wonderPersonas = decodedData.w;
             
             // 원더 설정 UI 업데이트
@@ -366,24 +365,19 @@
             });
 
             // 원더 무기 설정
-            const weaponInput = document.querySelector(".wonder-weapon-input");
-            if (decodedData.weapon) {
-              weaponInput.value = decodedData.weapon;
-            }
+            document.querySelector(".wonder-weapon-input").value = decodedData.weapon;
 
             // 페르소나 스킬 설정
             const skillInputs = document.querySelectorAll(".persona-skill-input");
-            if (decodedData.personaSkills) {
-              skillInputs.forEach((input, idx) => {
-                input.value = decodedData.personaSkills[idx] || "";
-              });
-            }
+            decodedData.personaSkills.forEach((skill, idx) => {
+              if (skillInputs[idx]) skillInputs[idx].value = skill;
+            });
             
-            // partyMembers 데이터 복원 및 UI 업데이트
+            // partyMembers 데이터 복원
             decodedData.p.forEach((p, idx) => {
-              partyMembers[idx].name = p.n;
-              partyMembers[idx].order = p.o;
-              partyMembers[idx].ritual = p.r;
+              partyMembers[idx].name = p.name;
+              partyMembers[idx].order = p.order;
+              partyMembers[idx].ritual = p.ritual;
               
               // 파티원 이름 입력 필드 업데이트
               const partyDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
@@ -394,9 +388,9 @@
                 const mainRevSelect = partyDiv.querySelector(".main-revelation");
                 const subRevSelect = partyDiv.querySelector(".sub-revelation");
                 
-                if (nameInput) nameInput.value = p.n || "";
-                if (orderSelect) orderSelect.value = p.o || "";
-                if (ritualSelect) ritualSelect.value = p.r || "0";
+                if (nameInput) nameInput.value = p.name || "";
+                if (orderSelect) orderSelect.value = p.order || "";
+                if (ritualSelect) ritualSelect.value = p.ritual || "0";
                 
                 // 계시 설정
                 if (mainRevSelect && p.mainRev) {
@@ -513,9 +507,7 @@
             // 마지막으로 자동 액션 업데이트
             updateAutoActions();
             
-          } catch (error) {
-            console.error('Invalid shared data:', error);
-          }
+          } 
         } else {
           setupWonderConfig();
           setupPartySelection();
@@ -524,7 +516,8 @@
           renderTurns();
         }
       });
-      
+
+
       /* ========== 원더 설정 ========== */
       function setupWonderConfig() {
         const wonderConfigDiv = document.getElementById("wonder-config");
@@ -1551,38 +1544,37 @@
             const memoInput = actionItem.querySelector('.action-memo');
             
             actions.push({
-              type: actionItem.classList.contains('auto-action') ? 'auto' : 'manual',
-              character: charSelect ? charSelect.value : '',
-              wonderPersona: personaSelect ? personaSelect.value : '',
-              action: skillSelect ? skillSelect.value : '',
-              memo: memoInput ? memoInput.value : ''
+              m: actionItem.classList.contains('auto-action') ? 0 : 1, // type -> m
+              c: charSelect ? charSelect.value : '', // character -> c
+              w: personaSelect ? personaSelect.value : '', // wonderPersona -> w
+              a: skillSelect ? skillSelect.value : '', // action -> a
+              mm: memoInput ? memoInput.value : '' // memo -> mm
             });
           });
           
           currentTurns[turn.turn - 1] = {
-            turn: turn.turn,
-            actions: actions
+            n: turn.turn, // turn -> n
+            a: actions // actions -> a
           };
         });
 
         const data = {
           w: wonderPersonas,
-          weapon: document.querySelector(".wonder-weapon-input").value,
-          personaSkills: Array.from(document.querySelectorAll(".persona-skill-input")).map(input => input.value),
+          wp: document.querySelector(".wonder-weapon-input").value, // weapon -> wp
+          ps: Array.from(document.querySelectorAll(".persona-skill-input")).map(input => input.value), // personaSkills -> ps
           p: partyMembers.map((pm, idx) => {
             const memberDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
             return {
               n: pm.name,
               o: pm.order,
               r: pm.ritual,
-              mainRev: memberDiv?.querySelector(".main-revelation")?.value || "",
-              subRev: memberDiv?.querySelector(".sub-revelation")?.value || ""
+              mr: memberDiv?.querySelector(".main-revelation")?.value || "", // mainRev -> mr
+              sr: memberDiv?.querySelector(".sub-revelation")?.value || "" // subRev -> sr
             };
           }),
           t: currentTurns.filter(turn => turn !== null)
         };
 
-        // 데이터를 JSON 문자열로 변환하고 다운로드
         const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1606,10 +1598,10 @@
           
           reader.onload = function(e) {
             try {
-              const decodedData = JSON.parse(e.target.result);
+              const data = JSON.parse(e.target.result);
               
               // 원더 페르소나 데이터 설정
-              wonderPersonas = decodedData.w;
+              wonderPersonas = data.w;
               
               // 원더 설정 UI 업데이트
               const wonderInputs = document.querySelectorAll(".wonder-persona-input");
@@ -1617,25 +1609,34 @@
                 input.value = wonderPersonas[idx] || "";
               });
 
-              // 원더 무기 설정
+              // 원더 무기 설정 (wp -> weapon)
               const weaponInput = document.querySelector(".wonder-weapon-input");
-              if (decodedData.weapon) {
-                weaponInput.value = decodedData.weapon;
+              if (data.wp) {
+                weaponInput.value = data.wp;
               }
 
-              // 페르소나 스킬 설정
+              // 페르소나 스킬 설정 (ps -> personaSkills)
               const skillInputs = document.querySelectorAll(".persona-skill-input");
-              if (decodedData.personaSkills) {
+              if (data.ps) {
                 skillInputs.forEach((input, idx) => {
-                  input.value = decodedData.personaSkills[idx] || "";
+                  input.value = data.ps[idx] || "";
                 });
               }
               
-              // 턴 데이터 설정
-              turns = decodedData.t;
+              // 턴 데이터 설정 - 압축된 형식을 원래 형식으로 변환
+              turns = data.t.map(turn => ({
+                turn: turn.n,
+                actions: turn.a.map(action => ({
+                  type: action.m ? 'manual' : 'auto',
+                  character: action.c,
+                  wonderPersona: action.w,
+                  action: action.a,
+                  memo: action.mm
+                }))
+              }));
               
               // partyMembers 데이터 복원
-              decodedData.p.forEach((p, idx) => {
+              data.p.forEach((p, idx) => {
                 partyMembers[idx] = {
                   index: idx,
                   name: p.n,
@@ -1686,7 +1687,7 @@
                     });
                     
                     // 주 계시 값 설정
-                    mainRevSelect.value = p.mainRev || "";
+                    mainRevSelect.value = p.mr || "";
                     
                     // 원더일 경우 계시 비활성화
                     if (p.n === "원더") {
@@ -1697,12 +1698,12 @@
                       mainRevSelect.disabled = false;
                       
                       // 주 계시가 있는 경우 일월성진 옵션 설정
-                      if (p.mainRev && revelationData.main[p.mainRev]) {
+                      if (p.mr && revelationData.main[p.mr]) {
                         subRevSelect.disabled = false;
                         
                         // 일월성진 옵션 초기화 및 재설정
                         subRevSelect.innerHTML = '<option value="">-</option>';
-                        revelationData.main[p.mainRev].forEach(subRev => {
+                        revelationData.main[p.mr].forEach(subRev => {
                           const opt = document.createElement("option");
                           opt.value = subRev;
                           opt.textContent = subRev;
@@ -1710,8 +1711,8 @@
                         });
                         
                         // 저장된 일월성진 값 설정
-                        if (p.subRev) {
-                          subRevSelect.value = p.subRev;
+                        if (p.sr) {
+                          subRevSelect.value = p.sr;
                         }
                       } else {
                         subRevSelect.disabled = true;
@@ -1727,27 +1728,28 @@
               setupPartySelection();
               
               // 계시 값 재설정 (setupPartySelection 이후에 실행)
-              decodedData.p.forEach((p, idx) => {
+              data.p.forEach((p, idx) => {
                 const partyDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
-                if (partyDiv && p.mainRev) {
+                if (partyDiv && p.mr) {
                   const mainRevSelect = partyDiv.querySelector(".main-revelation");
                   const subRevSelect = partyDiv.querySelector(".sub-revelation");
                   
                   if (mainRevSelect) {
-                    mainRevSelect.value = p.mainRev;
+                    mainRevSelect.value = p.mr;
                     
-                    if (revelationData.main[p.mainRev]) {
+                    if (revelationData.main[p.mr]) {
                       subRevSelect.disabled = false;
                       subRevSelect.innerHTML = '<option value="">-</option>';
-                      revelationData.main[p.mainRev].forEach(subRev => {
+                      revelationData.main[p.mr].forEach(subRev => {
                         const opt = document.createElement("option");
                         opt.value = subRev;
                         opt.textContent = subRev;
                         subRevSelect.appendChild(opt);
                       });
                       
-                      if (p.subRev) {
-                        subRevSelect.value = p.subRev;
+                      // 저장된 일월성진 값 설정
+                      if (p.sr) {
+                        subRevSelect.value = p.sr;
                       }
                     }
                   }
@@ -1779,31 +1781,10 @@
       }
 
       // shareURL 함수 수정
-      function shareURL() {
+      function handleShare() {
         // exportData와 동일한 데이터 구조 사용
-        const data = {
-          w: wonderPersonas,
-          weapon: document.querySelector(".wonder-weapon-input").value,
-          personaSkills: Array.from(document.querySelectorAll(".persona-skill-input")).map(input => input.value),
-          p: partyMembers.map((pm, idx) => {
-            const memberDiv = document.querySelector(`.party-member[data-index="${idx}"]`);
-            return {
-              n: pm.name,
-              o: pm.order,
-              r: pm.ritual,
-              mainRev: memberDiv?.querySelector(".main-revelation")?.value || "",
-              subRev: memberDiv?.querySelector(".sub-revelation")?.value || ""
-            };
-          }),
-          t: turns
-        };
-        
-        // LZ-string을 사용하여 데이터 압축
-        const compressedData = LZString.compressToEncodedURIComponent(JSON.stringify(data));
-        const shareURL = new URL(getBaseUrl());  // window.location.href 대신 getBaseUrl() 사용
-        shareURL.searchParams.set('data', compressedData);
-        
-        navigator.clipboard.writeText(shareURL.toString())
+        const url = shareURL();
+        navigator.clipboard.writeText(url)
           .then(() => {
             alert('공유 URL이 클립보드에 복사되었습니다.');
           })
