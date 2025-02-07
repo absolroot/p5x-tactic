@@ -3,14 +3,28 @@
         const turnsContainer = document.getElementById("turns");
         turnsContainer.innerHTML = "";
         
-        // 턴 순서 재배열 (1-2, 3-4, 5-6 순서로)
-        const turnPairs = [
-          [turns[0], turns[3]], // 1-2턴
-          [turns[1], turns[4]], // 3-4턴
-          [turns[2], turns[5]]  // 5-6턴
-        ];
+        // 화면 너비에 따라 턴 순서 결정
+        let turnOrder;
+        if (window.innerWidth < 1200) {
+          // 모바일: 1,2,3,4,5,6 순서
+          turnOrder = [
+            [turns[0]], // 1턴
+            [turns[1]], // 2턴
+            [turns[2]], // 3턴
+            [turns[3]], // 4턴
+            [turns[4]], // 5턴
+            [turns[5]]  // 6턴
+          ];
+        } else {
+          // 데스크톱: 1-4, 2-5, 3-6 순서
+          turnOrder = [
+            [turns[0], turns[3]], // 1-4턴
+            [turns[1], turns[4]], // 2-5턴
+            [turns[2], turns[5]]  // 3-6턴
+          ];
+        }
         
-        turnPairs.forEach(pair => {
+        turnOrder.forEach(pair => {
           pair.forEach(turn => {
             const turnDiv = document.createElement("div");
             turnDiv.className = "turn-container";
@@ -118,4 +132,9 @@
           });
         });
       }
+      
+      // 화면 크기 변경 시 턴 재렌더링
+      window.addEventListener('resize', () => {
+        renderTurns();
+      });
       

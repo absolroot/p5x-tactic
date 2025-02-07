@@ -12,6 +12,10 @@ input.onchange = function(e) {
     try {
         const data = JSON.parse(e.target.result);
         
+        // 제목 설정
+        const titleInput = document.querySelector('.title-input');
+        titleInput.value = data.title || "페르소나5X 택틱 메이커";
+        
         // 원더 페르소나 데이터 설정
         wonderPersonas = data.w;
         

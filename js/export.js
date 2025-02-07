@@ -31,6 +31,7 @@ turnContainers.forEach(container => {
 });
 
 const data = {
+    title: document.querySelector('.title-input').value.slice(0, 20) || "페르소나5X 택틱 메이커",
     w: wonderPersonas,
     wp: document.querySelector(".wonder-weapon-input").value, // weapon -> wp
     ps: Array.from(document.querySelectorAll(".persona-skill-input")).map(input => input.value), // personaSkills -> ps

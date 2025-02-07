@@ -184,6 +184,7 @@ function processSharedData(sharedData) {
     );
     
     return {
+      title: compressed.h || "페르소나5X 택틱 메이커",
       w: compressed.w?.map(p => CODE_TO_PERSONA[p] || p) || [],
       weapon: compressed.wp ? CODE_TO_WEAPON[compressed.wp] || compressed.wp : "",
       personaSkills: compressed.ps?.map(p => CODE_TO_PERSONA[p] || p) || ["", "", ""],
@@ -221,6 +222,7 @@ function shareURL() {
   });
 
   const data = {
+    h: document.querySelector('.title-input').value.slice(0, 20),
     w: wonderPersonas.filter(p => p).map(p => PERSONA_TO_CODE[p] || p),
     wp: WEAPON_TO_CODE[document.querySelector(".wonder-weapon-input").value] || undefined,
     p: partyMembers.map((pm, idx) => {
@@ -252,6 +254,10 @@ function shareURL() {
          })
     }))
   };
+
+  if (data.h === "페르소나5X 택틱 메이커") {
+    delete data.h;
+  }
 
   // ps 필드는 모두 빈 값이면 제외
   const personaSkills = Array.from(document.querySelectorAll(".persona-skill-input"))
