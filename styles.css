@@ -804,3 +804,22 @@ body {
   .hide-ui .sub-revelation {
     background-image: none;
   }
+
+  .title-input {
+    background: transparent !important;
+    border: none !important;
+    color: white;
+    font-size: 24px !important;
+    font-weight: bold;
+    width: 100%;
+    padding: 8px;
+  }
+
+  .title-input:focus {
+    outline: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .title-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
