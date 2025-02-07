@@ -94,6 +94,7 @@
         cloneBtn.innerHTML = ""; // 또는 "복제" 텍스트 사용
         cloneBtn.addEventListener("click", () => {
           const clonedAction = JSON.parse(JSON.stringify(action)); // 깊은 복사
+          clonedAction.type = 'manual'; // 복제된 액션은 항상 manual로 설정
           turns[turnIndex].actions.splice(actionIndex + 1, 0, clonedAction);
           renderTurns();
         });
