@@ -342,7 +342,7 @@
         <!-- 턴 영역 (6턴) -->
         <div class="mobile-buttons">
           <button class="mobile-lock-btn" onclick="toggleTurnsLock()">턴 잠금</button>
-          <button class="toggle-ui-btn" onclick="toggleUI()"></button>
+          <button class="toggle-ui-btn" onclick="toggleUI()">UI 숨김</button>
         </div>
         <div id="turns">
           <!-- 기존 턴 컨텐츠 -->
@@ -630,10 +630,14 @@
       // UI 토글 함수
       function toggleUI() {
         const container = document.querySelector('.container');
-        const toggleBtn = document.querySelector('.toggle-ui-btn');
+        const desktopToggleBtn = document.querySelector('.header-container .toggle-ui-btn');
+        const mobileToggleBtn = document.querySelector('.mobile-buttons .toggle-ui-btn');
         
         container.classList.toggle('hide-ui');
-        toggleBtn.classList.toggle('active');
+        
+        // 데스크톱과 모바일 버튼 모두 처리
+        if (desktopToggleBtn) desktopToggleBtn.classList.toggle('active');
+        if (mobileToggleBtn) mobileToggleBtn.classList.toggle('active');
         
         // 토글 상태 저장
         localStorage.setItem('uiHidden', container.classList.contains('hide-ui'));
@@ -642,11 +646,13 @@
       // 페이지 로드 시 이전 상태 복원
       document.addEventListener('DOMContentLoaded', () => {
         const uiHidden = localStorage.getItem('uiHidden') === 'true';
-        const toggleBtn = document.querySelector('.toggle-ui-btn');
+        const desktopToggleBtn = document.querySelector('.header-container .toggle-ui-btn');
+        const mobileToggleBtn = document.querySelector('.mobile-buttons .toggle-ui-btn');
         
         if (uiHidden) {
           document.querySelector('.container').classList.add('hide-ui');
-          toggleBtn.classList.add('active');
+          if (desktopToggleBtn) desktopToggleBtn.classList.add('active');
+          if (mobileToggleBtn) mobileToggleBtn.classList.add('active');
         }
       });
 

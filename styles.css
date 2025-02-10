@@ -1,5 +1,5 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, Noto Sans, Pretendard, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    font-family: "Noto Sans", Pretendard, "Segoe UI", Roboto, Oxygen, Ubuntu, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background: url("./img/ui/insidebg.jpg") no-repeat center center;
     background-size: cover;
     color: #172B4D;
@@ -594,7 +594,7 @@ body {
   }
 
   /* 토글 버튼 스타일 수정 */
-  .toggle-ui-btn {
+  .export-import-btn.toggle-ui-btn {
     position: relative;
     width: 48px;  /* 60px에서 48px로 축소 */
     height: 24px;  /* 30px에서 24px로 축소 */
@@ -926,12 +926,12 @@ body {
       margin-bottom: 16px;
     }
 
-    /* 기존 toggle-ui-btn을 모바일 버튼 영역으로 이동 */
-    .mobile-lock-btn {
+    /* 모바일에서의 공통 버튼 스타일 */
+    .mobile-buttons .toggle-ui-btn {
       display: flex;
       align-items: center;
       position: relative;
-      padding: 8px 10px 8px 30px;
+      padding: 8px 10px 8px 30px !important;
       border-radius: 2px;
       background: #808080;
       border: none;
@@ -939,6 +939,35 @@ body {
       transition: all 0.3s ease;
       color: white;
       font-size: 12px;
+      white-space: nowrap;  /* 텍스트 줄바꿈 방지 */
+      height: 33px;
+    }
+
+    /* 모바일 버튼 아이콘 */
+    .mobile-lock-btn::before,
+    .mobile-buttons .toggle-ui-btn::before {
+      position: absolute;
+      left: 8px;
+      font-size: 14px;
+    }
+
+    /* toggle-ui 버튼 아이콘 */
+    .mobile-buttons .toggle-ui-btn::before {
+      content: "🕶️";
+      background: none !important;  /* 배경 제거 */
+      box-shadow: none !important;  /* 그림자 제거 */
+      border: none !important;      /* 테두리 제거 */
+    }
+
+    .mobile-buttons .toggle-ui-btn.active {
+      background: #3b3b3b;
+    }
+
+    .mobile-buttons .toggle-ui-btn.active::before {
+      content: "🔍";
+      background: none !important;  /* 배경 제거 */
+      box-shadow: none !important;  /* 그림자 제거 */
+      border: none !important;      /* 테두리 제거 */
     }
 
     /* 헤더의 toggle-ui-btn은 숨김 */
