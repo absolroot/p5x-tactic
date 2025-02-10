@@ -880,11 +880,17 @@ body {
   }
 
   /* 모바일용 lock 토글 버튼 스타일 */
+
+  .mobile-buttons {
+    display: none;
+  }
+
   .mobile-lock-btn {
     display: none;  /* 기본적으로는 숨김 */
     position: relative;
     padding: 8px 10px 8px 30px;  /* 왼쪽에 아이콘 공간 확보 */
     border-radius: 2px;
+
     background: #808080;  /* 기본 회색 */
     border: none;
     cursor: pointer;
@@ -899,6 +905,7 @@ body {
     position: absolute;
     left: 8px;
     font-size: 14px;
+
     margin-bottom: 2px;
   }
 
