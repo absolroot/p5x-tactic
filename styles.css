@@ -770,6 +770,7 @@ body {
   .hide-ui .main-revelation,
   .hide-ui .sub-revelation {
     background-image: none;
+    padding-right: 8px !important;
   }
 
   .title-input {
@@ -911,6 +912,33 @@ body {
 
   /* 모바일 화면에서만 버튼 표시 */
   @media screen and (max-width: 1200px) {
+    /* 모바일 버튼 컨테이너 */
+    .mobile-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    /* 기존 toggle-ui-btn을 모바일 버튼 영역으로 이동 */
+    .mobile-lock-btn {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 8px 10px 8px 30px;
+      border-radius: 2px;
+      background: #808080;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      font-size: 12px;
+    }
+
+    /* 헤더의 toggle-ui-btn은 숨김 */
+    .header-container .toggle-ui-btn {
+      display: none;
+    }
+
     .mobile-lock-btn {
       display: flex;
       align-items: center;
@@ -987,30 +1015,51 @@ body {
 
   
   @media screen and (max-width: 1200px) {
+
+    #top-container {
+      width: 100% !important;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 24px;
+      min-width: auto !important;
+    }
+
+
+    .card{
+      min-width: auto !important;
+    }
+
     /* 기존 모바일 스타일 유지 */
     .container {
       width: 100%;
-      padding: 16px;
+      min-width: auto !important;  /* 최소 너비 제거 */
+      padding: 0px;
     }
-
     /* 1. 페르소나 간격 증가 */
     .persona-container {
       margin-bottom: 24px;  /* 페르소나 컨테이너 간 간격 증가 */
       padding: 0px;        /* 내부 패딩 추가 */
       /* background: #f8f9fa;  */
       border-radius: 4px;
+      min-width: auto !important;
     }
 
     .wonder-persona-input {
       width: 100% !important;
+      min-width: auto !important;
     }
 
     /* 2. 스킬 입력 필드 크기 및 간격 조정 */
 
     .skill-inputs {
+      width: 100% !important;
       gap: 8px;            /* 스킬 입력 간 간격 증가 */
       margin-top: 12px;    /* 상단 여백 증가 */
+      display: flex;
+      flex-direction: column;
     }
+
 
     .persona-skill-input {
       font-size: 15px !important;  /* 폰트 크기 증가 */
@@ -1023,12 +1072,14 @@ body {
       display: flex;
       align-items: center;
       width: 100%;
+      min-width: auto !important;
     }
 
     .wonder-weapon-input {
       width: 100%;
       height: 20px !important;
       padding: 8px 36px 8px 12px !important; /* 오른쪽 패딩 증가 */
+      min-width: auto !important;
     }
 
     .clear-input {
@@ -1040,6 +1091,7 @@ body {
       height: 24px;
       display: flex;
       align-items: center;
+      min-width: auto !important;
     }
 
     /* 4. 괴도 선택 창 크기 조정 */
@@ -1079,13 +1131,11 @@ body {
     }
 
     .top-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       margin-right: 0;
-    }
-
-    /* top-container 레이아웃 수정 */
-    #top-container {
-      grid-template-columns: 1fr;
-      gap: 24px;
+      margin-left: 0;
+      align-items: center;
     }
 
 
@@ -1096,8 +1146,8 @@ body {
     }
 
     .party-member {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 32px;
     }
 
@@ -1134,13 +1184,17 @@ body {
  
     /* 턴 레이아웃 수정 */
     #turns {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       width: 100%;
+      margin-left: -8px;
+      margin-bottom : 80px;
     }
 
     .turn-container {
       width: 100%;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
+      padding : 8px 8px 8px 8px ;
     }
 
 
@@ -1174,7 +1228,7 @@ body {
 
     /* 폰트 크기 증가 */
     select, input[type="text"] {
-      font-size: 16px !important;  /* 모바일에서 기본 폰트 크기 */
+      font-size: 12px !important;  /* 모바일에서 기본 폰트 크기 */
       padding: 10px !important;    /* 터치 영역 확보 */
     }
 
@@ -1182,16 +1236,17 @@ body {
     .action-skill, 
     .wonder-persona-select,
     .action-memo {
-      font-size: 16px !important;
+      font-size: 12px !important;
       padding: 10px !important;
+      width: 100% !important;
     }
 
     .party-member label {
-      font-size: 16px !important;
+      font-size: 12px !important;
     }
 
     .input-group label {
-      font-size: 16px !important;
+      font-size: 13px !important;
     }
 
     .turn-header {
@@ -1236,5 +1291,20 @@ body {
     .input-group select,
     .input-group input {
       height: 40px !important;
+    }
+
+      /* 모바일에서 hide-ui 시 요소 완전히 제거 */
+    .hide-ui .clone-action,
+    .hide-ui .delete-action,
+    .hide-ui .clear-input,
+    .hide-ui .add-action,
+    .hide-ui .mobile-lock-btn {
+      display: none !important;  /* opacity 대신 display: none 사용 */
+    }
+    .hide-ui .action-item {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+      padding: 8px 8px 0px 8px;
+      align-items: center;
     }
   }

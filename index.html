@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>페르소나5X 택틱</title>
   <link rel="icon" type="image/x-icon" href="./img/ui/favicon.ico">
   <link rel="stylesheet" href="./styles.css">
@@ -339,7 +340,10 @@
         </div>
 
         <!-- 턴 영역 (6턴) -->
-        <button class="mobile-lock-btn" onclick="toggleTurnsLock()">Lock</button>
+        <div class="mobile-buttons">
+          <button class="mobile-lock-btn" onclick="toggleTurnsLock()">턴 잠금</button>
+          <button class="toggle-ui-btn" onclick="toggleUI()"></button>
+        </div>
         <div id="turns">
           <!-- 기존 턴 컨텐츠 -->
         </div>
