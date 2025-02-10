@@ -40,7 +40,7 @@ body {
   
   #top-container {
     display: grid;
-    grid-template-columns: 1fr 3fr; /* 두 칼럼으로 분할 */
+    grid-template-columns: 400px 776px; /* 두 칼럼으로 분할 */
     gap: 24px;
     margin-bottom: 24px;
   }
@@ -208,7 +208,7 @@ body {
     display: grid;
     grid-template-columns: 80px 1fr;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
   }
   
   #party-selection {
@@ -257,7 +257,7 @@ body {
   }
 
   .main-revelation, .sub-revelation {
-    width: 100px;
+    width: 80px !important;
   }
 
   .action-buttons {
@@ -292,22 +292,88 @@ body {
   }
 
   .persona-container {
+    position: relative;
     display: grid;
-    gap: 8px;
+  }
+
+  .persona-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 3px;
+    font-size: 14px;
+    white-space: pre-line;
+    z-index: 1000;
+    width: max-content;
+    max-width: 320px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    line-height: 1.4;
+    pointer-events: none;
+  }
+
+  .persona-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .persona-container:hover .persona-tooltip {
+    display: block;
+  }
+
+  .persona-img {
+    cursor: help;
+  }
+
+  .wonder-persona-input {
+    width: 218px !important;
+  }
+
+  .skill-inputs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+
+    margin-top: 5px;
   }
 
   .persona-skill-input {
-    width : 168px;
-    margin-left: auto;
-    gap: 0px;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: 6px !important;
+    border: 2px solid #DFE1E6;
+    border-radius: 2px !important;
+    box-sizing: border-box;
+    font-size: 11px;
+    background-position: right 1px center !important; /* 화살표 위치 조정 */
+    background-size: 11px !important; /* 화살표 크기 조정 */
+  }
+
+  .persona-skill-input::placeholder {
+    font-size: 11px;
+    color: #c0c0c0;
   }
 
   .weapon-container {
     margin-bottom: 6px;
   }
 
+
   .wonder-weapon-input {
-    width: 168px;
+    width: 218px;
     padding: 8px;
     border: 2px solid #DFE1E6;
     border-radius: 3px;
@@ -371,6 +437,7 @@ body {
 
   .character-container {
     position: relative;
+    display : inline-block;
     width: 100px;
     height: 100px;
   }
@@ -595,14 +662,15 @@ body {
   /* 새로운 무기 이미지 스타일 추가 */
   .weapon-img {
     position: absolute;
-    bottom: -10px;
+    top: 0%;
     left: 0px;
+    transform: translateY(-100%); /* 수직 중앙 정렬을 위해 추가 */
     height: 100px;
-    rotate : 0deg;
+    rotate: 0deg;
     object-fit: contain;
     z-index: 1;
     filter: drop-shadow(0 0 1px white)
-            drop-shadow(0 0 1px white)
+            drop-shadow(0 0 1px white);
   }
 
   .middle-contianer {
@@ -675,7 +743,7 @@ body {
 
     .party-member {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         gap: 16px;
     }
 
@@ -718,6 +786,7 @@ body {
       width: 100%;
     }
 
+
     /* 액션 아이템 레이아웃 수정 */
     .action-item {
       grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -754,9 +823,10 @@ body {
     background-image: none;
   }
 
-  .hide-ui .action-memo::placeholder {
+  .hide-ui .persona-skill-input::placeholder, .action-memo::placeholder {
     color: transparent;
   }
+
 
   .hide-ui .clone-action,
   .hide-ui .delete-action,
@@ -767,11 +837,16 @@ body {
   .hide-ui .add-action {
     opacity: 0;
   }
+  
+  .hide-ui .mobile-lock-btn {
+    opacity: 0;
+  }
 
   /* 호버 시 요소 표시 */
   .hide-ui .clone-action:hover,
   .hide-ui .delete-action:hover,
   .hide-ui .clear-input:hover,
+  .hide-ui .mobile-lock-btn:hover,
   .hide-ui .add-action:hover {
     opacity: 1;
   }
@@ -823,3 +898,196 @@ body {
   .title-input::placeholder {
     color: rgba(255, 255, 255, 0.7);
   }
+
+  /* 탭 컨테이너 스타일 */
+  .tab-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .tab-button {
+    padding: 8px 16px;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    background: url("./img/ui/newstab.png") no-repeat center center;
+    background-size: cover;
+    width: 135px;
+    height: auto;
+    opacity: 0.7;
+  }
+
+  .tab-button.active {
+    opacity: 1;
+  }
+
+  /* 탭 컨텐츠 영역 */
+  .tab-pane {
+    display: none;
+  }
+
+  .tab-pane.active {
+    display: block;
+  }
+
+  /* 시뮬레이터 레이아웃 */
+  .simulator-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+  }
+
+  .turn-list {
+    background: #f5f5f5;
+    padding: 16px;
+    border-radius: 3px;
+  }
+
+  .status-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .buff-container, .debuff-container {
+    background: #f5f5f5;
+    padding: 16px;
+    border-radius: 3px;
+  }
+
+  /* 턴 행동 라디오 버튼 스타일 */
+  .turn-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .turn-action input[type="radio"] {
+    margin: 0;
+  }
+
+  /* 불필요한 focus 효과 제거 */
+  div, span, p, h1, h2, h3, h4, h5, h6 {
+    -webkit-user-select: none;  /* Safari */
+    -moz-user-select: none;     /* Firefox */
+    -ms-user-select: none;      /* IE10+/Edge */
+    user-select: none;          /* Standard */
+  }
+
+  /* input, textarea 등 실제로 focus가 필요한 요소는 제외 */
+  input[type="text"], 
+  textarea, 
+  select, 
+  input[list] {
+    user-select: text;
+  }
+
+  /* 모바일용 lock 토글 버튼 스타일 */
+  .mobile-lock-btn {
+    display: none;  /* 기본적으로는 숨김 */
+    position: relative;
+    padding: 8px 10px 8px 30px;  /* 왼쪽에 아이콘 공간 확보 */
+    border-radius: 2px;
+    background: #808080;  /* 기본 회색 */
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+    color: white;
+    font-size: 12px;
+  }
+
+  .mobile-lock-btn::before {
+    content: "🔓";  /* 기본 열린 자물쇠 */
+    position: absolute;
+    left: 8px;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .mobile-lock-btn.active {
+    background: #a30e1d;  /* 활성화 시 빨간색 */
+  }
+
+  .mobile-lock-btn.active::before {
+    content: "🔒";  /* 활성화 시 닫힌 자물쇠 */
+  }
+
+  /* 모바일 화면에서만 버튼 표시 */
+  @media screen and (max-width: 1200px) {
+    .mobile-lock-btn {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* 잠금 상태일 때 턴 컨테이너 드래그 방지 */
+    .turns-locked .turn-container {
+      pointer-events: none;
+    }
+    
+    .turns-locked .turn-header {
+      cursor: default;
+    }
+    
+    .turns-locked .action-item {
+      cursor: default;
+    }
+  }
+
+  .persona-skill-input.unique-skill {
+    background-color: #f0f0f0;
+  }
+
+  /* 툴팁 스타일 개선 */
+  [title] {
+    position: relative;
+    transition: all 0.1s ease;
+  }
+
+  [title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: pre-line;
+    z-index: 100;
+    width: max-content;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    line-height: 1.4;
+    margin-bottom: 5px;
+  }
+
+  /* 툴팁 화살표 */
+  [title]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+    margin-bottom: -1px;
+  }
+
+  /* 페르소나 이미지에 대한 특별한 툴팁 위치 조정 */
+  .persona-img[title]:hover::after {
+    bottom: 120%;
+  }
+
+  .persona-img[title]:hover::before {
+    bottom: 120%;
+  }
+

@@ -50,7 +50,32 @@
           });
           
           personaSelect.addEventListener("change", e => {
-            action.wonderPersona = e.target.value;
+            const newPersona = e.target.value;
+            action.wonderPersona = newPersona;
+    
+            // 선택된 페르소나의 인덱스 찾기
+            const personaIndex = wonderPersonas.indexOf(newPersona);
+            if (personaIndex !== -1) {
+              // 해당 페르소나의 스킬 입력값 가져오기
+              const skillInputs = document.querySelectorAll(
+                `.persona-skill-input[data-persona-index="${personaIndex}"]`
+              );
+              
+              // 스킬1이 있으면 스킬1 사용, 없으면 고유스킬 사용
+              const skill1Input = skillInputs[1];
+              const uniqueSkillInput = skillInputs[0];
+              
+              // 스킬1이 있으면 스킬1을, 없으면 고유스킬을 메모에 설정
+              action.memo = (skill1Input?.value || uniqueSkillInput?.value || "");
+              
+              // 메모 입력 필드 업데이트
+              const memoInput = li.querySelector(".action-memo");
+              if (memoInput) {
+                memoInput.value = action.memo;
+              }
+            }
+            
+            renderTurns();
           });
           li.appendChild(personaSelect);
         } else if (action.character) {

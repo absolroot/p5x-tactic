@@ -124,26 +124,9 @@ const CODE_TO_SUB_REV = Object.fromEntries(
 // 자주 사용되는 텍스트 매핑 (알파벳 2글자)
 const TEXT_TO_CODE = {
   // 스킬명
-  "리벨리온": "rb",
-  "라쿤다": "rk",
-  "타루카쟈": "tj",
-  "타루카자": "tj",  // 동일 코드 사용
-  "라쿠카자": "lj",
-  "라쿠카쟈": "lj",  // 동일 코드 사용
-  "리벨": "rv",
-  "마하라쿤다": "mk",
-  "메디아라한": "mh",
-  "메디아": "md",
-  "마하갈다인": "mg",
-  "마하사이": "ms",
-  "갈다인": "gd",
-  "음율": "yl",
-  "음률의 침입": "yi",
-  "음률": "yl",
   "명중": "ac",
   "강화": "bf",
   "조준": "am",
-  "죽어줄래": "dk",
   "빙결": "fr",
   "화상": "bn",
   "감전": "el",
@@ -151,8 +134,6 @@ const TEXT_TO_CODE = {
   "즉사": "in",
   "리트": "rt",
   "방어": "df",
-  "응집": "cn",
-  "레볼루션": "rv",
   "타케미나이엘": "te",
   "1스": "s1",
   "2스": "s2",
@@ -163,6 +144,82 @@ const TEXT_TO_CODE = {
 
 const CODE_TO_TEXT = Object.fromEntries(
   Object.entries(TEXT_TO_CODE).map(([k, v]) => [v, k])
+);
+
+// 스킬 이름 매핑
+const SKILL_TO_CODE = {
+  // 화염 속성 스킬
+  "아기": "aa", "아기라오": "ab", "아기다인": "ac",
+  "마하라기": "ad", "마하라기온": "ae", "마하라기다인": "af",
+  
+  // 빙결 속성 스킬
+  "부흐": "ba", "부흐라": "bb", "부흐다인": "bc",
+  "다이아의 별": "bd", "마하부흐": "be", "마하부흐라": "bf",
+  "마하부흐다인": "bg",
+  
+  // 전격 속성 스킬
+  "지오": "ca", "지온가": "cb", "지오다인": "cc",
+  "마하지온가": "cd", "마하지오다인": "ce", "엘 지하드": "cf",
+  
+  // 질풍 속성 스킬
+  "갈": "da", "갈라": "db", "갈다인": "dc",
+  "마하갈라": "dd", "마하갈다인": "de",
+  
+  // 염동 속성 스킬
+  "사이오": "ea", "사이다인": "eb", "사이코키네시스": "ec",
+  "마하사이": "ed", "마하사이오": "ee", "마하사이다인": "ef",
+  "사이코 포스": "eg",
+  
+  // 핵열 속성 스킬
+  "코우가": "fa", "코우가온": "fb", "신의 심판": "fc",
+  "마하코우하": "fd", "마하코우가": "fe", "마하코우가온": "ff",
+  
+  // 주원 속성 스킬
+  "하마온": "ga", "마한마": "gb", "마한마온": "gc",
+  "에이가온": "gd", "악마의 심판": "ge", "마하에이가": "gf",
+  "마하에이가온": "gg",
+  
+  // 물리 속성 스킬
+  "연옥의 날개": "ha", "무드": "hb", "무드온": "hc",
+  "마하무드": "hd", "메기도": "he", "마하메기도": "hf",
+  "메기도라온": "hg", "흡혈": "hh", "흡마": "hi",
+  "돌격": "hj", "참격": "hk", "빅 슬라이스": "hl",
+  "궁서아": "hm", "이연아": "hn", "어설트 다이브": "ho",
+  "럭키 펀치": "hp", "장대비 베기": "hq", "메가톤 레이드": "hr",
+  "검의 춤": "hs", "브레이브 재퍼": "ht", "사망유희": "hu",
+  "미라클 펀치": "hv", "전광석화": "hw", "난동 부리기": "hx",
+  "히트 웨이브": "hy", "데스바운드": "hz", "폴 다운": "ia",
+  "몽향침": "ib", "망살 러시": "ic", "피의 축제": "id",
+  "마인드 슬라이스": "ie", "도르민 러시": "if", "박치기": "ig",
+  "브레인 버스터": "ih", "지탄": "ii", "원 샷 킬": "ij",
+  "트리플 다운": "ik",
+  
+  // 회복 스킬
+  "디아": "ja", "디아라마": "jb", "메디아": "jc",
+  "메디라마": "jd", "메디아라한": "je", "우로스": "jf",
+  "파트라": "jg", "바이스디": "jh", "에너지 드롭": "ji",
+  
+  // 지원 스킬
+  "데카쟈": "ka", "데쿤다": "kb",
+  "타루카쟈": "kc", "마하타루카쟈": "kd",
+  "라쿠카쟈": "ke", "마하라쿠카쟈": "kf",
+  "스쿠카쟈": "kg", "마하스쿠카쟈": "kh",
+  "리벨리온": "ki", "컨센트레이트": "kj", "차지": "kk",
+  "라쿤다": "kl", "마하라쿤다": "km", "타룬다": "kn",
+  
+  // 고유 스킬
+  "격정과 진정": "ua", "고통의 심판": "ub", "광풍 눈": "uc",
+  "궁지 반격": "ud", "극열": "ue", "눈의 여왕의 비호": "uf",
+  "매복사냥": "ug", "방풍막": "uh", "살육 유도": "ui",
+  "왕생의 심판": "uj", "용을 베는 자태": "uk", "응집": "ul",
+  "적을 멸하는 바람": "um", "전격 내성 제거": "un", "전류의 흐름": "uo",
+  "절대복종": "up", "정신 파동": "uq", "조화의 균열": "ur",
+  "존왕의 항복": "us", "죽어 줄래?": "ut", "파멸의 춤": "uu",
+  "팔척뛰기": "uv", "화제": "uw"
+};
+
+const CODE_TO_SKILL = Object.fromEntries(
+    Object.entries(SKILL_TO_CODE).map(([k, v]) => [v, k])
 );
 
 // 공유 데이터 처리 함수
@@ -183,11 +240,14 @@ function processSharedData(sharedData) {
       .replace(/¤/g, '"},{"')
     );
     
-    return {
+    const decompressed = {
       title: compressed.h || "페르소나5X 택틱 메이커",
       w: compressed.w?.map(p => CODE_TO_PERSONA[p] || p) || [],
       weapon: compressed.wp ? CODE_TO_WEAPON[compressed.wp] || compressed.wp : "",
-      personaSkills: compressed.ps?.map(p => CODE_TO_PERSONA[p] || p) || ["", "", ""],
+      personaSkills: compressed.ps?.map(skill => 
+        CODE_TO_SKILL[skill] || CODE_TO_TEXT[skill] || skill
+      ) || [],
+      // 파티 데이터 추가
       p: compressed.p.map(member => ({
         name: CODE_TO_CHAR[member.n] || member.n,
         order: member.o || "",
@@ -206,6 +266,9 @@ function processSharedData(sharedData) {
         }))
       }))
     };
+
+    console.log(decompressed);
+    return decompressed;
   } catch (error) {
     console.error('Invalid shared data:', error);
     return null;
@@ -252,19 +315,14 @@ function shareURL() {
            }
            return obj;
          })
-    }))
+    })),
+    ps: Array.from(document.querySelectorAll(".persona-skill-input"))
+      .filter((_, index) => index % 3 !== 0)
+      .map(input => input.value ? (SKILL_TO_CODE[input.value] || TEXT_TO_CODE[input.value] || input.value) : "")
   };
 
   if (data.h === "페르소나5X 택틱 메이커") {
     delete data.h;
-  }
-
-  // ps 필드는 모두 빈 값이면 제외
-  const personaSkills = Array.from(document.querySelectorAll(".persona-skill-input"))
-    .map(input => PERSONA_TO_CODE[input.value] || input.value)
-    .filter(v => v);
-  if (personaSkills.length > 0) {
-    data.ps = personaSkills;
   }
 
   console.log(data);
@@ -282,8 +340,6 @@ function shareURL() {
     .replace(/m":1,"/g, '¶');           // manual 타입 패턴
 
   const compressedData = LZString.compressToEncodedURIComponent(jsonString);
-  
-  console.log(jsonString);
   const shareURL = new URL(getBaseUrl());
   shareURL.searchParams.set('data', compressedData);
   

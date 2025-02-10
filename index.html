@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SP9E7EQNE4"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-SP9E7EQNE4');
-  </script>
   <meta charset="UTF-8">
   <title>페르소나5X 택틱</title>
   <link rel="icon" type="image/x-icon" href="./img/ui/favicon.ico">
   <link rel="stylesheet" href="./styles.css">
+
+  <!-- Google Analytics 추적 코드 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ93CPWQPE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SJ93CPWQPE'); 
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
     <!-- 데이터 파일들 -->
@@ -40,6 +40,8 @@
     <script src="./js/updateAuto.js"></script>
     <!-- 의식 별 행동패턴 찾기 -->
     <script src="./js/findPattern.js"></script>
+    <!-- 시뮬레이터 관련 함수 -->
+    <script src="./js/simulator.js"></script>
 </head>
 <body>
   <div class="container">
@@ -63,259 +65,312 @@
       </div>
     </div>
     
-    <!-- 상단 컨테이너: (1) 원더 설정, (2) 파티 선택 -->
-    <div id="top-container">
-      <!-- 원더 설정 카드 -->
-      <div class="card wonder-setting" id="wonder-config">
-        <h2>원더 설정</h2>
-        <div class="weapon-container">
-          <label>무기:
-            <input type="text" class="wonder-weapon-input" list="weapon-list" placeholder="선택 또는 입력" />
-          </label>
-          <datalist id="weapon-list">
-            <!-- JavaScript에서 동적으로 채워짐 -->
-          </datalist>
+    <!-- 탭 버튼 추가 (header-container 아래) 시뮬레이터 개발중-->
+     <!--
+    <div class="tab-container">
+      <button class="tab-button active" data-tab="tactic">택틱 설정</button>
+      <button class="tab-button" data-tab="simulator">시뮬레이터</button>
+    </div>-->
+
+    <!-- 탭 컨텐츠 영역 -->
+    <div class="tab-content">
+      <!-- 택틱 설정 탭 -->
+      <div id="tactic" class="tab-pane active">
+        <!-- 상단 컨테이너: (1) 원더 설정, (2) 파티 선택 -->
+        <div id="top-container">
+          <!-- 원더 설정 카드 -->
+          <div class="card wonder-setting" id="wonder-config">
+            <h2>원더 설정</h2>
+            <div class="weapon-container">
+              <label>무기
+                <input type="text" class="wonder-weapon-input" list="weapon-list" placeholder="선택 또는 입력" />
+              </label>
+              <datalist id="weapon-list">
+                <!-- JavaScript에서 동적으로 채워짐 -->
+              </datalist>
+            </div>
+            <div class="persona-container">
+              <label>페르소나1
+                <input type="text" class="wonder-persona-input" data-persona-index="0" />
+              </label>
+              <div class="skill-inputs">
+                <input type="text" class="persona-skill-input" data-persona-index="0" data-skill-slot="0" list="persona-skills-list" placeholder="고유스킬" />
+                <input type="text" class="persona-skill-input" data-persona-index="0" data-skill-slot="1" list="persona-skills-list" placeholder="스킬 2" />
+                <input type="text" class="persona-skill-input" data-persona-index="0" data-skill-slot="2" list="persona-skills-list" placeholder="스킬 3" />
+              </div>
+            </div>
+            <div class="persona-container">
+              <label>페르소나2
+                <input type="text" class="wonder-persona-input" data-persona-index="1" />
+              </label>
+              <div class="skill-inputs">
+                <input type="text" class="persona-skill-input" data-persona-index="1" data-skill-slot="0" list="persona-skills-list" placeholder="고유스킬" />
+                <input type="text" class="persona-skill-input" data-persona-index="1" data-skill-slot="1" list="persona-skills-list" placeholder="스킬 2" />
+                <input type="text" class="persona-skill-input" data-persona-index="1" data-skill-slot="2" list="persona-skills-list" placeholder="스킬 3" />
+              </div>
+            </div>
+            <div class="persona-container">
+              <label>페르소나3
+                <input type="text" class="wonder-persona-input" data-persona-index="2" />
+              </label>
+              <div class="skill-inputs">
+                <input type="text" class="persona-skill-input" data-persona-index="2" data-skill-slot="0" list="persona-skills-list" placeholder="고유스킬" />
+                <input type="text" class="persona-skill-input" data-persona-index="2" data-skill-slot="1" list="persona-skills-list" placeholder="스킬 2" />
+                <input type="text" class="persona-skill-input" data-persona-index="2" data-skill-slot="2" list="persona-skills-list" placeholder="스킬 3" />
+              </div>
+            </div>
+          </div>
+          
+          <!-- 파티 선택 카드 -->
+          <div class="card" id="party-selection">
+            <h2>괴도단</h2>
+            <div class="party-member" data-index="0">
+              <div class="input-group">
+                <label>괴도 1</label>
+                <select class="party-name">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>의식:</label>
+                <select class="party-ritual" style="width: 50px;">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>순서:</label>
+                <select class="party-order" style="width: 50px;">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>주 계시:</label>
+                <select class="main-revelation">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>일월성진:</label>
+                <select class="sub-revelation" disabled>
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+            <div class="party-member" data-index="1">
+              <div class="input-group">
+                <label>괴도 2</label>
+                <select class="party-name">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>의식:</label>
+                <select class="party-ritual" style="width: 50px;">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>순서:</label>
+                <select class="party-order" style="width: 50px;">
+                  <option value="1">1</option>
+                  <option value="2" selected>2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>주 계시:</label>
+                <select class="main-revelation">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>일월성진:</label>
+                <select class="sub-revelation" disabled>
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+            <div class="party-member" data-index="2">
+              <div class="input-group">
+                <label>괴도 3</label>
+                <select class="party-name">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>의식:</label>
+                <select class="party-ritual" style="width: 50px;">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>순서:</label>
+                <select class="party-order" style="width: 50px;">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>주 계시:</label>
+                <select class="main-revelation">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>일월성진:</label>
+                <select class="sub-revelation" disabled>
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+            <div class="party-member" data-index="3">
+              <div class="input-group">
+                <label>괴도 4</label>
+                <select class="party-name">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>의식:</label>
+                <select class="party-ritual" style="width: 50px;">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>순서:</label>
+                <select class="party-order" style="width: 50px;">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4" selected>4</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>주 계시:</label>
+                <select class="main-revelation">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>일월성진:</label>
+                <select class="sub-revelation" disabled>
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+            <div class="party-member" data-index="4">
+              <div class="input-group">
+                <label>해명 -</label>
+                <select class="party-name">
+                  <option value="">-</option>
+                  <!-- supportParty 목록은 JavaScript에서 동적으로 채워짐 -->
+                </select>
+              </div>
+              <div class="input-group">
+                <label>의식:</label>
+                <select class="party-ritual" style="width: 50px;">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>순서:</label>
+                <select class="party-order" style="width: 50px;">
+                  <option value="-" selected>-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>주 계시:</label>
+                <select class="main-revelation">
+                  <option value="">-</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>일월성진:</label>
+                <select class="sub-revelation" disabled>
+                  <option value="">-</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="persona-container">
-          <label>페르소나1:
-            <input type="text" class="wonder-persona-input" data-persona-index="0" />
-          </label>
-          <input type="text" class="persona-skill-input" data-persona-index="0" placeholder="스킬 세팅" />
+        
+        <!-- 파티 이미지를 위한 컨테이너 -->
+        <div class = "middle-contianer">
+          <div class="party-images-container">
+            <div class="party-images"></div>
+          </div>
+          <div class="madeby">absolroot.github.io/p5x-tactic by 루트</div>
         </div>
-        <div class="persona-container">
-          <label>페르소나2:
-            <input type="text" class="wonder-persona-input" data-persona-index="1" />
-          </label>
-          <input type="text" class="persona-skill-input" data-persona-index="1" placeholder="스킬 세팅" />
-        </div>
-        <div class="persona-container">
-          <label>페르소나3:
-            <input type="text" class="wonder-persona-input" data-persona-index="2" />
-          </label>
-          <input type="text" class="persona-skill-input" data-persona-index="2" placeholder="스킬 세팅" />
+
+        <!-- 턴 영역 (6턴) -->
+        <button class="mobile-lock-btn" onclick="toggleTurnsLock()"></button>
+        <div id="turns">
+          <!-- 기존 턴 컨텐츠 -->
         </div>
       </div>
-      
-      <!-- 파티 선택 카드 -->
-      <div class="card" id="party-selection">
-        <h2>괴도단</h2>
-        <div class="party-member" data-index="0">
-          <div class="input-group">
-            <label>괴도 1</label>
-            <select class="party-name">
-              <option value="">-</option>
-            </select>
+
+      <!-- 시뮬레이터 탭 -->
+      <div id="simulator" class="tab-pane">
+        <div class="simulator-container">
+          <!-- 턴 목록 -->
+          <div class="turn-list">
+            <!-- 턴별 행동 목록은 JS로 동적 생성 -->
           </div>
-          <div class="input-group">
-            <label>의식:</label>
-            <select class="party-ritual" style="width: 50px;">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>순서:</label>
-            <select class="party-order" style="width: 50px;">
-              <option value="1" selected>1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>주 계시:</label>
-            <select class="main-revelation">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>일월성진:</label>
-            <select class="sub-revelation" disabled>
-              <option value="">-</option>
-            </select>
-          </div>
-        </div>
-        <div class="party-member" data-index="1">
-          <div class="input-group">
-            <label>괴도 2</label>
-            <select class="party-name">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>의식:</label>
-            <select class="party-ritual" style="width: 50px;">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>순서:</label>
-            <select class="party-order" style="width: 50px;">
-              <option value="1">1</option>
-              <option value="2" selected>2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>주 계시:</label>
-            <select class="main-revelation">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>일월성진:</label>
-            <select class="sub-revelation" disabled>
-              <option value="">-</option>
-            </select>
-          </div>
-        </div>
-        <div class="party-member" data-index="2">
-          <div class="input-group">
-            <label>괴도 3</label>
-            <select class="party-name">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>의식:</label>
-            <select class="party-ritual" style="width: 50px;">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>순서:</label>
-            <select class="party-order" style="width: 50px;">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3" selected>3</option>
-              <option value="4">4</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>주 계시:</label>
-            <select class="main-revelation">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>일월성진:</label>
-            <select class="sub-revelation" disabled>
-              <option value="">-</option>
-            </select>
-          </div>
-        </div>
-        <div class="party-member" data-index="3">
-          <div class="input-group">
-            <label>괴도 4</label>
-            <select class="party-name">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>의식:</label>
-            <select class="party-ritual" style="width: 50px;">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>순서:</label>
-            <select class="party-order" style="width: 50px;">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4" selected>4</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>주 계시:</label>
-            <select class="main-revelation">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>일월성진:</label>
-            <select class="sub-revelation" disabled>
-              <option value="">-</option>
-            </select>
-          </div>
-        </div>
-        <div class="party-member" data-index="4">
-          <div class="input-group">
-            <label>해명 -</label>
-            <select class="party-name">
-              <option value="">-</option>
-              <!-- supportParty 목록은 JavaScript에서 동적으로 채워짐 -->
-            </select>
-          </div>
-          <div class="input-group">
-            <label>의식:</label>
-            <select class="party-ritual" style="width: 50px;">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>순서:</label>
-            <select class="party-order" style="width: 50px;">
-              <option value="-" selected>-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>주 계시:</label>
-            <select class="main-revelation">
-              <option value="">-</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>일월성진:</label>
-            <select class="sub-revelation" disabled>
-              <option value="">-</option>
-            </select>
+          <!-- 상태 효과 영역 -->
+          <div class="status-container">
+            <div class="buff-container">
+              <h3>아군 버프</h3>
+              <div class="buff-list">
+                <!-- 버프 목록은 JS로 동적 생성 -->
+              </div>
+            </div>
+            <div class="debuff-container">
+              <h3>적 디버프</h3>
+              <div class="debuff-list">
+                <!-- 디버프 목록은 JS로 동적 생성 -->
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- 파티 이미지를 위한 컨테이너 -->
-    <div class = "middle-contianer">
-      <div class="party-images-container">
-        <div class="party-images"></div>
-      </div>
-      <div class="madeby">absolroot.github.io/p5x-tactic by 루트</div>
     </div>
 
-    <!-- 턴 영역 (6턴) -->
-    <div id="turns"></div>
-    
     <!-- SortableJS (드래그앤드롭 라이브러리) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <script>
@@ -359,7 +414,7 @@
             // 원더 페르소나 데이터 설정
             wonderPersonas = decodedData.w;
             
-            // 원더 설정 UI 업데이트
+            // 원더 페르소나 데이터 설정
             const wonderInputs = document.querySelectorAll(".wonder-persona-input");
             wonderInputs.forEach((input, idx) => {
               input.value = wonderPersonas[idx] || "";
@@ -370,8 +425,26 @@
 
             // 페르소나 스킬 설정
             const skillInputs = document.querySelectorAll(".persona-skill-input");
-            decodedData.personaSkills.forEach((skill, idx) => {
-              if (skillInputs[idx]) skillInputs[idx].value = skill;
+            let normalSkillIndex = 0;  // 일반 스킬 인덱스
+
+            skillInputs.forEach((input, index) => {
+                // 고유 스킬 슬롯
+                if (index % 3 === 0) {
+                    const personaIndex = Math.floor(index / 3);
+                    const selectedPersona = decodedData.w[personaIndex];
+                    if (selectedPersona && personaData[selectedPersona]) {
+                        input.value = personaData[selectedPersona].uniqueSkill.name;
+                        input.disabled = true;
+                        input.classList.add('unique-skill');
+                    }
+                } 
+                // 일반 스킬 슬롯
+                else {
+                    if (decodedData.personaSkills[normalSkillIndex]) {
+                        input.value = decodedData.personaSkills[normalSkillIndex];
+                    }
+                    normalSkillIndex++;
+                }
             });
             
             // partyMembers 데이터 복원
@@ -516,6 +589,30 @@
           updatePartyImages();
           renderTurns();
         }
+
+        // datalist에 스킬 목록 추가
+        const skillsList = document.getElementById('persona-skills-list');
+        
+        // personaSkillList의 모든 스킬을 option으로 추가
+        Object.keys(personaSkillList).forEach(skillName => {
+          const option = document.createElement('option');
+          option.value = skillName;
+          skillsList.appendChild(option);
+        });
+
+        // 검색 가능한 드롭다운 요소들 선택
+        const searchableInputs = document.querySelectorAll('input[list]');
+        
+        searchableInputs.forEach(input => {
+          // mousedown 이벤트로 드롭다운 화살표 클릭 처리
+          input.addEventListener('mousedown', function(e) {
+            // 드롭다운 화살표 클릭 감지 (입력 필드의 오른쪽 20px 영역)
+            if (e.offsetX > this.offsetWidth - 20) {
+              // 값을 비우고 포커스 유지
+              this.value = '';
+            }
+          });
+        });
       });
 
 
@@ -549,7 +646,36 @@
         }
       });
 
+      function toggleTurnsLock() {
+        const lockBtn = document.querySelector('.mobile-lock-btn');
+        const turnsContainer = document.getElementById('turns');
+        
+        lockBtn.classList.toggle('active');
+        turnsContainer.classList.toggle('turns-locked');
+        
+        // 잠금 상태 저장
+        localStorage.setItem('turnsLocked', turnsContainer.classList.contains('turns-locked'));
+      }
+
+      // 페이지 로드 시 이전 잠금 상태 복원
+      document.addEventListener('DOMContentLoaded', () => {
+        const turnsLocked = localStorage.getItem('turnsLocked') === 'true';
+        if (turnsLocked) {
+          const lockBtn = document.querySelector('.mobile-lock-btn');
+          const turnsContainer = document.getElementById('turns');
+          
+          lockBtn.classList.add('active');
+          turnsContainer.classList.add('turns-locked');
+        }
+      });
+
+
     </script>
   </div>
+
+  <!-- datalist 추가 (body 태그 안, container div 안에) -->
+  <datalist id="persona-skills-list">
+    <!-- JavaScript에서 동적으로 채워질 예정 -->
+  </datalist>
 </body>
 </html>

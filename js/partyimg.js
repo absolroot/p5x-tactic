@@ -116,9 +116,21 @@
           personaImg.className = "persona-img";
           personaImg.src = `./img/persona/${persona}.webp`;
           personaImg.alt = persona;
-          personaImg.title = `페르소나${index + 1}: ${persona}`;
+          
+          // 커스텀 툴팁 div 생성
+          const tooltip = document.createElement("div");
+          tooltip.className = "persona-tooltip";
+          
+          // 툴팁 내용 구성
+          const instinct = personaData[persona]?.instinct;
+          let tooltipText = `${persona}\n본능: ${instinct?.name || ""}\n`;
+          if (instinct?.effects) {
+            tooltipText += "\n" + instinct.effects.join("\n");
+          }
+          tooltip.textContent = tooltipText;
 
           container.appendChild(personaImg);
+          container.appendChild(tooltip);
           personaImagesDiv.appendChild(container);
         }
       });

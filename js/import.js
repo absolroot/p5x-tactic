@@ -31,12 +31,21 @@ input.onchange = function(e) {
         weaponInput.value = data.wp;
         }
 
-        // 페르소나 스킬 설정 (ps -> personaSkills)
+        // 페르소나 스킬 설정
         const skillInputs = document.querySelectorAll(".persona-skill-input");
         if (data.ps) {
-        skillInputs.forEach((input, idx) => {
-            input.value = data.ps[idx] || "";
-        });
+            skillInputs.forEach((input, idx) => {
+                input.value = data.ps[idx] || "";
+                // 첫 번째 슬롯(고유스킬)이면서 페르소나가 선택된 경우
+                if (idx % 3 === 0) {
+                    const personaIndex = Math.floor(idx / 3);
+                    const selectedPersona = wonderPersonas[personaIndex];
+                    if (selectedPersona && personaData[selectedPersona]) {
+                        input.disabled = true;
+                        input.classList.add('unique-skill');
+                    }
+                }
+            });
         }
         
         // 턴 데이터 설정 - 압축된 형식을 원래 형식으로 변환
