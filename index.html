@@ -67,11 +67,11 @@
     </div>
     
     <!-- 탭 버튼 추가 (header-container 아래) 시뮬레이터 개발중-->
-     <!--
+
     <div class="tab-container">
       <button class="tab-button active" data-tab="tactic">택틱 설정</button>
       <button class="tab-button" data-tab="simulator">시뮬레이터</button>
-    </div>-->
+    </div>
 
     <!-- 탭 컨텐츠 영역 -->
     <div class="tab-content">
@@ -411,6 +411,9 @@
         
         if (sharedData) {
           const decodedData = processSharedData(sharedData);
+
+          console.log(decodedData);
+
           if (decodedData) {
             // 제목 설정 추가
             document.querySelector('.title-input').value = decodedData.title;
@@ -552,7 +555,7 @@
               if (!actionsList) return;
 
               turn.actions.forEach((action, actionIndex) => {
-                const actionItem = actionsList.children[actionIndex];
+                const actionItem = actionsList.children[actionIndex]; 
                 if (!actionItem) return;
 
                 // 캐릭터 선택
