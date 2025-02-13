@@ -240,6 +240,8 @@ function processSharedData(sharedData) {
       .replace(/¤/g, '"},{"')
     );
     
+    console.log('After initial decompression:', compressed);
+
     const decompressed = {
       title: compressed.h || "페르소나5X 택틱 메이커",
       w: compressed.w?.map(p => CODE_TO_PERSONA[p] || p) || [],
@@ -255,20 +257,30 @@ function processSharedData(sharedData) {
         mainRev: member.mr ? CODE_TO_MAIN_REV[member.mr] || member.mr : "",
         subRev: member.sr ? CODE_TO_SUB_REV[member.sr] || member.sr : ""
       })),
-      t: compressed.t.map(turn => ({
-        turn: turn.n,
-        actions: turn.a.map(action => ({
-          type: action.m ? 'manual' : 'auto',
-          character: CODE_TO_CHAR[action.c] || action.c,
-          wonderPersona: action.w ? CODE_TO_PERSONA[action.w] || action.w : "",
-          action: action.a ? CODE_TO_ACTION[action.a] || action.a : "",
-          memo: action.mm ? action.mm.split(' ').map(word => CODE_TO_TEXT[word] || word).join(' ') : ""
-        }))
-      }))
+      t: compressed.t.map(turn => {
+        const processed = {
+          turn: turn.n,
+          actions: turn.a.map(action => {
+            const result = {
+            //  type: action.m ? 'manual' : 'auto',
+              type: 'manual',
+              character: CODE_TO_CHAR[action.c] || action.c,
+              wonderPersona: action.w ? CODE_TO_PERSONA[action.w] || action.w : "",
+              action: action.a ? CODE_TO_ACTION[action.a] || action.a : "" || "empty", 
+              memo: action.mm ? action.mm.split(' ').map(word => CODE_TO_TEXT[word] || word).join(' ') : ""
+            };
+            return result;
+          })
+        };
+        return processed;
+      })
     };
 
-    console.log(decompressed);
-    return decompressed;
+    console.log('Final decompressed result:', JSON.stringify(decompressed, null, 2));
+    
+    
+    // cleanData를 JSON 문자열로 변환했다가 다시 파싱해서 반환
+    return JSON.parse(JSON.stringify(decompressed));
   } catch (error) {
     console.error('Invalid shared data:', error);
     return null;
@@ -302,10 +314,9 @@ function shareURL() {
     }),
     t: turns.map(turn => ({
       n: turn.turn,
-      a: turn.actions.filter(action => action.action || action.wonderPersona || action.memo)
-         .map(action => {
+      a: turn.actions.map(action => {
            const obj = { c: CHAR_TO_CODE[action.character] || action.character };
-           if (action.type === 'manual') obj.m = 1;
+           //if (action.type === 'manual') obj.m = 1;
            if (action.wonderPersona) obj.w = PERSONA_TO_CODE[action.wonderPersona];
            if (action.action) obj.a = ACTION_TO_CODE[action.action];
            if (action.memo) {
